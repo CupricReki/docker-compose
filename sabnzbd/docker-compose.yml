@@ -1,17 +1,18 @@
+---
 version: "2"
 services:
-  sonarr:
-    image: linuxserver/radarr
-    container_name: radarr
+  sabnzbd:
+    image: linuxserver/sabnzbd
+    container_name: sabnzbd
     environment:
       - PUID=1001
       - PGID=1001
-      - TZ=America/Denver
+      - TZ=Europe/London
     volumes:
-      - /opt/dl/radarr:/config
-      - /mnt/movies:/movies
+      - /opt/dl/sabnzbd:/config
       - /mnt/downloads:/downloads
     ports:
-      - 7878:7878
+      - 8080:8080
+      - 9090:9090
     mem_limit: 4096m
     restart: unless-stopped
