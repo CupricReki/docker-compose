@@ -11,5 +11,7 @@ services:
       - PUID=1007
       - PGID=1007
       - EAP=1
+    ports:
+      - 5000:5000
     volumes:
       - /opt/dl/ombi:/config

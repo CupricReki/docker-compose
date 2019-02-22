@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=America/Denver
       - PUID=1007
-      - PGID=1007
+      - PGID=1008
     volumes:
       - /opt/dl/sabnzbd:/config
       - /mnt/downloads:/downloads

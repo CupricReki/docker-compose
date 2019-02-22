@@ -16,7 +16,7 @@ services:
       - TR_DHT_ENABLED=false
       - TR_PEX_ENABLED=false
       - USERID=1007
-      - GROUPID=1007
+      - GROUPID=1008
     volumes:
       - /opt/dl/transmission:/var/lib/transmission-daemon/info
       #set transmission or sonarr download folder to /downloads
