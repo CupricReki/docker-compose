@@ -10,7 +10,7 @@ services:
       - TR_IDLE_SEEDING_LIMIT=600
       - TR_RATIO_LIMIT_ENABLED=true
       - TR_RATIO_LIMIT=4
-      - TR_DOWNLOAD_DIR=/downloads
+      - TR_DOWNLOAD_DIR=/downloads/torrents/complete
       - TR_INCOMPLETE_DIR_ENABLED=false
 #      - TR_INCOMPLETE_DIR=/mnt/downloads/torrents/incomplete
       - TR_RENAME_PARTIAL_FILES=true
@@ -23,6 +23,6 @@ services:
     volumes:
       - /opt/dl/transmission:/var/lib/transmission-daemon/info
       #set transmission or sonarr download folder to /downloads
-      - /mnt/downloads/torrents/complete:/downloads
+      - /mnt/downloads/torrents/complete:/downloads/torrents/complete
       - /mnt/downloads/torrents/incomplete:/var/lib/transmission-daemon/incomplete
     restart: unless-stopped
