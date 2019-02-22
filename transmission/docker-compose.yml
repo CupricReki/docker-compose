@@ -10,7 +10,7 @@ services:
       - TR_IDLE_SEEDING_LIMIT=600
       - TR_RATIO_LIMIT_ENABLED=true
       - TR_RATIO_LIMIT=4
-      - TR_DOWNLOAD_DIR=/mnt/downloads/torrents/complete
+      - TR_DOWNLOAD_DIR=/downloads
       - TR_INCOMPLETE_DIR_ENABLED=false
 #      - TR_INCOMPLETE_DIR=/mnt/downloads/torrents/incomplete
       - TR_RENAME_PARTIAL_FILES=true
