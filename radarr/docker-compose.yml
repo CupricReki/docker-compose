@@ -1,0 +1,17 @@
+version: "2"
+services:
+  sonarr:
+    image: linuxserver/radarr
+    container_name: sonarr
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=America/Denver
+    volumes:
+      - /opt/dl/sonarr:/config
+      - /mnt/shows:/tv
+      - /mnt/downloads:/downloads
+    ports:
+      - 8989:8989
+    mem_limit: 4096m
+    restart: unless-stopped
