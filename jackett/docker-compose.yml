@@ -3,7 +3,7 @@ version: "2"
 services:
   jackett:
     image: linuxserver/jackett
-    container_name: radarr
+    container_name: jackett
     environment:
       - TZ=America/Denver
       - PUID=1007
@@ -13,5 +13,4 @@ services:
       - /opt/downloads/blackhole:/downloads
     ports:
       - 9117:9117
-    mem_limit: 4096m
     restart: unless-stopped
