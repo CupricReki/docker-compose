@@ -1,0 +1,15 @@
+---
+version: "2"
+services:
+  ombi:
+    container_name: ombi
+    image: rogueosb/ombi
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1007
+      - EAP=1
+    volumes:
+      - /opt/dl/ombi:/config

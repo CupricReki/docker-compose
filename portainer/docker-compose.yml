@@ -1,10 +1,15 @@
-version: '2'
+---
+version: "2"
 
 services:
   portainer:
     image: portainer/portainer
     command: -H unix:///var/run/docker.sock
     restart: always
+    environment:
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1007
     ports:
       - 9000:9000
     volumes:

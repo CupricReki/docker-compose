@@ -5,9 +5,9 @@ services:
     image: linuxserver/sabnzbd
     container_name: sabnzbd
     environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=Europe/London
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1007
     volumes:
       - /opt/dl/sabnzbd:/config
       - /mnt/downloads:/downloads
