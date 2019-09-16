@@ -1,0 +1,32 @@
+defaultEntryPoints = ["http", "https"]
+[entryPoints]
+  [entryPoints.dashboard]
+    address = ":8081"
+    [entryPoints.dashboard.auth]
+      [entryPoints.dashboard.auth.basic]
+        users = ["admin:$apr1$sKaBHsGq$afnnGxJblnYxsevYOofNB1"]
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+        entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+      [entryPoints.https.tls]
+
+[api]
+entrypoint="dashboard"
+
+[acme]
+email = "ogdenbase@gmail.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+
+[docker]
+domain = "ogbase.net"
+watch = true
+network = "web"
+
+
