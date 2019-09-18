@@ -7,6 +7,9 @@ services:
     ports:
       - "3142:3142"
     volumes:
-      - /opt/apt-cacher-ng/cache:/var/cache/apt-cacher-ng
       - /opt/apt-cacher-ng/acng.conf:/etc/apt-cacher-ng/acng.conf
-    restart: unless-stopped
+      - apt-cacher-ng:/var/cache/apt-cacher-ng
+    restart: always
+
+volumes:
+  apt-cacher-ng:
