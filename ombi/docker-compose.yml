@@ -9,7 +9,7 @@ services:
     environment:
       - TZ=America/Denver
       - PUID=1007
-      - PGID=1007
+      - PGID=1008
       - EAP=1
     ports:
       - 5000:5000
