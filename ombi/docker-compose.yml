@@ -3,7 +3,7 @@ version: "2"
 services:
   ombi:
     container_name: ombi
-    image: rogueosb/ombi
+    image: linuxserver/ombi
     restart: unless-stopped
     network_mode: host
     environment:
