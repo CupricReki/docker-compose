@@ -9,7 +9,7 @@ services:
       - PUID=1007
       - PGID=1008
     volumes:
-      - /opt/dl/sonarr:/config
+      - /opt/dl/sonarr_preview:/config
       - /mnt/shows:/tv
       - /mnt/downloads:/downloads
     ports:
