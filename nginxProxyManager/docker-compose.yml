@@ -18,4 +18,4 @@ services:
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npm'
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - /opt/dl/RP/data/mysql:/var/lib/mysql
