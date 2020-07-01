@@ -8,5 +8,5 @@ services:
             - PGID=1000
             - PUID=1000
         ports:
-            - '5555:5555'
+            - 5555:80
         image: organizrtools/organizr-v2
