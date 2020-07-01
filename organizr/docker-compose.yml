@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    organizr-v2:
+        container_name: organizr
+        volumes:
+            - '<path'
+        environment:
+            - PGID=1000
+            - PUID=1000
+        ports:
+            - '5555:5555'
+        image: organizrtools/organizr-v2
