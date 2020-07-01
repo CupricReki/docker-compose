@@ -11,8 +11,8 @@ services:
       - PGID=1000
       - TZ=TZ=America/Denver
       - URL=ogbase.net
-      - SUBDOMAINS=sonarr,radarr,rp,nextcloud,plex,donnager,ha
-      - VALIDATION=http
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
       - DNSPLUGIN=cloudflare #optional
       - PROPAGATION= #optional
       - DUCKDNSTOKEN= #optional
