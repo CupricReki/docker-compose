@@ -3,7 +3,7 @@ services:
     organizr-v2:
         container_name: organizr
         volumes:
-            - '<path'
+            - /opt/dl/organizr:/config
         environment:
             - PGID=1000
             - PUID=1000
