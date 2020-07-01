@@ -9,7 +9,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=TZ=America/Denver
+      - TZ=America/Denver
       - URL=ogbase.net
       - SUBDOMAINS=wildcard
       - VALIDATION=dns
