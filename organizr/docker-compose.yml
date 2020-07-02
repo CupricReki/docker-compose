@@ -10,3 +10,4 @@ services:
         ports:
             - 5555:80
         image: organizrtools/organizr-v2
+        restart: unless-stopped
