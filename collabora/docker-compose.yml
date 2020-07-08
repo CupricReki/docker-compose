@@ -9,5 +9,9 @@ services:
             - password=secret
         volumes:
           - /opt/dl/collabora/config:/etc/loolwsd
+        environment:
+          - TZ=America/Denver
+          - PUID=1007
+          - PGID=1008
         restart: always
         image: collabora/code
