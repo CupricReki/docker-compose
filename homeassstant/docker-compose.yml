@@ -1,0 +1,19 @@
+  homeassistant:
+    container_name: homeassistant
+    restart: always
+    image: homeassistant/home-assistant
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB1:/dev/ttyUSB1
+      - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+      - /opt/dl/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/dl/homeassistnat/shared:/shared
+    ports:
+      - "8123:8123"
+    privileged: true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
