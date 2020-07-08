@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    restart: unless-stopped
+    volumes:
+      - /opt/dl/RP:/app/config
+      - /opt/dl/RP/data:/data
+      - /opt/dl/RP/letsencrypt:/etc/letsencrypt
+  db:
+    image: 'jc21/mariadb-aria:10.4'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    restart: unless-stopped
+    volumes:
+      - /opt/dl/RP/data/mysql:/var/lib/mysql

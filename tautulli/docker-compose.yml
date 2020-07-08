@@ -1,0 +1,16 @@
+---
+version: "2"
+services:
+  tautulli:
+    image: linuxserver/tautulli
+    container_name: tautulli
+    environment:
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1008
+    volumes:
+      - /opt/dl/tautulli:/config
+      - /mnt/plex_db/Logs:/logs
+    ports:
+      - 8181:8181
+    restart: unless-stopped
