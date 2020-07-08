@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+    code:
+        ports:
+            - '9980:9980'
+        environment:
+            - domain=collabora\\.ogbase\\.net
+            - username=cupric
+            - password=secret
+        volumes:
+          - /opt/dl/collabora/config:/etc/loolwsd
+        restart: always
+        image: collabora/code
