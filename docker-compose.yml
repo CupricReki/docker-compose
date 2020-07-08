@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+    speedtest-tracker:
+        container_name: speedtest
+        ports:
+            - '8765:80'
+        volumes:
+            - '/opt/dl/speedtest-tracker:/config'
+        environment:
+            - SLACK_WEBHOOK=webhook
+            - PUID=1007
+            - PGID=1008
+            - OOKLA_EULA_GDPR=true
+        restart: unless-stopped
+        image: henrywhitaker3/speedtest-tracker
