@@ -4,19 +4,17 @@ services:
         ports:
             - '9980:9980'
         environment:
-            - domain=collabora\\.ogbase\\.net
             - username=cupric
             - password=secret
+            - TZ=America/Denver
+            - PUID=1007
+            - PGID=1008
+            - domain=nextcloud.ogbase.net
+            - VIRTUAL_HOST=asimov.ogbase.net
+            - VIRTUAL_PORT=9980
+            - VIRTUAL_PROTO=https
         volumes:
           - /opt/dl/collabora/config:/etc/loolwsd
-        environment:
-          - TZ=America/Denver
-          - PUID=1007
-          - PGID=1008
-          - domain=nextcloud.ogbase.net
-          - VIRTUAL_HOST=asimov.ogbase.net
-          - VIRTUAL_PORT=9980
-          - VIRTUAL_PROTO=https
         cap_add:
             - MKNOD
         restart: always
