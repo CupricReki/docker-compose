@@ -13,5 +13,8 @@ services:
           - TZ=America/Denver
           - PUID=1007
           - PGID=1008
+          - domain=nextcloud.ogbase.net
+        cap_add:
+            - MKNOD
         restart: always
         image: collabora/code
