@@ -13,8 +13,8 @@ services:
             - VIRTUAL_HOST=asimov.ogbase.net
             - VIRTUAL_PORT=9980
             - VIRTUAL_PROTO=https
-        volumes:
-          - /opt/dl/collabora/config:/etc/loolwsd
+#        volumes:
+#          - /opt/dl/collabora/config:/etc/loolwsd
         cap_add:
             - MKNOD
         restart: always
