@@ -9,7 +9,7 @@ services:
       - PGID=1008
       - DB_HOST=bookstack_db
       - DB_USER=bookstack
-      - DB_PASS=yourdbpass
+      - DB_PASS=tacotuesday
       - DB_DATABASE=bookstackapp
     volumes:
       - /path/to/data:/config
@@ -24,11 +24,11 @@ services:
     environment:
       - PUID=1007
       - PGID=1008
-      - MYSQL_ROOT_PASSWORD=yourdbpass
-      - TZ=Europe/London
+      - MYSQL_ROOT_PASSWORD=tacotuesday
+      - TZ=America/Denver
       - MYSQL_DATABASE=bookstackapp
       - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=yourdbpass
+      - MYSQL_PASSWORD=tacotuesday
     volumes:
-      - /path/to/data:/config
+      - /mnt/opt/dl/bookstacks:/config
     restart: unless-stopped
