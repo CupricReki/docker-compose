@@ -12,7 +12,7 @@ services:
       - DB_PASS=tacotuesday
       - DB_DATABASE=bookstackapp
     volumes:
-      - /path/to/data:/config
+      - /mnt/opt/dl/bookstacks:/config
     ports:
       - 6875:80
     restart: unless-stopped
