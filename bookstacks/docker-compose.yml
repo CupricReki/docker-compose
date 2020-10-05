@@ -13,6 +13,8 @@ services:
       - DB_DATABASE=bookstackapp
     volumes:
       - /mnt/opt/dl/bookstacks:/config
+      - uploads:/var/www/bookstack/public/uploads
+      - storage-uploads:/var/www/bookstack/public/storage
     ports:
       - 6875:80
     restart: unless-stopped
@@ -30,5 +32,9 @@ services:
       - MYSQL_USER=bookstack
       - MYSQL_PASSWORD=tacotuesday
     volumes:
-      - /mnt/opt/dl/bookstacks:/config
+      - mariadb-data:/config
     restart: unless-stopped
+volumes:
+ mariadb-data:
+ uploads:
+ storage-uploads:
