@@ -11,7 +11,7 @@ services:
       - CLI_ARGS= #optional
     volumes:
       - /opt/dl/duplicati/config:/config
-      - /mnt/backup:/backups
+      - /mnt/nfs_backup:/backups
       - /:/source
     ports:
       - 8200:8200
