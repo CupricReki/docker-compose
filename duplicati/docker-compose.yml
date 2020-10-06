@@ -10,7 +10,7 @@ services:
       - TZ=America/Denver
       - CLI_ARGS= #optional
     volumes:
-      - /opt/dl/dubplicati/config:/config
+      - /opt/dl/duplicati/config:/config
       - /mnt/backup:/backups
       - /:/source
     ports:
