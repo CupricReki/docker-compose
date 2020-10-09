@@ -5,8 +5,8 @@ services:
         volumes:
             - /opt/dl/organizr:/config
         environment:
-            - PGID=1000
-            - PUID=1000
+            - PUID=1007
+            - PGID=1008
         ports:
             - 5555:80
         image: organizrtools/organizr-v2
