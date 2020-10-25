@@ -10,9 +10,9 @@ services:
       - TZ=America/Denver
       - UMASK_SET=<022> #optional
     volumes:
-      - /path/to/library:/config
-      - /path/to/tvshows:/data/tvshows
-      - /path/to/movies:/data/movies
+      - /opt/dl/emby:/config
+      - /mnt/series:/data/tvshows
+      - /mnt/movies:/data/movies
 #      - /path/for/transcoding:/transcode #optional
 #      - /opt/vc/lib:/opt/vc/lib #optional
     ports:
