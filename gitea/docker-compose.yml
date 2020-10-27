@@ -23,8 +23,8 @@ services:
       - ./gitea:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-     ports:
-       - "80:3000"
+    ports:
+       - "8080:3000"
        - "6999:22"
     depends_on:
       - db
