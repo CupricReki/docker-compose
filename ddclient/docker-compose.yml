@@ -1,0 +1,13 @@
+---
+version: "2.1"
+services:
+  ddclient:
+    image: linuxserver/ddclient
+    container_name: ddclient
+    environment:
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1008
+    volumes:
+      - /opt/dl/ddclient:/config
+    restart: unless-stopped
