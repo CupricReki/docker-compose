@@ -6,7 +6,10 @@ services:
             - /opt/dl/organizr:/config
         environment:
             - PUID=1007
-            - PGID=1008
+            - PGID=1008 
+            - fpm=true #true or false | using true will provide better performance
+            - branch=v2-master #v2-master or #v2-develop
+            - TZ=America/Denver
         ports:
             - 5555:80
         image: organizrtools/organizr-v2
