@@ -2,13 +2,13 @@
 version: "2.1"
 services:
   letsencrypt:
-    image: linuxserver/letsencrypt
+    image: linuxserver/swag
     container_name: letsencrypt
     cap_add:
       - NET_ADMIN
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=1007
+      - PGID=1008
       - TZ=America/Denver
       - URL=ogbase.net
       - SUBDOMAINS=wildcard
