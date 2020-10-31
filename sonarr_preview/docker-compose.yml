@@ -12,6 +12,7 @@ services:
       - /opt/dl/sonarr_preview:/config
       - /mnt/shows:/tv
       - /mnt/downloads:/downloads
+      - /mnt/anime:/anime   
     ports:
       - 8989:8989
     mem_limit: 4096m

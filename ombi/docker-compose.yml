@@ -12,6 +12,6 @@ services:
       - PGID=1008
       - EAP=1
     ports:
-      - 5000:5000
+      - 3579:3579
     volumes:
       - /opt/dl/ombi:/config
