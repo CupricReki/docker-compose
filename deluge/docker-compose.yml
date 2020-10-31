@@ -11,9 +11,11 @@ services:
       - TZ=America/Denver
       - UMASK_SET=022 #optional
       - DELUGE_LOGLEVEL=error #optional
+      - AUTO_UPDATE=true #optional
     volumes:
       - /opt/dl/deluge/config:/config
       - /mnt/downloads:/downloads
     ports:
       - 8112:80
+      - 6881:6881
     restart: unless-stopped
