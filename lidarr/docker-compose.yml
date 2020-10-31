@@ -1,0 +1,17 @@
+---
+version: "2.1"
+services:
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr
+    environment:
+      - PUID=1007
+      - PGID=1008
+      - TZ=America/Denver
+    volumes:
+      - /opt/dl/lidarr/config:/config
+      - /mnt/music:/music
+      - /mnt/downloads:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
