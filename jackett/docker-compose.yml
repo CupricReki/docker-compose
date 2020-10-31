@@ -10,7 +10,7 @@ services:
       - PGID=1008
     volumes:
       - /opt/dl/jackett:/config
-      - /opt/downloads/blackhole:/downloads
+      - /mnt/downloads/blackhole:/downloads
     ports:
       - 9117:9117
     restart: unless-stopped
