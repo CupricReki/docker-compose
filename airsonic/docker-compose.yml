@@ -1,0 +1,21 @@
+---
+version: "2.1"
+services:
+  airsonic:
+    image: linuxserver/airsonic
+    container_name: airsonic
+    environment:
+      - PUID=1007
+      - PGID=1008
+      - TZ=America/Denver
+      - CONTEXT_PATH=airsonic.ogbase.net #optional
+#      - JAVA_OPTS=<options> #optional
+    volumes:
+      - /opt/dl/airsonic:/config
+      - /mnt/music:/music
+      - /mnt/misc/playlist:/playlists
+      - /mnt/misc/podcast:/podcasts
+#      - </path/to/other media>:/media #optional
+    ports:
+      - 4040:4040
+    restart: unless-stopped
