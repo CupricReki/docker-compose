@@ -3,7 +3,7 @@ version: '3.3'
 services:
     airsonic:
         volumes:
-            - '/opt/dldata:/airsonic/data'
+            - '/opt/dl/airsonic:/airsonic/data'
             - '/mnt/music:/airsonic/music'
             - '/mnt/misc/playlists:/airsonic/playlists'
             - '/mnt/misc/podcasts:/airsonic/podcasts'
