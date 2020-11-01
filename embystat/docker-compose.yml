@@ -1,0 +1,15 @@
+---
+version: "2.1"
+services:
+  embystat:
+    image: linuxserver/embystat
+    container_name: embystat
+    environment:
+      - PUID=1007
+      - PGID=1008
+      - TZ=America/Denver
+    volumes:
+      - /opt/dl/embystat:/config
+    ports:
+      - 6555:6555
+    restart: unless-stopped
