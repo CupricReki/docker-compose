@@ -1,0 +1,17 @@
+version: "3"
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 1007:1008 # should be owner of volumes
+    ports:
+      - "4533:4533"
+    restart: unless-stopped
+    environment:
+      # Optional: put your config options customization here. Examples:
+      ND_SCANINTERVAL: 1m
+      ND_LOGLEVEL: info  
+      ND_SESSIONTIMEOUT: 24h
+      ND_BASEURL: ""
+    volumes:
+      - "/opt/dl/navidrome:/data"
+      - "/mnt/music:/music:ro"
