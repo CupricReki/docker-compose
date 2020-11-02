@@ -14,5 +14,6 @@ services:
       - /mnt/downloads:/downloads
     ports:
       - 7878:7878
+      - 7979:7979
     mem_limit: 4096m
     restart: unless-stopped
