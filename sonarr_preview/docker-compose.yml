@@ -15,5 +15,6 @@ services:
       - /mnt/anime:/anime   
     ports:
       - 8989:8989
+      - 9898:9898
     mem_limit: 4096m
     restart: unless-stopped
