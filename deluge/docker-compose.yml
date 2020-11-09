@@ -13,7 +13,7 @@ services:
       - DELUGE_LOGLEVEL=error #optional
       - AUTO_UPDATE=true #optional
     volumes:
-      - /opt/dl/deluge/config:/config
+      - /opt/dl/deluge:/config
       - /mnt/downloads:/downloads
     ports:
       - 8112:80
