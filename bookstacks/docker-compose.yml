@@ -11,6 +11,7 @@ services:
       - DB_USER=bookstack
       - DB_PASS=tacotuesday
       - DB_DATABASE=bookstackapp
+      - APP_URL=https://kb.ogbase.net
     volumes:
       - /mnt/opt/dl/bookstacks:/config
       - uploads:/var/www/bookstack/public/uploads
