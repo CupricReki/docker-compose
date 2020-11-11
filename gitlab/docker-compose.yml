@@ -5,7 +5,7 @@ web:
   hostname: 'gitlab.ogbase.net'
   environment:
     GITLAB_OMNIBUS_CONFIG: |
-      external_url 'https://gitlab.ogbase.net'
+      external_url 'http://10.0.20.3'
       gitlab_rails['gitlab_shell_ssh_port'] = 2224
   ports:
     - '8929:80'
