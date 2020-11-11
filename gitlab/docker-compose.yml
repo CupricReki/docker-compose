@@ -1,9 +1,9 @@
 --- 
 version: "3.6"
-web: 
+services: 
   container_name: gitlab
   environment: 
-    GITLAB_OMNIBUS_CONFIG: |
+    GITLAB_OMNIBUS_CONFIG:
         external_url 'https://gitlab.ogbase.net'
         gitlab_rails['gitlab_shell_ssh_port'] = 2224
   hostname: gitlab.ogbase.net
