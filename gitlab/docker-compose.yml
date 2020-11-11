@@ -1,14 +1,14 @@
 ---
 web:
-  image: 'gitlab/gitlab-ee:latest'
+  image: 'gitlab/gitlab-ce:latest'
   restart: always
   hostname: 'gitlab.ogbase.net'
   environment:
     GITLAB_OMNIBUS_CONFIG: |
-      external_url 'https://gitlab.ogbase.net:80'
+      external_url 'https://gitlab.ogbase.net'
       gitlab_rails['gitlab_shell_ssh_port'] = 2224
   ports:
-    - '8929:8929'
+    - '8929:80'
     - '2224:22'
   volumes:
     - '$GITLAB_HOME/config:/etc/gitlab'
