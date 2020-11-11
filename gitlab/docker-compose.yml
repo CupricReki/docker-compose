@@ -10,7 +10,7 @@ services:
     hostname: gitlab.ogbase.net
     image: "gitlab/gitlab-ee:latest"
     ports: 
-      - "8929:8929"
+      - "8929:80"
       - "2224:22"
     restart: always
     volumes: 
