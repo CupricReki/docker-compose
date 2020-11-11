@@ -1,12 +1,11 @@
 --- 
-version: "3.6"
 services: 
-  gitlab:
-    container_name: gitlab
-    environment: 
+  gitlab: 
     GITLAB_OMNIBUS_CONFIG: |
-          external_url 'https://gitlab.ogbase.net'
-          gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        external_url 'https://gitlab.ogbase.net'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+    container_name: gitlab
+    environment: ~
     hostname: gitlab.ogbase.net
     image: "gitlab/gitlab-ee:latest"
     ports: 
@@ -17,3 +16,4 @@ services:
       - "/opt/dl/gitlab/config:/etc/gitlab"
       - "/opt/dl/gitlab/logs:/var/log/gitlab"
       - "/opt/dl/gitlab/data:/var/opt/gitlab"
+version: "3.6"
