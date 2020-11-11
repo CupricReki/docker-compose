@@ -1,18 +1,19 @@
 --- 
 version: "3.6"
 services: 
-  container_name: gitlab
-  environment: 
-    GITLAB_OMNIBUS_CONFIG:
-        external_url 'https://gitlab.ogbase.net'
-        gitlab_rails['gitlab_shell_ssh_port'] = 2224
-  hostname: gitlab.ogbase.net
-  image: "gitlab/gitlab-ee:latest"
-  ports: 
-    - "8929:8929"
-    - "2224:22"
-  restart: always
-  volumes: 
-    - "/opt/dl/gitlab/config:/etc/gitlab"
-    - "/opt/dl/gitlab/logs:/var/log/gitlab"
-    - "/opt/dl/gitlab/data:/var/opt/gitlab"
+  gitlab:
+    container_name: gitlab
+    environment: 
+      GITLAB_OMNIBUS_CONFIG:
+          external_url 'https://gitlab.ogbase.net'
+          gitlab_rails['gitlab_shell_ssh_port'] = 2224
+    hostname: gitlab.ogbase.net
+    image: "gitlab/gitlab-ee:latest"
+    ports: 
+      - "8929:8929"
+      - "2224:22"
+    restart: always
+    volumes: 
+      - "/opt/dl/gitlab/config:/etc/gitlab"
+      - "/opt/dl/gitlab/logs:/var/log/gitlab"
+      - "/opt/dl/gitlab/data:/var/opt/gitlab"
