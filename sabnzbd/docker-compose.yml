@@ -10,9 +10,8 @@ services:
       - PGID=1008
     volumes:
       - /opt/dl/sabnzbd:/config
-      - /mnt/downloads:/downloads
+      - /mnt/downloads:/downloads/nzbs
     ports:
       - 8080:8080
-      - 9090:9090
     mem_limit: 4096m
     restart: unless-stopped
