@@ -11,10 +11,9 @@ services:
     volumes:
       - /opt/dl/sonarr_preview:/config
       - /mnt/shows:/tv
-      - /mnt/downloads:/downloads
+      - /mnt/downloads/torrents:/downloads
       - /mnt/anime:/anime   
     ports:
       - 8989:8989
-      - 9898:9898
     mem_limit: 4096m
     restart: unless-stopped
