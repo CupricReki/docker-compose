@@ -11,7 +11,7 @@ services:
     volumes:
       - /opt/dl/sonarr_preview:/config
       - /mnt/shows:/tv
-      - /mnt/downloads/torrents:/downloads
+      - /mnt/downloads:/downloads
       - /mnt/anime:/anime   
     ports:
       - 8989:8989
