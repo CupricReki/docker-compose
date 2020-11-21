@@ -12,6 +12,7 @@ services:
       - SELF_UPDATE=true
       - IGNORE=mongo influxdb postgres mariadb
       - TZ=America/Denver
+      - latest=true
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
