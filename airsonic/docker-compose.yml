@@ -9,6 +9,6 @@ services:
             - '/mnt/misc/podcasts:/airsonic/podcasts'
         ports:
             - '4040:4040'
-        image: airsonic/airsonic
+        image: airsonic/airsonic:latest
         restart: unless-stopped
         container_name: airsonic

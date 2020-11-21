@@ -1,6 +1,6 @@
 ---
 web:
-  image: 'gitlab/gitlab-ce:latest'
+  image: gitlab/gitlab-ce:latest
   restart: always
   hostname: 'gitlab.ogbase.net'
   environment:

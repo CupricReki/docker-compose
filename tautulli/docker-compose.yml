@@ -2,7 +2,7 @@
 version: "2"
 services:
   tautulli:
-    image: linuxserver/tautulli
+    image: linuxserver/tautulli:latest
     container_name: tautulli
     environment:
       - TZ=America/Denver

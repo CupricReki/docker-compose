@@ -3,7 +3,7 @@ version: "2"
 services:
   ombi:
     container_name: ombi
-    image: linuxserver/ombi
+    image: linuxserver/ombi:latest
     restart: unless-stopped
     network_mode: host
     environment:
