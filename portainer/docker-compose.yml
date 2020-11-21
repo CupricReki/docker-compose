@@ -3,7 +3,7 @@ version: "2"
 
 services:
   portainer:
-    image: portainer/portainer
+    image: portainer/portainer:latest
     command: -H unix:///var/run/docker.sock
     restart: always
     environment:
