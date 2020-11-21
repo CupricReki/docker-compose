@@ -14,5 +14,5 @@ services:
       - /mnt/downloads:/downloads
     ports:
       - 8686:8686
-      - 6868:6868
+#      - 6868:6868
     restart: unless-stopped

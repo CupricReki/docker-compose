@@ -11,6 +11,7 @@ services:
     volumes:
       - /opt/dl/tautulli:/config
       - /mnt/plex_db/Logs:/logs
+      - /opt/dl/geoip:/opt/plexpy
     ports:
       - 8181:8181
     restart: unless-stopped
