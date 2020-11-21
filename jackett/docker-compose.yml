@@ -2,7 +2,7 @@
 version: "2"
 services:
   jackett:
-    image: linuxserver/jackett
+    image: linuxserver/jackett:latest
     container_name: jackett
     environment:
       - TZ=America/Denver
