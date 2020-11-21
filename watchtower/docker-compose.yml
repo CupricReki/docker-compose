@@ -1,10 +1,7 @@
+---
 version: "2"
 services:
   watchtower:
-    image: v2tec/watchtower
+    image: containrrr/watchtower:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:/config.json
-    command: --interval 30
-    command: --cleanup
-    restart: unless-stopped
