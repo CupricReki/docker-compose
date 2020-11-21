@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   lazylibrarian:
-    image: ghcr.io/linuxserver/lazylibrarian
+    image: ghcr.io/linuxserver/lazylibrarian:latest
     container_name: lazylibrarian
     environment:
       - PUID=1007

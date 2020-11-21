@@ -22,7 +22,7 @@ services:
     depends_on:
       - bookstack_db
   bookstack_db:
-    image: linuxserver/mariadb
+    image: linuxserver/mariadb:latest
     container_name: bookstack_db
     environment:
       - PUID=1007
