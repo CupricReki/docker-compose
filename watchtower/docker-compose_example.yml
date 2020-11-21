@@ -1,7 +1,0 @@
----
-version: "2"
-services:
-  watchtower:
-    image: containrrr/watchtower:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
