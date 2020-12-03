@@ -14,3 +14,4 @@ services:
       ADMIN_TOKEN: 'VN6f75wzCtJ7As5qVCSDETKtQbPw93AQgaLge2VxHuphkBChze'
     ports:
       - "8004:80"
+      - "3012:3012"
