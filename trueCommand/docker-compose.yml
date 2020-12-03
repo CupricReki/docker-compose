@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+    truecommand:
+        volumes:
+            - '/opt/dl/truecommand:/data'
+        ports:
+            - '8001:80'
+            - '8002:443'
+        restart: always
+        container_name: truecommand
+        environment:
+            - TZ=America/Denver
+        image: ixsystems/truecommand
