@@ -4,7 +4,7 @@ version: '3'
 services:
   bitwarden:
     image: bitwardenrs/server
-    conatainer_name: bitwarden
+    container_name: bitwarden
     restart: always
     volumes:
       - /opt/dl/bitwarden:/data
