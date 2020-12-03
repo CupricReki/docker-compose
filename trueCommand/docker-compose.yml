@@ -1,3 +1,4 @@
+---
 version: '3.3'
 services:
     truecommand:
@@ -10,4 +11,4 @@ services:
         container_name: truecommand
         environment:
             - TZ=America/Denver
-        image: ixsystems/truecommand
+        image: ixsystems/truecommand:latest
