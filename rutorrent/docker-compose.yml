@@ -12,14 +12,13 @@ services:
       environment:
         - PUID=1007
         - PGID=1008
-        - TZ=Europe/Madrid
+        - TZ=America/Denver
         - CREATE_SUBDIR_BY_TRACKERS=NO
         - SSL_ENABLED=NO
 #        - RT_TOKEN=
 #        - RT_MASTERS=
       ports:
         - "8112:80"
-        #- "8443:443"
         - "32316:52316"
         - "3000:3000"
         - "60881:60881"
