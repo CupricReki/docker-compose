@@ -9,14 +9,14 @@ services:
     restart: always
     environment:
       - TZ=America/Denver
-      - PUID=1007
-      - PGID=1008
+      - PUID=1010
+      - PGID=1010
     ports:
       - 9000:9000
       - 8000:8000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - /opt/dl/portainer:/data
 
 volumes:
   portainer_data:
