@@ -1,7 +1,7 @@
 version: '2'
 services:
     rutorrent:
-      image: romancin/rutorrent-flood:0.9.4
+      image: romancin/rutorrent-flood:latest
       container_name: rutorrent
       networks:
         - default
@@ -10,8 +10,8 @@ services:
         - /opt/dl/rutorrent:/config
         - /mnt/downloads:/downloads
       environment:
-        - PUID=1007
-        - PGID=1008
+        - PUID=1010
+        - PGID=1010
         - TZ=America/Denver
         - CREATE_SUBDIR_BY_TRACKERS=NO
         - SSL_ENABLED=NO
