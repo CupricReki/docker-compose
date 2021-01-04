@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+    idrac6:
+        ports:
+            - '5800:5800'
+            - '5900:5900'
+        environment:
+            - IDRAC_HOST=titan-idrac.ogbase.net
+            - IDRAC_USER=root
+            - IDRAC_PASSWORD=calvin
+        image: domistyle/idrac6
