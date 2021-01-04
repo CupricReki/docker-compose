@@ -9,3 +9,4 @@ services:
             - IDRAC_USER=root
             - IDRAC_PASSWORD=calvin
         image: domistyle/idrac6
+        restart: always
