@@ -1,22 +1,43 @@
-version: '2'
+# WARNING: Replace the example passwords with secure secrets.
+# WARNING: 'my_secret_phpipam_pass' and 'my_secret_mysql_root_pass'
+
+version: '3'
 
 services:
-  mysql:
-    image: mysql:5.6
-    environment:
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
-    restart: always
-    volumes:
-      - db_data:/var/lib/mysql
-  ipam:
-    depends_on:
-      - mysql
-    image: pierrecdn/phpipam
-    environment:
-      - MYSQL_ENV_MYSQL_USER=root
-      - MYSQL_ENV_MYSQL_ROOT_PASSWORD=my-secret-pw
-      - MYSQL_ENV_MYSQL_HOST=mysql
+  phpipam-web:
+    image: phpipam/phpipam-www:latest
     ports:
       - "80:80"
+    environment:
+      - TZ=Europe/London
+      - IPAM_DATABASE_HOST=phpipam-mariadb
+      - IPAM_DATABASE_PASS=my_secret_phpipam_pass
+      - IPAM_DATABASE_WEBHOST=%
+    restart: unless-stopped
+    volumes:
+      - phpipam-logo:/phpipam/css/images/logo
+    depends_on:
+      - phpipam-mariadb
+
+  phpipam-cron:
+    image: phpipam/phpipam-cron:latest
+    environment:
+      - TZ=Europe/London
+      - IPAM_DATABASE_HOST=phpipam-mariadb
+      - IPAM_DATABASE_PASS=my_secret_phpipam_pass
+      - SCAN_INTERVAL=1h
+    restart: unless-stopped
+    depends_on:
+      - phpipam-mariadb
+
+  phpipam-mariadb:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=my_secret_mysql_root_pass
+    restart: unless-stopped
+    volumes:
+      - phpipam-db-data:/var/lib/mysql
+
 volumes:
-  db_data:
+  phpipam-db-data:
+  phpipam-logo:
