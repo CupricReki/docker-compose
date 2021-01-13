@@ -40,7 +40,3 @@ services:
     restart: always
     volumes:
       - /opt/dl/phpipam-db-data:/var/lib/mysql
-
-volumes:
-  phpipam-db-data:
-  phpipam-logo:
