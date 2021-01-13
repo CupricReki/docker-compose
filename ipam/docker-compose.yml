@@ -5,7 +5,7 @@ version: '3'
 
 services:
   phpipam-web:
-    volume_name: phpipam-web
+    container_name: phpipam-web
     image: phpipam/phpipam-www:latest
     ports:
       - "5333:80"
@@ -22,7 +22,7 @@ services:
 
   phpipam-cron:
     image: phpipam/phpipam-cron:latest
-    volume_name: phpipam-cron
+    container_name: phpipam-cron
     environment:
       - TZ=America/Denver
       - IPAM_DATABASE_HOST=phpipam-mariadb
@@ -34,7 +34,7 @@ services:
 
   phpipam-mariadb:
     image: mariadb:latest
-    volume_name: phpipam-mariadb
+    container_name: phpipam-mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=my_secret_mysql_root_pass
     restart: always
