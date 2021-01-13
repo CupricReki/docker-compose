@@ -5,38 +5,41 @@ version: '3'
 
 services:
   phpipam-web:
+    volume_name: phpipam-web
     image: phpipam/phpipam-www:latest
     ports:
       - "5333:80"
     environment:
-      - TZ=Europe/London
+      - TZ=America/Denver
       - IPAM_DATABASE_HOST=phpipam-mariadb
       - IPAM_DATABASE_PASS=my_secret_phpipam_pass
       - IPAM_DATABASE_WEBHOST=%
-    restart: unless-stopped
+    restart: always
     volumes:
-      - phpipam-logo:/phpipam/css/images/logo
+      - /opt/dl/phpipam-logo:/phpipam/css/images/logo
     depends_on:
       - phpipam-mariadb
 
   phpipam-cron:
     image: phpipam/phpipam-cron:latest
+    volume_name: phpipam-cron
     environment:
-      - TZ=Europe/London
+      - TZ=America/Denver
       - IPAM_DATABASE_HOST=phpipam-mariadb
       - IPAM_DATABASE_PASS=my_secret_phpipam_pass
       - SCAN_INTERVAL=1h
-    restart: unless-stopped
+    restart: always
     depends_on:
       - phpipam-mariadb
 
   phpipam-mariadb:
     image: mariadb:latest
+    volume_name: phpipam-mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=my_secret_mysql_root_pass
-    restart: unless-stopped
+    restart: always
     volumes:
-      - phpipam-db-data:/var/lib/mysql
+      - /opt/dl/phpipam-db-data:/var/lib/mysql
 
 volumes:
   phpipam-db-data:
