@@ -1,0 +1,29 @@
+---
+version: "2.1"
+services:
+  netbox:
+    image: ghcr.io/linuxserver/netbox
+    container_name: netbox
+    environment:
+      - PUID=1015
+      - PGID=1015
+      - SUPERUSER_EMAIL=cupricreki@gmail.com
+      - SUPERUSER_PASSWORD=vetencis
+      - ALLOWED_HOST=netbox.ogbase.net
+      - DB_NAME=netbox
+      - DB_USER=netbox
+      - DB_PASSWORD=netbox
+      - DB_HOST=postgres
+# optional
+#      - DB_PORT=<DB_PORT>
+      - REDIS_HOST=redis
+# optional default: 6379
+#      - REDIS_PORT=<REDIS_PORT>
+# optional default: none
+#      - REDIS_PASSWORD=<REDIS_PASSWORD>
+      - TZ=America/Denver
+    volumes:
+      - /opt/dl/netdata:/config
+    ports:
+      - 8000:8000
+    restart: always
