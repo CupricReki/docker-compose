@@ -1,14 +1,16 @@
 ---
-version: '3.3'
+version: '2.1'
 services:
     airsonic:
+        image: ghcr.io/linuxserver/airsonic
         volumes:
-            - '/opt/dl/airsonic:/airsonic/data'
-            - '/mnt/music:/airsonic/music'
-            - '/mnt/misc/playlists:/airsonic/playlists'
-            - '/mnt/misc/podcasts:/airsonic/podcasts'
+            - '/opt/dl/airsonic:/config'
+            - '/mnt/music:/music'
+            - '/mnt/misc/playlists:/playlists'
+            - '/mnt/misc/podcasts:/podcasts'
         ports:
             - '4040:4040'
-        image: airsonic/airsonic:latest
-        restart: unless-stopped
+        environment:
+        - TZ=America/Denver
+        restart: always
         container_name: airsonic
