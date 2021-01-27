@@ -12,5 +12,7 @@ services:
             - '4040:4040'
         environment:
         - TZ=America/Denver
+        - UID=1007
+        - PGID=1008
         restart: always
         container_name: airsonic
