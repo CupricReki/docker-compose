@@ -1,0 +1,24 @@
+---
+version: "2"
+services:
+  airsonic:
+    image: airsonicadvanced/airsonic-advanced:latest
+    container_name: airsonic-advanced
+    restart: unless-stopped
+    environment:
+      - TZ=America/Denver # e.g. Europe/London
+      - PUID=1007 # for UserID
+      - PGID=1008 # for GroupID
+     # - JAVA_OPTS # For passing additional java options.
+     # - CONTEXT_PATH # For setting url-base in reverse proxy setups.
+    volumes:
+      - /opt/dl/airsonic:/var/airsonic # Configuration file location.
+      - /mnt/misc/playlists:/var/playlists # Location for playlists to be saved to.
+      - /mnt/music:/var/music # Location of music.
+      - /mnt/misc/podcasts:/var/podcasts # Location of podcasts.
+#      - /srv/2TB1/Youtube:/var/youtube # Location of other media.
+#      - /srv/2TB1/Audio-Books:/var/audio-books
+    ports:
+      - 4040:4040 # WebUI
+    # devices:
+      # - /dev/snd:/dev/snd # Only needed to pass your host sound device to Airsonic's Java jukebox player.
