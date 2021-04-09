@@ -4,7 +4,7 @@ services:
     airsonic:
         image: ghcr.io/linuxserver/airsonic
         volumes:
-            - '/opt/dl/airsonic-advanced:/config'
+            - '/opt/dl/airsonic:/config'
             - '/mnt/music:/music'
             - '/mnt/misc/playlists:/playlists'
             - '/mnt/misc/podcasts:/podcasts'
