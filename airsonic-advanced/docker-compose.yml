@@ -12,7 +12,7 @@ services:
      # - JAVA_OPTS # For passing additional java options.
      # - CONTEXT_PATH # For setting url-base in reverse proxy setups.
     volumes:
-      - /opt/dl/airsonic:/var/airsonic # Configuration file location.
+      - /opt/dl/airsonic-advanced:/var/airsonic # Configuration file location.
       - /mnt/misc/playlists:/var/playlists # Location for playlists to be saved to.
       - /mnt/music:/var/music # Location of music.
       - /mnt/misc/podcasts:/var/podcasts # Location of podcasts.
