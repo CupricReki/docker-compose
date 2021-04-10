@@ -17,3 +17,8 @@ services:
       - 8989:8989
     mem_limit: 4096m
     restart: unless-stopped
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://elk.ogbase.net:12201"
+        tag: "sonarr"
