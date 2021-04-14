@@ -7,7 +7,7 @@ services:
         environment:
             - IDRAC_HOST=titan-idrac.ogbase.net
             - IDRAC_USER=root
-            - IDRAC_PASSWORD=calvin
+            - IDRAC_PASSWORD=Polar2000
         image: domistyle/idrac6
         restart: always
         container_name: idrac
