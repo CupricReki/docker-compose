@@ -37,6 +37,8 @@ services:
     volumes:
       - /opt/dl/nextcloud/nextcloud-data/:/var/www/html:ro
       - /opt/dl/nextcloud/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 80:80
 
   nextcloud-cron:
     image: nextcloud:fpm-alpine
