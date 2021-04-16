@@ -7,8 +7,6 @@ services:
             - username=cupric
             - password=secret
             - TZ=America/Denver
-            - PUID=1007
-            - PGID=1008
             - domain=nextcloud.ogbase.net
             - VIRTUAL_HOST=asimov.ogbase.net
             - VIRTUAL_PORT=9980
