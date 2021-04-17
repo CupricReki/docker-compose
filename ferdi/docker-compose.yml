@@ -6,7 +6,7 @@ services:
     container_name: ferdi-server
     environment:
     - NODE_ENV=development
-    - EXTERNAL_DOMAIN=ferdi.ogbase.net
+    - EXTERNAL_DOMAIN=ogbase.net
       #- MAIL_CONNECTION=<mailsender>
       #- SMPT_HOST=<smtpmailserver>
       #- SMTP_PORT=<smtpport>
