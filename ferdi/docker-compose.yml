@@ -1,0 +1,27 @@
+---
+version: "2"
+services:
+  ferdi-server:
+    image: getferdi/ferdi-server
+    container_name: ferdi-server
+    environment:
+    - NODE_ENV=development
+    - EXTERNAL_DOMAIN=ferdi.ogbase.net
+      #- MAIL_CONNECTION=<mailsender>
+      #- SMPT_HOST=<smtpmailserver>
+      #- SMTP_PORT=<smtpport>
+      #- MAIL_SSL=true/false
+      #- MAIL_USERNAME=<yourmailusername>
+      #- MAIL_PASSWORD=<yourmailpassword>
+      #- MAIL_SENDER=<sendemailaddress>
+    - IS_CREATION_ENABLED=true
+    - IS_DASHBOARD_ENABLED=true
+    - IS_REGISTRATION_ENABLED=true
+    - CONNECT_WITH_FRANZ=true
+    volumes:
+    - /opt/dl/ferdi:/config
+    - /opt/dl/ferdi:/app/database
+    - /opt/dl/ferdi:/app/recipes
+    ports:
+    - 8333:80
+    restart: always

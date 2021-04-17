@@ -1,0 +1,4 @@
+*/15 * * * * docker exec -ti phpipam-web /usr/bin/php /phpipam/functions/scripts/pingCheck.php
+*/15 * * * * docker exec -ti phpipam-web /usr/bin/php /phpipam/functions/scripts/discoveryCheck.php
+*/15 * * * * docker exec -ti phpipam-web /usr/bin/php /phpipam/functions/scripts/resolveIPaddresses.php
+0 2 * * * docker exec -ti phpipam-web /usr/bin/php /phpipam/functions/scripts/remove_offline_address.php

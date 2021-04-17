@@ -40,3 +40,9 @@ services:
     restart: always
     volumes:
       - /opt/dl/phpipam/phpipam-db-data:/var/lib/mysql
+
+  # phpipam-agent:
+  #   image: pierrecdn/phpipam-agent:latest
+  #   container_name: phpipam-agent
+  #   restart: always
+
