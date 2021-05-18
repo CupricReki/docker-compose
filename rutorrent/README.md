@@ -4,5 +4,5 @@ Based on https://github.com/romancin/rutorrent-docker
 
 ## Defaults
 
-Username: admin
-Password: admin
+* Username: admin
+* Password: admin
