@@ -1,10 +1,10 @@
 # Bookstacks docker-compose template
 
-Will use docker volumes forthe data that isn't import
+Will use docker volumes for the data that isn't import
 volumes:
- mariadb-data:
- uploads:
- storage-uploads:
+* mariadb-data:
+* uploads:
+* storage-uploads:
 
 
 
