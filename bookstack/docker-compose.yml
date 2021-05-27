@@ -13,7 +13,7 @@ services:
       - DB_DATABASE=bookstackapp
       - APP_URL=https://kb.ogbase.net
     volumes:
-      - /mnt/opt/dl/bookstacks:/config
+      - /opt/dl/bookstack/config:/config
       - uploads:/var/www/bookstack/public/uploads
       - storage-uploads:/var/www/bookstack/public/storage
     ports:
