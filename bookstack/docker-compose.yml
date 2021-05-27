@@ -12,6 +12,17 @@ services:
       - DB_PASS=tacotuesday
       - DB_DATABASE=bookstackapp
       - APP_URL=https://kb.ogbase.net
+      - AUTH_METHOD=ldap
+      - LDAP_SERVER=ipa1.ogbase.net
+      - LDAP_BASE_DN=users,dc=ogbase,dc=net
+      - LDAP_DN=false
+      - LDAP_PASS=false
+      - LDAP_USER_FILTER=(&(uid=$${user}))
+      - LDAP_VERSION=3
+      - LDAP_ID_ATTRIBUTE=uid
+      - LDAP_EMAIL_ATTRIBUTE=mail
+      - LDAP_DISPLAY_NAME_ATTRIBUTE=cn
+      - LDAP_START_TLS=false
     volumes:
       - /opt/dl/bookstack/config:/config
       - uploads:/var/www/bookstack/public/uploads
