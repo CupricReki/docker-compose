@@ -16,3 +16,8 @@ volumes:
 * DB_PASS=tacotuesday
 * DB_DATABASE=bookstackapp
 * APP_URL=https://kb.ogbase.net
+
+
+## LDAP Authentication
+
+https://www.bookstackapp.com/docs/admin/installation/
