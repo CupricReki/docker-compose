@@ -1,4 +1,5 @@
 # Bookstacks docker-compose template
+https://hub.docker.com/r/linuxserver/bookstack
 
 Will use docker volumes for the data that isn't import
 volumes:
