@@ -26,8 +26,8 @@ services:
       - LDAP_START_TLS=false
     volumes:
       - /opt/dl/bookstack/config:/config
-      - uploads:/var/www/bookstack/public/uploads
-      - storage-uploads:/var/www/bookstack/public/storage
+      - /opt/dl/bookstack/uploads:/var/www/bookstack/public/uploads
+      - /opt/dl/bookstack/storage-uploads:/var/www/bookstack/public/storage
     ports:
       - 6875:80
     restart: unless-stopped
@@ -45,9 +45,5 @@ services:
       - MYSQL_USER=bookstack
       - MYSQL_PASSWORD=tacotuesday
     volumes:
-      - mariadb-data:/config
+      - /opt/dl/bookstack/mariadb-data:/config
     restart: unless-stopped
-volumes:
- mariadb-data:
- uploads:
- storage-uploads:
