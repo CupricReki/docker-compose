@@ -11,7 +11,7 @@ services:
         #- PASSWORD= password
         #- CLI_ARGS= #optional
     volumes:
-      - /opt/dl/calibre:/config
+      - /opt/dl/calibre/config:/config
       - /mnt/misc/calibre-library:/calibre-library
       - /opt/dl/calibre/uploads:/uploads
     ports:
