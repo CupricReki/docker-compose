@@ -8,8 +8,8 @@ services:
       - PUID=1007
       - PGID=1008
       - TZ=America/Denver
-      - PASSWORD= password
-        #      - CLI_ARGS= #optional
+        #- PASSWORD= password
+        #- CLI_ARGS= #optional
     volumes:
       - /opt/dl/calibre:/config
     ports:
