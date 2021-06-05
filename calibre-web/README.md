@@ -3,6 +3,6 @@ https://docs.linuxserver.io/images/docker-calibre-web
 
 ## Default login	
 Username  
-> admin 
+> admin   
 Password  
 > admin123
