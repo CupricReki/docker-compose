@@ -7,6 +7,7 @@ volumes:
 
 services:
   postgres:
+      container_name: keycloak_postgresdb
       image: postgres
       volumes:
         - /opt/dl/keycloak/postgres-data:/var/lib/postgresql/data
@@ -15,7 +16,10 @@ services:
         POSTGRES_USER: keycloak
         POSTGRES_PASSWORD: password
   keycloak:
+      container_name: keycloak
       image: quay.io/keycloak/keycloak:latest
+      volumes:
+        - /opt/dl/keycloak/keytab/:/etc/keytab
       environment:
         DB_VENDOR: POSTGRES
         DB_ADDR: postgres
