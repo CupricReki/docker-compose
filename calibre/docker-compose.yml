@@ -11,8 +11,7 @@ services:
         #- PASSWORD= password
         #- CLI_ARGS= #optional
     volumes:
-      - /opt/dl/calibre/config:/config
-      - /opt/dl/calibre/library:library
+      - /opt/dl/calibre:/config
     ports:
       - 8780:8080
       - 8781:8081
