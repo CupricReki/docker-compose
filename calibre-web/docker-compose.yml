@@ -11,7 +11,7 @@ services:
       - DOCKER_MODS=linuxserver/calibre-web:calibre
     volumes:
       - /opt/dl/calibre-web:/config
-      - /mnt/misc/books:/books
+      - /mnt/misc/calibre-library:/calibre-library
     ports:
       - 8783:8083
     restart: unless-stopped

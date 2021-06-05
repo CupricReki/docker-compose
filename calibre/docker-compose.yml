@@ -12,6 +12,7 @@ services:
         #- CLI_ARGS= #optional
     volumes:
       - /opt/dl/calibre:/config
+      - /mnt/misc/calibre-library:/calibre-library
     ports:
       - 8780:8080
       - 8781:8081
