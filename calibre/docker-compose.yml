@@ -13,6 +13,6 @@ services:
     volumes:
       - /opt/dl/calibre:/config
     ports:
-      - 8780:8780
-      - 8781:8781
+      - 8780:8080
+      - 8781:8081
     restart: unless-stopped
