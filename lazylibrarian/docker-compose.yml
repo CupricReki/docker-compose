@@ -13,6 +13,7 @@ services:
       - /opt/dl/lazylibrarian:/config
       - /mnt/downloads:/downloads
       - /mnt/misc/books:/books
+      - /mnt/misc/audiobooks:/audiobooks
     ports:
       - 5299:5299
     restart: unless-stopped
