@@ -1,0 +1,18 @@
+---
+version: "2.1"
+services:
+  calibre:
+    image: ghcr.io/linuxserver/calibre
+    container_name: calibre
+    environment:
+      - PUID=1007
+      - PGID=1008
+      - TZ=America/Denver
+      - PASSWORD= password
+        #      - CLI_ARGS= #optional
+    volumes:
+      - /opt/dl/calibre:/config
+    ports:
+      - 8780:8780
+      - 8781:8781
+    restart: unless-stopped
