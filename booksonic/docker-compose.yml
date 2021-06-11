@@ -8,7 +8,7 @@ services:
       - PUID=1007
       - PGID=1008
       - TZ=America/Denver
-      - CONTEXT_PATH=url-base
+        #- CONTEXT_PATH=url-base
     volumes:
       - /opt/dl/booksonic/config:/config
       - /mnt/misc/audiobooks:/audiobooks
