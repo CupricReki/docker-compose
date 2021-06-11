@@ -15,5 +15,5 @@ services:
       - /mnt/misc/podcasts:/podcasts
         #      - </path/to/othermedia>:/othermedia
     ports:
-      - 4040:4040
+      - 4041:4040
     restart: unless-stopped
