@@ -6,7 +6,7 @@ services:
     image: statping/statping:dev
     restart: always
     volumes:
-      - statping_data:/app
+      - /opt/dl/statping:/app
     environment:
       DB_CONN: sqlite
     ports:
