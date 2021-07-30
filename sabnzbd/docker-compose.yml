@@ -6,8 +6,8 @@ services:
     container_name: sabnzbd
     environment:
       - TZ=America/Denver
-      - PUID=1010
-      - PGID=1010
+      - PUID=1006
+      - PGID=1007
     volumes:
       - /opt/dl/sabnzbd:/config
       - /mnt/downloads:/downloads
