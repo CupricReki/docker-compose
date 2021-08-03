@@ -5,7 +5,7 @@ services:
     image: translucency/remotely:latest
     container_name: remotely
     ports:
-      - 5222:5000
+      - 5000:5000
     volumes:
       - /opt/dl/remotely:/remotely-data
 networks:
