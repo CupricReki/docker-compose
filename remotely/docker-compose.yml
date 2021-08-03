@@ -1,0 +1,8 @@
+version: "2"
+services:
+  remotely:
+    image: translucency/remotely:latest
+    ports:
+      - 5222:5000
+    volumes:
+      - /remotely-data:/remotely-data
