@@ -2,6 +2,7 @@ version: "2"
 services:
   remotely:
     image: translucency/remotely:latest
+    container_name: remotely
     ports:
       - 5222:5000
     volumes:
