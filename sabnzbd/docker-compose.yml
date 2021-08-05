@@ -9,7 +9,7 @@ services:
       - PUID=1006
       - PGID=1007
     volumes:
-      - /opt/dl/sabnzbd:/config
+      - /opt/sabnzbd/config:/config
       - /mnt/downloads:/data/downloads
     ports:
       - 8080:8080
