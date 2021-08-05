@@ -2,7 +2,7 @@
 version: "2"
 services:
   sonarr:
-    image: linuxserver/radarr:latest
+    image: ghcr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
       - TZ=America/Denver
