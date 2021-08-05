@@ -10,8 +10,8 @@ services:
       - TZ=America/Denver
     volumes:
       - /opt/dl/lidarr/config:/config
-      - /mnt/music:/music
-      - /mnt/downloads:/downloads
+      - /mnt/music:/media/music
+      - /mnt/downloads:/data/downloads
     ports:
       - 8686:8686
 #      - 6868:6868

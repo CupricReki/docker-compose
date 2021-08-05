@@ -10,10 +10,9 @@ services:
       - PGID=1008
     volumes:
       - /opt/dl/radarr:/config
-      - /mnt/movies:/movies
-      - /mnt/downloads:/downloads
+      - /mnt/movies:/media/movies
+      - /mnt/downloads:/data/downloads
     ports:
       - 7878:7878
-      - 7979:7979
     mem_limit: 4096m
     restart: unless-stopped

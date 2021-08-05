@@ -1,0 +1,38 @@
+version: '3.6'
+services:
+  wg-gen-web:
+    image: vx3r/wg-gen-web:latest
+    container_name: wg-gen-web
+    restart: unless-stopped
+    ports:
+      - "8181:8080/tcp"
+    environment:
+      - WG_CONF_DIR=/data
+      - WG_INTERFACE_NAME=wg0.conf
+      - WG_STATS_API=http://172.24.0.1:8182
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USERNAME=cupricreki@gmail.com
+      - SMTP_PASSWORD=nmdsofdbzkbgnghk
+      - SMTP_FROM=Wg Gen Web <no-reply@gmail.com>
+#      - OAUTH2_PROVIDER_NAME=github
+#      - OAUTH2_PROVIDER=https://github.com
+#      - OAUTH2_CLIENT_ID=******************
+#      - OAUTH2_CLIENT_SECRET=******************
+#      - OAUTH2_REDIRECT_URL=https://wg-gen-web-demo.127-0-0-1.fr
+    volumes:
+      - /etc/wireguard:/data
+    networks:
+      - wg-gen-web
+  wg-json-api:
+    image: james/wg-api:latest
+    container_name: wg-json-api
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    network_mode: "host"
+    command: wg-api --device wg0 --listen 172.24.0.1:8182
+
+networks:
+  wg-gen-web:
+    external: true
