@@ -9,7 +9,7 @@ services:
       - PUID=1007
       - PGID=1008
     volumes:
-      - /opt/dl/sonarr:/config
+      - /opt/sonarr/config:/config
       - /mnt/shows:/media/tv
       - /mnt/anime:/media/anime 
       - /mnt/downloads:/data/downloads
