@@ -2,7 +2,7 @@
 version: "2"
 services:
   bookstack:
-    image: linuxserver/bookstack:latest
+    image: ghcr.io/linuxserver/bookstack:latest
     container_name: bookstack
     environment:
       - PUID=1007
@@ -25,9 +25,9 @@ services:
       - LDAP_DISPLAY_NAME_ATTRIBUTE=cn
       - LDAP_START_TLS=false
     volumes:
-      - /opt/dl/bookstack/config:/config
-      - /opt/dl/bookstack/uploads:/var/www/bookstack/public/uploads
-      - /opt/dl/bookstack/storage-uploads:/var/www/bookstack/public/storage
+      - /opt/bookstack/config:/config
+      - /opt/bookstack/uploads:/var/www/bookstack/public/uploads
+      - /opt/bookstack/storage-uploads:/var/www/bookstack/public/storage
     ports:
       - 6875:80
     restart: unless-stopped
