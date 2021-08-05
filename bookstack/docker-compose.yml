@@ -45,5 +45,5 @@ services:
       - MYSQL_USER=bookstack
       - MYSQL_PASSWORD=tacotuesday
     volumes:
-      - /opt/dl/bookstack/mariadb-data:/config
+      - /opt/bookstack/mariadb-data:/config
     restart: unless-stopped
