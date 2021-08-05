@@ -9,7 +9,7 @@ services:
       - PUID=1007
       - PGID=1008
     volumes:
-      - /opt/dl/radarr:/config
+      - /opt/radarr/config:/config
       - /mnt/movies:/media/movies
       - /mnt/downloads:/data/downloads
     ports:

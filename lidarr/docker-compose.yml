@@ -9,7 +9,7 @@ services:
       - PGID=1008
       - TZ=America/Denver
     volumes:
-      - /opt/dl/lidarr/config:/config
+      - /opt/lidarr/config/config:/config
       - /mnt/music:/media/music
       - /mnt/downloads:/data/downloads
     ports:
