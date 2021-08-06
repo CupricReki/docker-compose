@@ -12,7 +12,7 @@ services:
       - DB_PASS=tacotuesday
       - DB_DATABASE=bookstackapp
       - APP_URL=https://kb.ogbase.net
-      - ALLOWED_IFRAME_HOSTS=https://ogbase.net
+      - ALLOWED_IFRAME_HOSTS=https://ogbase.net https://home.ogbase.net
       # - AUTH_METHOD=standard # Force standard auth
       - AUTH_METHOD=ldap
       - LDAP_SERVER=ipa1.ogbase.net
