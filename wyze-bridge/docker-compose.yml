@@ -15,6 +15,6 @@ services:
             # context: ./app
             # Uncomment to build for arm
             # dockerfile: Dockerfile.arm 
-        # environment:
-        #     - WYZE_EMAIL=
-        #     - WYZE_PASSWORD=
+        environment:
+            - WYZE_EMAIL=${WYZE_EMAIL}
+            - WYZE_PASSWORD=${WYZE_PASSWORD}
