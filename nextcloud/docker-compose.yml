@@ -3,12 +3,11 @@ version: '3'
 services:
 
   nextcloud-db:
-    image: mariadb
+    image: mariadb:10.5.11
     container_name: nextcloud-db
     hostname: nextcloud-db
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: unless-stopped
-    env_file: .env
     volumes:
       - /opt/nextcloud/nextcloud-data-db:/var/lib/mysql
 
@@ -52,8 +51,3 @@ services:
     depends_on:
       - nextcloud-db
       - nextcloud-redis
-
-networks:
-  default:
-    external:
-      name: $DOCKER_MY_NETWORK
