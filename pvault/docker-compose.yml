@@ -1,14 +1,16 @@
+---
+# You need to create the network 'porn-vault-net'
 version: "3"
 services:
   porn-vault:
-    image: porn-vault
+    image: 6d3c3ebf1f4a
     container_name: porn-vault
     environment:
       - PUID=1000
       - PGID=1000
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
-      - "/opt/dl/pvault:/config"
+      - "/opt/pvault/config:/config"
       - "/mnt/pvideos:/videos"
       - "/mnt/pimages:/images"
     ports:
@@ -20,6 +22,7 @@ services:
       - porn-vault-net
   elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:7.13.1'
+    container_name: pv-elasticsearch
     environment:
         - discovery.type=single-node
     ports:
