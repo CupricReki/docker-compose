@@ -17,5 +17,5 @@ services:
 #          - /opt/dl/collabora/config:/etc/loolwsd
         cap_add:
             - MKNOD
-        restart: always
+        restart: unless-stopped
         image: collabora/code
