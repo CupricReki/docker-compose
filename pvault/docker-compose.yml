@@ -1,9 +1,18 @@
 ---
 # You need to create the network 'porn-vault-net'
+
+# Container will fail on first start - need to add to config file
+# {
+#   "search": {
+#     "host": "http://<name of elasticsearch docker container:9200",
+#     "version": "7.x",
+#     "log": false
+#   },
+
 version: "3"
 services:
   porn-vault:
-    image: 6d3c3ebf1f4a
+    image: leadwolf/porn-vault:latest
     container_name: porn-vault
     environment:
       - PUID=1000
@@ -15,8 +24,8 @@ services:
       - "/mnt/pimages:/images"
     ports:
       - "3000:3000"
-#    devices: # Only for vaapi users
-#      - /dev/dri/renderD128:/dev/dri/renderD128
+    devices: # Only for vaapi users
+      - /dev/dri/renderD128:/dev/dri/renderD128
     restart: always
     networks: # When you run Elasticsearch with Docker
       - porn-vault-net
