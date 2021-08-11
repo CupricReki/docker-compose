@@ -10,7 +10,7 @@ services:
       - PGID=1008
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
       - TP_THEME=hotline
-  volumes:
+    volumes:
       - /opt/radarr/config:/config
       - /mnt/movies:/media/movies
       - /mnt/downloads:/data/downloads
