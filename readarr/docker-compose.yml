@@ -15,5 +15,5 @@ services:
       - /mnt/misc/books:/books #optional
       - /mnt/downloads:/downloads #optional
     ports:
-      - 8787:8787
+      - 8787:7878
     restart: unless-stopped
