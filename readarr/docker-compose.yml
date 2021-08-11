@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   readarr:
-    image: ghcr.io/linuxserver/readarr
+    image: ghcr.io/linuxserver/readarr:latest
     container_name: readarr
     environment:
       - PUID=1007
