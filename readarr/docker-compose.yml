@@ -12,8 +12,8 @@ services:
       - TP_THEME=hotline
     volumes:
       - /opt/radarr/config:/config
-      - /mnt/misc/books:/books #optional
-      - /mnt/downloads:/downloads #optional
+      - /mnt/misc/books:/media/books #optional
+      - /mnt/downloads:/data/downloads #optional
     ports:
       - 8787:7878
     restart: unless-stopped
