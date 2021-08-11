@@ -8,6 +8,8 @@ services:
       - TZ=America/Denver
       - PUID=1006
       - PGID=1007
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
+      - TP_THEME=hotline
     volumes:
       - /opt/sabnzbd/config:/config
       - /mnt/downloads:/data/downloads
