@@ -8,7 +8,7 @@ services:
       - PUID=1007
       - PGID=1008
       - TZ=America/Denver
-      - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:readarr
       - TP_THEME=hotline
     volumes:
       - /opt/radarr/config:/config
