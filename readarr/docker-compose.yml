@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   readarr:
-    image: ghcr.io/linuxserver/readarr:nightly
+    image: hotio/readarr:nightly
     container_name: readarr
     environment:
       - PUID=1007
