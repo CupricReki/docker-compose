@@ -10,8 +10,8 @@ services:
         - /opt/rutorrent/config:/config
         - /mnt/downloads:/downloads
       environment:
-        - PUID=1010
-        - PGID=1010
+        - PUID=1007
+        - PGID=1008
         - TZ=America/Denver
         - CREATE_SUBDIR_BY_TRACKERS=NO
         - SSL_ENABLED=NO
