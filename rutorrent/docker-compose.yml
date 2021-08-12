@@ -7,7 +7,7 @@ services:
         - default
       tty: true
       volumes:
-        - /opt/dl/rutorrent:/config
+        - /opt/rutorrent/config:/config
         - /mnt/downloads:/downloads
       environment:
         - PUID=1010
