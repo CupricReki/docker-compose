@@ -9,7 +9,7 @@ services:
       - PGID=1008
       - TZ=America/Denver
     volumes:
-      - /opt/dl/embystat:/config
+      - /opt/embystat/config:/config
     ports:
       - 6555:6555
     restart: unless-stopped
