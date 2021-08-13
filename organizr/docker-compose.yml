@@ -4,7 +4,7 @@ services:
         container_name: organizr
         image: organizr/organizr
         volumes:
-            - /opt/dl/organizr:/config
+            - /opt/organizr/config:/config
         environment:
             - PUID=1007
             - PGID=1008 
