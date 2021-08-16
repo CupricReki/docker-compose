@@ -7,7 +7,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - /opt/dl/remotely:/remotely-data
+      - /opt/remotely/data:/remotely-data
 networks:
   default:
     name: rp-net

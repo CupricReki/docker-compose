@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+    airsonic-refix:
+        ports:
+            - '8585:80'
+        image: 'tamland/airsonic-refix:latest'
+        environment:
+           - SERVER_URL=$SERVER_URL
