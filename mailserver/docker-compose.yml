@@ -23,7 +23,7 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_PTRACE
-    restart: always
+    restart: unless-stopped
 
 volumes:
   maildata:
