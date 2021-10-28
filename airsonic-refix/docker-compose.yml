@@ -4,5 +4,5 @@ services:
         ports:
             - '8585:80'
         image: 'tamland/airsonic-refix:latest'
-        environment:
-           - SERVER_URL=$SERVER_URL
+#        environment:
+#           - SERVER_URL=$SERVER_URL

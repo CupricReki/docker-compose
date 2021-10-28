@@ -1,8 +1,8 @@
 ---
-version: "2.1"
+version: "3.7"
 services:
   readarr:
-    image: hotio/readarr:latest
+    image: hotio/readarr:nightly
     container_name: readarr
     environment:
       - PUID=1007
