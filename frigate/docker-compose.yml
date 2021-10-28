@@ -4,10 +4,10 @@ services:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: blakeblackshear/frigate:<specify_version_tag>
-    shm_size: "64mb" # update for your cameras based on calculation above
+    image: blakeblackshear/frigate:latest
+    shm_size: "128mb" # update for your cameras based on calculation above
     devices:
-      - /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
+      # - /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
       - /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
     volumes:
       - /opt/frigatenvr/config.yml:/config/config.yml:ro
