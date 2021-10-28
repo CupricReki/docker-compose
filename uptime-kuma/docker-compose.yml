@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+  app:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:1
+    restart: always
+    volumes:
+      - /opt/uptime-kuma:/app/data
+    ports:
+      - "80:3001"
+
+volumes:
+  uptime-kuma:
+    driver: local
