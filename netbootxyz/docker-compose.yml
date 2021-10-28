@@ -14,7 +14,7 @@ services:
       - /opt/netbootxyz/config:/config
       - /opt/netbootxyz/assets:/assets #optional
     ports:
-      - 3000:3000
+      - 6783:3000 #web interface
       - 69:69/udp
-      - 8080:80 #optional
+      - 8783:80 #optional NGINX server for hosting assets.
     restart: unless-stopped
