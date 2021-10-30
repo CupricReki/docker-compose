@@ -1,0 +1,3 @@
+# frigate
+
+Frigate NVR configs 
