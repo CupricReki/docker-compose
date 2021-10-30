@@ -1,0 +1,73 @@
+mqtt:
+  host: 10.0.0.20
+cameras:
+  cam01: #Wyze Backyard Camera
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:Polar2000@10.0.101.101:554/live
+          roles:
+            - record
+    detect:
+      width: 1920
+      height: 1080
+  cam02: #Wyze Pan Camera
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:Polar2000@10.0.101.102:554/live
+          roles:
+            - record
+    detect:
+      width: 1920
+      height: 1080
+  cam03: #Wyze Shop Door Camera
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:Polar2000@10.0.101.103:554/live
+          roles:
+            - record
+    detect:
+      width: 1920
+      height: 1080
+  cam04: #Wyze Porch Camera
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:Polar2000@10.0.101.104:554/live
+          roles:
+            - record
+    detect:
+      width: 1920
+      height: 1080
+  cam05:
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:Polar2000@10.0.0.35:554//h264Preview_01_main
+          roles:
+            - record
+    detect:
+      width: 1920
+      height: 1080
+  cam06:
+    ffmpeg:
+      inputs:
+        - path: rtsp://admin:Polar2000@10.0.0.36:554//h264Preview_01_main
+          roles:
+            - record
+    detect:
+      width: 1920
+      height: 1080
+database:
+  path: /db/frigate.db
+record:
+  enabled: True
+  retain_days: 14
+  events:
+    retain:
+      default: 10
+ffmpeg:
+  hwaccel_args:
+    - -hwaccel
+    - vaapi
+    - -hwaccel_device
+    - /dev/dri/renderD128
+    - -hwaccel_output_format
+    - yuv420p
