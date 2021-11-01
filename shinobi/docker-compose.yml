@@ -2,21 +2,21 @@
  services:
    db:
      image: mariadb
-     container_name: shinobiNVR-mairadb
+     container_name: shinobi-mariadb
      env_file:
        - MySQL.env
      volumes:
-       - ./datadir:/var/lib/mysql
+       - /opt/shinobi/data:/var/lib/mysql
    shinobi:
      image: migoller/shinobidocker:microservice-alpine
-     container_name: shinobiNVR
+     container_name: shinobi
      env_file:
        - MySQL.env
        - Shinobi.env
      volumes:
        - /etc/localtime:/etc/localtime:ro
        - /etc/timezone:/etc/timezone:ro
-       - /opt/shinobinvr/config:/config
+       - /opt/shinobi/config:/config
        - /mnt/media/shinobi:/opt/shinobi/videos
        - /dev/shm/shinobiDockerTemp:/dev/shm/streams
      ports:
