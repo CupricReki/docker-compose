@@ -2,12 +2,14 @@
  services:
    db:
      image: mariadb
+     container_name: shinobiNVR-mairadb
      env_file:
        - MySQL.env
      volumes:
        - ./datadir:/var/lib/mysql
    shinobi:
      image: migoller/shinobidocker:microservice-alpine
+     container_name: shinobiNVR
      env_file:
        - MySQL.env
        - Shinobi.env
