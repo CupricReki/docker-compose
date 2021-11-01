@@ -14,8 +14,8 @@
      volumes:
        - /etc/localtime:/etc/localtime:ro
        - /etc/timezone:/etc/timezone:ro
-       - /opt/shiobinvr/config:/config
-       - /mnt/media/Shinobi:/opt/shinobi/videos
+       - /opt/shinobinvr/config:/config
+       - /mnt/media/shinobi:/opt/shinobi/videos
        - /dev/shm/shinobiDockerTemp:/dev/shm/streams
      ports:
        - "8202:8080"
