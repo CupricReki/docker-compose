@@ -18,4 +18,4 @@
        - /mnt/media/Shinobi:/opt/shinobi/videos
        - /dev/shm/shinobiDockerTemp:/dev/shm/streams
      ports:
-       - "8080:8080"
+       - "8202:8080"
