@@ -3,13 +3,15 @@
    db:
      image: mariadb
      container_name: shinobi-mariadb
+     restart: unless-stopped
      env_file:
        - MySQL.env
      volumes:
        - /opt/shinobi/data:/var/lib/mysql
    shinobi:
-     image: migoller/shinobidocker:microservice-alpine
+     image: migoller/shinobidocker:microservice-debian
      container_name: shinobi
+     restart: unless-stopped
      env_file:
        - MySQL.env
        - Shinobi.env
@@ -20,4 +22,5 @@
        - /mnt/media/shinobi:/opt/shinobi/videos
        - /dev/shm/shinobiDockerTemp:/dev/shm/streams
      ports:
-       - "8202:8080"
+       - "8080:8080"
+       - "8000:8000"
