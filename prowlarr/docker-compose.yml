@@ -11,7 +11,7 @@ services:
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:prowlarr
       # - TP_THEME=hotline
     volumes:
-      - /opt/dl/prowlarr:/config
+      - /opt/prowlarr:/config
     ports:
       - 9696:9696
     restart: always
