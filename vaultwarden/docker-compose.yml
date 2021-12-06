@@ -7,11 +7,11 @@ services:
     container_name: bitwarden
     restart: always
     volumes:
-      - /opt/dl/bitwarden:/data
+      - /opt/bitwarden/data:/data
     environment:
       WEBSOCKET_ENABLED: 'true' # Required to use websockets
       SIGNUPS_ALLOWED: 'false'   # set to false to disable signups
-      ADMIN_TOKEN: 'VN6f75wzCtJ7As5qVCSDETKtQbPw93AQgaLge2VxHuphkBChze'
+      ADMIN_TOKEN: $ADMIN_TOKEN 
     ports:
       - "8004:80"
       - "3012:3012"

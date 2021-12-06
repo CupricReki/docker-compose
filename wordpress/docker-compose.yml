@@ -1,0 +1,31 @@
+---
+
+version: "3"
+
+services:
+ 
+  mysql_db:    
+    image: mysql:latest
+    container_name: db
+    restart: always
+    volumes:
+       - /opt/wordpress/mysql:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=root@123
+      - MYSQL_DATABASE=wp
+      - MYSQL_USER=wp
+      - MYSQL_PASSWORD=wp
+        
+  wordpress:   
+    image: wordpress:latest
+    container_name: wordpress-valhalla
+    restart: always
+    volumes:
+       - /opt/wordpress/www:/var/www/html/
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wp
+      - WORDPRESS_DB_PASSWORD=wp
+      - WORDPRESS_DB_NAME=wp
+    ports:
+      - "8734:80"
