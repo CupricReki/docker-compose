@@ -6,7 +6,7 @@ services:
     image: adamboutcher/statping-ng:latest
     restart: always
     volumes:
-      - /opt/statping:/app
+      - /opt/statping/data:/app
     environment:
       DB_CONN: sqlite
     ports:
