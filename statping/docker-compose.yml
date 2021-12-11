@@ -11,6 +11,3 @@ services:
       DB_CONN: sqlite
     ports:
       - 5756:8080
-
-volumes:
-  statping_data:
