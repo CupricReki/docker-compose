@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+    mosquitto:
+        ports:
+            - '1883:1883'
+            - '9001:9001'
+        volumes:
+            - /opt/mosquitto/mosquitto:/mosquitto/
+        image: eclipse-mosquitto
