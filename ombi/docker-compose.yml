@@ -1,11 +1,10 @@
 ---
-version: "2"
+version: "3"
 services:
   ombi:
     container_name: ombi
     image: ghcr.io/linuxserver/ombi:latest
     restart: unless-stopped
-    network_mode: host
     environment:
       - TZ=America/Denver
       - PUID=1007
