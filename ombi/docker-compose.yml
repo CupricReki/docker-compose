@@ -3,7 +3,7 @@ version: "2"
 services:
   ombi:
     container_name: ombi
-    image: linuxserver/ombi:latest
+    image: ghcr.io/linuxserver/ombi:latest
     restart: unless-stopped
     network_mode: host
     environment:
@@ -14,4 +14,4 @@ services:
     ports:
       - 3579:3579
     volumes:
-      - /opt/dl/ombi:/config
+      - /opt/ombi/config:/config
