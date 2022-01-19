@@ -12,7 +12,7 @@ services:
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:calibre-web
       # - TP_THEME=hotline
     volumes:
-      - /opt/dl/calibre-web:/config
+      - /opt/calibre-web:/config
       - /mnt/misc/calibre-library:/calibre-library
     ports:
       - 8783:8083

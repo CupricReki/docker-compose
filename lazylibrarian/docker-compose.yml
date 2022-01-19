@@ -10,7 +10,7 @@ services:
       - TZ=America/Denver
       - DOCKER_MODS=linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
     volumes:
-      - /opt/dl/lazylibrarian:/config
+      - /opt/lazylibrarian:/config
       - /mnt/downloads:/downloads
       - /mnt/misc/books:/books
       - /mnt/misc/audiobooks:/audiobooks
