@@ -5,7 +5,7 @@ services:
         ports:
             - '8765:80'
         volumes:
-            - '/opt/dl/speedtest-tracker:/config'
+            - '/opt/speedtest-tracker:/config'
         environment:
             - SLACK_WEBHOOK=webhook
             - PUID=1007
