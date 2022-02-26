@@ -27,8 +27,6 @@ services:
       #- LDAP_START_TLS=false
     volumes:
       - /opt/bookstack/config:/config
-      - /opt/bookstack/uploads:/var/www/bookstack/public/uploads
-      - /opt/bookstack/storage-uploads:/var/www/bookstack/public/storage
     ports:
       - 6875:80
     restart: unless-stopped
