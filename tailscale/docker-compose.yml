@@ -7,4 +7,4 @@ services:
             - '/dev/net/tun:/dev/net/tun'
         network_mode: host
         privileged: false
-        image: tailscaled
+        image: tailscale/tailscale
