@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+    tailscaled:
+        container_name: tailscaled
+        volumes:
+            - '/var/lib:/var/lib'
+            - '/dev/net/tun:/dev/net/tun'
+        network_mode: host
+        privileged: false
+        image: tailscaled
