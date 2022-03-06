@@ -16,7 +16,7 @@ services:
       - IPAM_DATABASE_WEBHOST=%
     restart: always
     volumes:
-      - /opt/dl/phpipam/phpipam-logo:/phpipam/css/images/logo
+      - /opt/phpipam/phpipam-logo:/phpipam/css/images/logo
     depends_on:
       - phpipam-mariadb
 
@@ -39,7 +39,7 @@ services:
       - MYSQL_ROOT_PASSWORD=my_secret_mysql_root_pass
     restart: always
     volumes:
-      - /opt/dl/phpipam/phpipam-db-data:/var/lib/mysql
+      - /opt/phpipam/phpipam-db-data:/var/lib/mysql
 
   # phpipam-agent:
   #   image: pierrecdn/phpipam-agent:latest
