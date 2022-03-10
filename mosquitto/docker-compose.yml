@@ -7,3 +7,4 @@ services:
         volumes:
             - /opt/mosquitto/mosquitto:/mosquitto
         image: eclipse-mosquitto
+        restart: unless-stopped

@@ -1,0 +1,55 @@
+version: "3.4"
+services:
+  tdarr:
+    container_name: tdarr
+    image: ghcr.io/haveagitgat/tdarr:latest
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 8265:8265 # webUI port
+      - 8266:8266 # server port
+      - 8267:8267 # Internal node port
+      - 8268:8268 # Example extra node port
+    environment:
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1008
+      - UMASK_SET=002
+      - serverIP=0.0.0.0
+      - serverPort=8266
+      - webUIPort=8265
+      - internalNode=true
+      - nodeID=MyInternalNode
+      - nodeIP=0.0.0.0
+      - nodePort=8267
+    volumes:
+      - /opt/tdarr/server:/app/server
+      - /opt/tdarr/configs:/app/configs
+      - /opt/tdarr/logs:/app/logs
+      - /mnt/test_media:/media
+      - /mnt/test_media_output:/media_output
+      - /transcode_cache:/temp
+
+
+# node example
+  tdarr-node:
+    container_name: tdarr-node
+    image: ghcr.io/haveagitgat/tdarr_node:latest
+    restart: unless-stopped
+    network_mode: service:tdarr
+    environment:
+      - TZ=America/Denver
+      - PUID=1007
+      - PGID=1008
+      - UMASK_SET=002
+      - nodeID=MainNode
+      - nodeIP=0.0.0.0
+      - nodePort=8268
+      - serverIP=0.0.0.0
+      - serverPort=8266
+    volumes:
+      - /opt/tdarr/configs:/app/configs
+      - /opt/tdarr/logs:/app/logs
+      - /mnt/test_media:/media
+      - /mnt/test_media_output:/media_output
+      - /transcode_cache:/temp
