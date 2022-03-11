@@ -2,7 +2,7 @@ version: '3.3'
 services:
     serve:
         volumes:
-            - '/var/cache/ntfy:/var/cache/ntfy'
+            - '/opt/ntfy/cache/ntfy:/var/cache/ntfy'
         ports:
             - '80:80'
         image: binwiederhier/ntfy
