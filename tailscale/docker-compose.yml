@@ -6,6 +6,5 @@ services:
             - '/var/lib:/var/lib'
             - '/dev/net/tun:/dev/net/tun'
         network_mode: host
-        privileged: false
         image: tailscale/tailscale
         restart: unless-stopped
