@@ -1,10 +1,26 @@
 version: "3.6"
 services:
+  mosquitto-mqtt:
+    container_name: mosquitto-mqtt
+    networks:
+      - frigate
+    ports:
+      - '1883:1883'
+      - '9001:9001'
+    image: eclipse-mosquitto
+    volumes:
+      - /opt/frigatenvr/mqtt:/mosquitto
+    restart: unless-stopped 
+
   frigate:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
     image: blakeblackshear/frigate:stable-amd64
+    networks:
+      - frigate
+    depends_on:
+      - mosquitto-mqtt
     shm_size: "128mb" # update for your cameras based on calculation above
     devices:
       # - /dev/bus/usb:/dev/bus/usb # passes the USB Coral, needs to be modified for other versions
@@ -22,14 +38,9 @@ services:
       - "1935:1935" # RTMP feeds
     environment:
       FRIGATE_RTSP_PASSWORD: "frigate"
-  mosquitto-mqtt:
-    container_name: mosquitto-mqtt
-    ports:
-        - '1883:1883'
-        - '9001:9001'
-    image: eclipse-mosquitto
-    volumes:
-        - /opt/frigatenvr/mqtt:/mosquitto
-    restart: unless-stopped  
+
+networks:
+  frigate:
+ 
 
 
