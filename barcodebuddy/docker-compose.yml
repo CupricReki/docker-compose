@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+    barcodebuddy-docker:
+        volumes:
+            - '/opt/barcodebuddy/config:/config'
+        ports:
+            - '8343:80'
+        image: 'f0rc3/barcodebuddy-docker:latest'
