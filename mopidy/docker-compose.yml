@@ -10,8 +10,8 @@
           - "6680:6680"
         restart: unless-stopped
         volumes:
-          - /opt/mopidy/.config/:/root/.config/
-          - /data/music/:/data/music/
+          - /opt/mopidy/config/:/root/.config/
+          - /mnt/nas/music/:/data/music/
       mysql:
         image: linuxserver/mariadb
         restart: unless-stopped
@@ -25,7 +25,7 @@
           - MYSQL_USER=rompr
           - MYSQL_PASSWORD=romprdbpass
         volumes:
-          - ./db_config:/config
+          - /opt/mopidy/db_config:/config
         ports:
           - "3306:3306"
       rompr:
