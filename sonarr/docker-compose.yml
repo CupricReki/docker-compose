@@ -11,7 +11,7 @@ services:
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
       # - TP_THEME=hotline
     volumes:
-      - sonarr/config:/config
+      - /opt/sonarr/config:/config
       - shows:/media/tv
       - anime:/media/anime 
       - downloads:/data/downloads
