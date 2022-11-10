@@ -8,8 +8,6 @@ services:
       - TZ=America/Denver
       - PUID=1007
       - PGID=1008
-      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
-      # - TP_THEME=hotline
     volumes:
       - /opt/sonarr/config:/config
       - shows:/media/tv
@@ -25,7 +23,7 @@ volumes:
     driver_opts:
       type: "nfs4"
       o: "addr=10.0.0.3"
-      device: ":/mnt/media/show"
+      device: ":/mnt/media/shows"
   anime:
     driver: local
     driver_opts:
