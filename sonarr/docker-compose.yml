@@ -11,16 +11,30 @@ services:
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
       # - TP_THEME=hotline
     volumes:
-      - /opt/sonarr/config:/config
-      - /mnt/shows:/media/tv
-      - /mnt/anime:/media/anime 
-      - /mnt/downloads:/data/downloads
+      - sonarr/config:/config
+      - shows:/media/tv
+      - anime:/media/anime 
+      - downloads:/data/downloads
     ports:
       - 8989:8989
     mem_limit: 4096m
     restart: unless-stopped
-#
-#      driver: gelf
-#      options:
-#        gelf-address: "udp://10.0.10.9:12201"
-#        tag: "sonarr"
+volumes:
+  shows:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/show"
+  anime:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/anime"
+  downloads:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/cache_slow-striped/downloads"
