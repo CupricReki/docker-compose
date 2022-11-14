@@ -15,7 +15,7 @@ services:
       - downloads:/data/downloads
     ports:
       - 7878:7878
-    mem_limit: 1024m
+    mem_limit: 2048m
     restart: unless-stopped
 volumes:
   movies:
