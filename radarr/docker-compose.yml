@@ -11,6 +11,7 @@ services:
     volumes:
       - /opt/radarr/config:/config
       - movies:/media/movies
+      - movies2:/media/movies2
       - downloads:/data/downloads
     ports:
       - 7878:7878
