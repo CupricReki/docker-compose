@@ -1,5 +1,5 @@
----
-version: "2"
+---                                                                                                                                                                                                                                                                                                       
+version: "3.7"                                                                                                                                                                                                                                                                                            
 services:
   radarr:
     image: ghcr.io/linuxserver/radarr:latest
@@ -8,13 +8,24 @@ services:
       - TZ=America/Denver
       - PUID=1007
       - PGID=1008
-      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
-      # - TP_THEME=hotline
     volumes:
       - /opt/radarr/config:/config
-      - /mnt/movies:/media/movies
-      - /mnt/downloads:/data/downloads
+      - movies:/media/movies
+      - downloads:/data/downloads
     ports:
       - 7878:7878
-    mem_limit: 4096m
+    mem_limit: 1024m
     restart: unless-stopped
+volumes:
+  movies:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/movies"
+ downloads:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/cache_slow-striped/downloads"
