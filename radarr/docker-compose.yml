@@ -23,7 +23,7 @@ volumes:
       type: "nfs4"
       o: "addr=10.0.0.3"
       device: ":/mnt/media/movies"
- downloads:
+  downloads:
     driver: local
     driver_opts:
       type: "nfs4"
