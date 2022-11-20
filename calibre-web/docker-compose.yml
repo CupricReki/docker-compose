@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   calibre-web:
-    image: ghcr.io/linuxserver/calibre-web
+    image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web
     environment:
       - PUID=1007
@@ -13,7 +13,13 @@ services:
       # - TP_THEME=hotline
     volumes:
       - /opt/calibre-web:/config
-      - /mnt/misc/calibre-library:/calibre-library
+      - calibre-library:/calibre-library
     ports:
       - 8783:8083
     restart: unless-stopped
+  calibre-library:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/calibre-library"
