@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 ---
-version: "3.7"
-=======
----                                                                                                                                                                                                                                                                                                       
 version: "3.7"                                                                                                                                                                                                                                                                                            
->>>>>>> 343c04185182a95ee3b4c0027a3be64b82357e2b
 services:
   radarr:
     image: ghcr.io/linuxserver/radarr:latest
@@ -16,18 +11,11 @@ services:
     volumes:
       - /opt/radarr/config:/config
       - movies:/media/movies
-<<<<<<< HEAD
       - downloads:/data/downloads
-    ports:
-      - 7878:7878
-    mem_limit: 1024m
-=======
       - movies2:/media/movies2
-      - downloads:/data/downloads
     ports:
       - 7878:7878
     mem_limit: 2048m
->>>>>>> 343c04185182a95ee3b4c0027a3be64b82357e2b
     restart: unless-stopped
 volumes:
   movies:
@@ -35,11 +23,7 @@ volumes:
     driver_opts:
       type: "nfs4"
       o: "addr=10.0.0.3"
-<<<<<<< HEAD
       device: ":/mnt/media/shows"
- downloads:
-=======
-      device: ":/mnt/media_2/movies"
   movies2:
     driver: local
     driver_opts:
@@ -47,7 +31,6 @@ volumes:
       o: "addr=10.0.0.3"
       device: ":/mnt/media/movies2"
   downloads:
->>>>>>> 343c04185182a95ee3b4c0027a3be64b82357e2b
     driver: local
     driver_opts:
       type: "nfs4"
