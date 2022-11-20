@@ -11,6 +11,6 @@ web:
     - '8929:80'
     - '2224:22'
   volumes:
-    - '/opt/dl/gitlab/config:/etc/gitlab'
-    - '/opt/dl/gitlab/logs:/var/log/gitlab'
-    - '/opt/dl/gitlab/data:/var/opt/gitlab'
+    - '/opt/gitlab/config:/etc/gitlab'
+    - '/opt/gitlab/logs:/var/log/gitlab'
+    - '/opt/gitlab/data:/var/opt/gitlab'
