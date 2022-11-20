@@ -13,9 +13,9 @@ services:
      # - CONTEXT_PATH # For setting url-base in reverse proxy setups.
     volumes:
       - /opt/airsonic-advanced/data:/var/airsonic # Configuration file location.
-      - /mnt/misc/playlists:/var/playlists # Location for playlists to be saved to.
-      - /mnt/music:/var/music # Location of music.
-      - /mnt/misc/podcasts:/var/podcasts # Location of podcasts.
+      - playlists:/var/playlists # Location for playlists to be saved to.
+      - music:/var/music # Location of music.
+      - podcasts:/var/podcasts # Location of podcasts.
 #      - /srv/2TB1/Youtube:/var/youtube # Location of other media.
 #      - /srv/2TB1/Audio-Books:/var/audio-books
     ports:
@@ -29,3 +29,15 @@ volumes:
       type: "nfs4"
       o: "addr=10.0.0.3"
       device: ":/mnt/cache_slow-striped/music"
+  playlists:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/playlists"
+  podcasts:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/podcasts"
