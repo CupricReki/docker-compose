@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   embystat:
-    image: linuxserver/embystat:latest
+    image: lscr.io/linuxserver/embystat:latest
     container_name: embystat
     environment:
       - PUID=1007
