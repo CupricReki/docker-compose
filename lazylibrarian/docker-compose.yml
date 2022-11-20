@@ -11,9 +11,28 @@ services:
       - DOCKER_MODS=linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
     volumes:
       - /opt/lazylibrarian:/config
-      - /mnt/downloads:/downloads
-      - /mnt/misc/books:/books
-      - /mnt/misc/audiobooks:/audiobooks
+      - downloads:/downloads
+      - books:/books
+      - audiobooks:/audiobooks
     ports:
       - 5299:5299
     restart: always
+volumes:
+  downloads:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/cache_slow-striped/downloads"
+  books:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/books"
+  audiobooks:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/audiobooks"
