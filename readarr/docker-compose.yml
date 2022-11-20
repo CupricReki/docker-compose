@@ -2,18 +2,29 @@
 version: "3.7"
 services:
   readarr:
-    image: hotio/readarr:nightly
+    image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     environment:
       - PUID=1007
       - PGID=1008
       - TZ=America/Denver
-      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:readarr
-      # - TP_THEME=hotline
     volumes:
       - /opt/radarr/config:/config
-      - /mnt/misc/calibre-library:/media/books #optional
-      - /mnt/downloads:/data/downloads #optional
+      - calibre-library:/media/books #optional
+      - downloads:/data/downloads #optional
     ports:
       - 8787:7878
     restart: unless-stopped
+volumes:
+  downloads:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/cache_slow-striped/downloads"
+  calibre-library:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/calibre-library"
