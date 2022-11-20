@@ -1,16 +1,18 @@
 ---
-web:
-  image: gitlab/gitlab-ce:latest
-  restart: always
-  hostname: 'gitlab.ogbase.net'
-  container_name: gitlab
-  environment:
-    GITLAB_OMNIBUS_CONFIG: |
-      gitlab_rails['gitlab_shell_ssh_port'] = 2224
-  ports:
-    - '8929:80'
-    - '2224:22'
-  volumes:
-    - '/opt/gitlab/config:/etc/gitlab'
-    - '/opt/gitlab/logs:/var/log/gitlab'
-    - '/opt/gitlab/data:/var/opt/gitlab'
+version: "2.1"
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:14.6.2-ce.0
+    restart: always
+    hostname: 'gitlab.ogbase.net'
+    container_name: gitlab
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+    ports:
+      - '8929:80'
+      - '2224:22'
+    volumes:
+      - '/opt/gitlab/config:/etc/gitlab'
+      - '/opt/gitlab/logs:/var/log/gitlab'
+      - '/opt/gitlab/data:/var/opt/gitlab'

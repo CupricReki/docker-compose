@@ -17,6 +17,7 @@ services:
     ports:
       - 8783:8083
     restart: unless-stopped
+volumes:
   calibre-library:
     driver: local
     driver_opts:
