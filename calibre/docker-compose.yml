@@ -11,10 +11,18 @@ services:
         #- PASSWORD= password
         #- CLI_ARGS= #optional
     volumes:
-      - /opt/dl/calibre/config:/config
-      - /mnt/misc/calibre-library:/calibre-library
-      - /opt/dl/calibre/uploads:/uploads
+      - /opt/calibre/config:/config
+      - calibre-library:/calibre-library
+      - /opt/uploads:/uploads
     ports:
       - 8780:8080
       - 8781:8081
     restart: unless-stopped
+volumes:
+  calibre-library:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/calibre-library"
+
