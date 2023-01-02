@@ -11,6 +11,6 @@ services:
     volumes:
       - /opt/heimdal:/config
     ports:
-      - 80:80
-      - 443:443
+      - 8912:80
+    #  - 443:443
     restart: unless-stopped
