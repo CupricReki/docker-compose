@@ -16,7 +16,7 @@ services:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: blakeblackshear/frigate:stable-amd64
+    image: ghcr.io/blakeblackshear/frigate:0.12.0-beta3
     networks:
       - frigate
     depends_on:
