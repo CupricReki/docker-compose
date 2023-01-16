@@ -16,7 +16,7 @@ services:
     container_name: frigate
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
-    image: blakeblackshear/frigate:stable-amd64
+    image: ghcr.io/blakeblackshear/frigate:0.12.0-beta3
     networks:
       - frigate
     depends_on:
@@ -27,7 +27,7 @@ services:
       - /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
     volumes:
       - /opt/frigatenvr/config/config.yml:/config/config.yml:ro
-      - /mnt/media:/media/frigate
+      - media:/media/frigate
       - /opt/frigatenvr/db:/db
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
@@ -38,7 +38,13 @@ services:
       - "1935:1935" # RTMP feeds
     environment:
       FRIGATE_RTSP_PASSWORD: "frigate"
-
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/surveillance"
 networks:
   frigate:
  
