@@ -2,13 +2,13 @@
 version: "2.1"
 services:
   calibre-web:
-    image: lscr.io/linuxserver/mods:universal-calibre
+    image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web
     environment:
       - PUID=1007
       - PGID=1008
       - TZ=America/Denver
-      - DOCKER_MODS=linuxserver/calibre-web:calibre
+      - DOCKER_MODS=linuxserver/mods:universal-calibre #optional
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:calibre-web
       # - TP_THEME=hotline
     volumes:
