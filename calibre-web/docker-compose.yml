@@ -2,7 +2,7 @@
 version: "2.1"
 services:
   calibre-web:
-    image: lghcr.io/linuxserver/mods:universal-calibre
+    image: ghcr.io/linuxserver/mods:universal-calibre
     container_name: calibre-web
     environment:
       - PUID=1007
