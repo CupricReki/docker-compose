@@ -1,23 +1,38 @@
-version: '3'
+version: '3.8'
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
     restart: unless-stopped
+    ports:
+      # These ports are in format <host-port>:<container-port>
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+      # Add any other Stream port you want to expose
+      # - '21:21' # FTP
+    environment:
+      # Mysql/Maria connection parameters:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_NAME: "npm"
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
     volumes:
-      - /opt/dl/RP/config.json:/app/config/production.json
-      - /opt/dl/RP/data:/data
-      - /opt/dl/RP/letsencrypt:/etc/letsencrypt
+      - /opt/npm/config.json:/app/config/production.json
+      - /opt/npm/data:/data
+      - /opt/npm/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+
   db:
-    image: 'jc21/mariadb-aria:10.4'
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npm'
-    restart: unless-stopped
     volumes:
-      - /opt/dl/RP/data/mysql:/var/lib/mysql
+      - /opt/npm/mysql:/var/lib/mysql
