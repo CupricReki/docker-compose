@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  ddb-proxy:
+    image: ghcr.io/mrprimate/ddb-proxy:latest
+    environment:
+      - VIRTUAL_HOST=iceni.timepiggy.com
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=ddb-proxy.timepiggy.com
