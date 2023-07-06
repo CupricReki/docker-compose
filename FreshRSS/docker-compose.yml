@@ -28,23 +28,6 @@ services:
       - "${PUBLISHED_PORT}:${LISTEN:-80}"
       # Optional parameter, set to 1 to enable OpenID Connect (only available in our Debian image)
       # Requires more environment variables. See https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html
-    OIDC_ENABLED:
-    FRESHRSS_INSTALL: |-
-      --api_enabled
-      --base_url ${BASE_URL}
-      --db-base ${DB_BASE}
-      --db-host ${DB_HOST}
-      --db-password ${DB_PASSWORD}
-      --db-type pgsql
-      --db-user ${DB_USER}
-      --default_user admin
-      --language en
-    FRESHRSS_USER: |-
-      --api_password ${ADMIN_API_PASSWORD}
-      --email ${ADMIN_EMAIL}
-      --language en
-      --password ${ADMIN_PASSWORD}
-      --user admin
 
   freshrss-db:
     image: postgres:15
@@ -68,3 +51,19 @@ services:
       - shared_buffers=1GB
       - -c
       - work_mem=32MB
+
+  rss-bridge:
+    image: rssbridge/rss-bridge:latest
+    volumes:
+      - ./rss-bridge/config:/config
+      # Cache Folder 
+      # Needs to be owned by www-data:www-data
+      - ./rss-bridge/cache:/app/cache
+    ports:
+      - "${RSS_BRIDGE_PUBLISHED_PORT}:80"
+    restart: unless-stopped
+
+  morss:
+    image: pictuga/morss
+    ports:
+      - "${MORSS_PUBLISHED_PORT}:8000"
