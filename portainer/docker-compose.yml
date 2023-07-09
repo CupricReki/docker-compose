@@ -9,8 +9,8 @@ services:
     restart: always
     environment:
       - TZ=America/Denver
-      - PUID=$docker_run-user
-      - PGID=$docker_run-group
+      - PUID=$docker_run_user
+      - PGID=$docker_run_group
     ports:
       - 9000:9000
       - 8000:8000
