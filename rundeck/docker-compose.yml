@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    rundeck:
+        container_name: rundeck
+        image: ${RUNDECK_IMAGE:-rundeck/rundeck:SNAPSHOT}
+        links:
+          - postgres
+        tty: true
+        environment:
+            RUNDECK_DATABASE_DRIVER: org.postgresql.Driver
+            RUNDECK_DATABASE_USERNAME: $POSTGRES_USER
+            RUNDECK_DATABASE_PASSWORD: $POSTGRES_PASSWORD
+            RUNDECK_DATABASE_URL: jdbc:postgresql://postgres/rundeck?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+              #RUNDECK_GRAILS_URL: localhost:4440
+        ports:
+          - 4440:4440
+    postgres:
+        container_name: rundeckdb
+        image: postgres
+        expose:
+          - 5432
+        environment:
+          - POSTGRES_DB=$POSTGRES_DB
+          - POSTGRES_USER=$POSTGRES_USER
+          - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+        volumes:
+          - dbdata:/var/lib/postgresql/data
+
+volumes:
+    dbdata:

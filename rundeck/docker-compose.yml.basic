@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    rundeck:
+        image: ${RUNDECK_IMAGE:-rundeck/rundeck:SNAPSHOT}
+        tty: true
+        volumes:
+          - ./data:/home/rundeck/server/data
+        ports:
+          - 4440:4440

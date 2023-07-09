@@ -7,12 +7,12 @@
             ],
             "description": "AdGuard Home is a network-wide software for blocking ads & tracking. After you set it up, it’ll cover ALL your home devices, and you don’t need any client-side software for that. With the rise of Internet-Of-Things and connected devices, it becomes more and more important to be able to control your whole network.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -56,12 +56,12 @@
             ],
             "description": "Airsonic is a free, web-based media streamer, providing ubiqutious access to your music. Use it to share your music with friends, or to listen to your own music while at work. You can stream to multiple players simultaneously, for instance to one player in your kitchen and another in your living room.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -120,13 +120,13 @@
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "description": "for UserID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -157,13 +157,13 @@
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "description": "for UserID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -188,7 +188,7 @@
         {
             "description": "[Babybuddy](https://github.com/babybuddy/babybuddy) is a buddy for babies! Helps caregivers track sleep, feedings, diaper changes, tummy time and more to learn about and predict baby's needs without (as much) guess work.",
             "env": [{
-                "default": "Europe/Amsterdam",
+                "default": "America/New_York",
                 "description": "Specify a timezone to use for example Europe/Amsterdam",
                 "label": "TZ",
                 "name": "TZ"
@@ -216,12 +216,12 @@
             ],
             "description": "Bazarr is a companion application to Sonarr and Radarr. It can manage and download subtitles based on your requirements. You define your preferences by TV show or movie and Bazarr takes care of everything for you.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -260,12 +260,12 @@
             ],
             "description": "The purpose of beets is to get your music collection right once and for all. It catalogs your collection, automatically improving its metadata as it goes using the MusicBrainz database. Then it provides a bouquet of tools for manipulating and accessing your music.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "label": "PGID",
                     "name": "PGID"
                 }
@@ -301,18 +301,18 @@
             "description": "[BOINC](https://boinc.berkeley.edu/) is a platform for high-throughput computing on a large scale (thousands or millions of computers). It can be used for volunteer computing (using consumer devices) or grid computing (using organizational resources). It supports virtualized, parallel, and GPU-based applications.",
             "env": [{
                     "default": "1024",
-                    "description": "for GroupID",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
                     "default": "100",
-                    "description": "for UserID",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -347,12 +347,12 @@
             ],
             "description": "Booksonic is a server and an app for streaming your audiobooks to any pc or android phone. Most of the functionality is also availiable on other platforms that have apps for subsonic.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -398,13 +398,13 @@
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "description": "for UserID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -451,14 +451,14 @@
             ],
             "description": "[Bookstack](https://github.com/BookStackApp/BookStack) is a free and open source Wiki designed for creating beautiful documentation. Featuring a simple, but powerful WYSIWYG editor it allows for teams to create detailed and useful documentation with ease. Powered by SQL and including a Markdown editor for those who prefer it, BookStack is geared towards making documentation more of a pleasure than a chore. For more information on BookStack visit their website and check it out: https://www.bookstackapp.com",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -515,19 +515,19 @@
             ],
             "description": "[Calibre](https://calibre-ebook.com/) is a powerful and easy to use e-book manager. Users say it’s outstanding and a must-have. It’ll allow you to do nearly everything and it takes things a step beyond normal e-book software. It’s also completely free and open source and great for both casual users and computer experts.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -569,12 +569,12 @@
             ],
             "description": "Calibre Web is a web app providing a clean interface for browsing, reading and downloading eBooks using an existing Calibre database.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
+                    "default": "6006",
                     "label": "PGID",
                     "name": "PGID"
                 }
@@ -610,12 +610,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "CHEVERETO_DB_HOST",
@@ -666,19 +666,19 @@
             ],
             "description": "[Cloud9](https://github.com/c9/core) Cloud9 is a complete web based IDE with terminal access. This container is for running their core SDK locally and developing plugins.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -733,19 +733,19 @@
             ],
             "description": "[Code-server](https://coder.com) is VS Code running on a remote server, accessible through the browser. - Code on your Chromebook, tablet, and laptop with a consistent dev environment. - If you have a Windows or Mac workstation, more easily develop for Linux. - Take advantage of large cloud servers to speed up tests, compilations, downloads, and more. - Preserve battery life when you're on the go. - All intensive computation runs on your server. - You're no longer running excess instances of Chrome.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -809,19 +809,19 @@
             ],
             "description": "[Cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) by Sébastien Lucas, stands for Calibre OPDS (and HTML) Php Server. COPS links to your Calibre library database and allows downloading and emailing of books directly from a web browser and provides a OPDS feed to connect to your devices. Changes in your Calibre library are reflected immediately in your COPS pages. See : [COPS's home](http://blog.slucas.fr/en/oss/calibre-opds-php-server) for more details. Don't forget to check the [Wiki](https://github.com/seblucas/cops/wiki). ## Why? (taken from the author's site) In my opinion Calibre is a marvelous tool but is too big and has too much dependencies to be used for its content server. That's the main reason why I coded this OPDS server. I needed a simple tool to be installed on a small server (Seagate Dockstar in my case). I initially thought of Calibre2OPDS but as it generate static file no search was possible. Later I added an simple HTML catalog that should be usable on my Kobo. So COPS's main advantages are : * No need for many dependencies. * No need for a lot of CPU or RAM. * Not much code. * Search is available. * With Dropbox / owncloud it's very easy to have an up to date OPDS server. * It was fun to code. If you want to use the OPDS feed don't forget to specify feed.php at the end of your URL.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -854,19 +854,19 @@
             ],
             "description": "[Couchpotato](https://couchpota.to/) is an automatic NZB and torrent downloader. You can keep a `movies I want` list and it will search for NZBs/torrents of these movies every X hours. Once a movie is found, it will send it to SABnzbd or download the torrent to a specified directory.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -903,19 +903,19 @@
             ],
             "description": "[Daapd](https://owntone.github.io/owntone-server/) (iTunes) media server with support for AirPlay devices, Apple Remote (and compatibles), Chromecast, MPD and internet radio.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -946,19 +946,19 @@
             ],
             "description": "[darktable](https://www.darktable.org/) is an open source photography workflow application and raw developer. A virtual lighttable and darkroom for photographers. It manages your digital negatives in a database, lets you view them through a zoomable lighttable and enables you to develop raw images and enhance them.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -986,19 +986,19 @@
             ],
             "description": "[Davos](https://github.com/linuxserver/davos) is an FTP automation tool that periodically scans given host locations for new files. It can be configured for various purposes, including listening for specific files to appear in the host location, ready for it to download and then move, if required. It also supports completion notifications as well as downstream API calls, to further the workflow.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1031,19 +1031,19 @@
             ],
             "description": "[Ddclient](https://github.com/ddclient/ddclient) is a Perl client used to update dynamic DNS entries for accounts on Dynamic DNS Network Service Provider. It was originally written by Paul Burry and is now mostly by wimpunk. It has the capability to update more than just dyndns and it can fetch your WAN-ipaddress in a few different ways.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1068,19 +1068,19 @@
             ],
             "description": "[Deluge](http://deluge-torrent.org/) is a lightweight, Free Software, cross-platform BitTorrent client. * Full Encryption * WebUI * Plugin System * Much more...",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1121,19 +1121,19 @@
             ],
             "description": "[digiKam](https://www.digikam.org/): Professional Photo Management with the Power of Open Source",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1162,19 +1162,19 @@
             ],
             "description": "[Dillinger](https://github.com/joemccann/dillinger) is a cloud-enabled, mobile-ready, offline-storage, AngularJS powered HTML5 Markdown editor.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1202,19 +1202,19 @@
             ],
             "description": "[Diskover](https://github.com/diskoverdata/diskover-community) is an open source file system indexer that uses Elasticsearch to index and manage data across heterogeneous storage systems.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1268,19 +1268,19 @@
         {
             "description": "This container needs special attention. Please check https://hub.docker.com/r/linuxserver/docker-compose for details.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1308,19 +1308,19 @@
             ],
             "description": "[Dokuwiki](https://www.dokuwiki.org/dokuwiki/) is a simple to use and highly versatile Open Source wiki software that doesn't require a database. It is loved by users for its clean and readable syntax. The ease of maintenance, backup and integration makes it an administrator's favorite. Built in access controls and authentication connectors make DokuWiki especially useful in the enterprise context and the large number of plugins contributed by its vibrant community allow for a broad range of use cases beyond a traditional wiki.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1349,19 +1349,19 @@
             ],
             "description": "[Domoticz](https://www.domoticz.com) is a Home Automation System that lets you monitor and configure various devices like: Lights, Switches, various sensors/meters like Temperature, Rain, Wind, UV, Electra, Gas, Water and much more. Notifications/Alerts can be sent to any mobile device.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1397,19 +1397,19 @@
             ],
             "description": "[Double Commander](https://doublecmd.sourceforge.io/) is a free cross platform open source file manager with two panels side by side. It is inspired by Total Commander and features some new ideas.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1439,19 +1439,19 @@
         {
             "description": "[Duckdns](https://duckdns.org/) is a free service which will point a DNS (sub domains of duckdns.org) to an IP of your choice. The service is completely free, and doesn't require reactivation or forum posts to maintain its existence.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1491,19 +1491,19 @@
         {
             "description": "[Duplicati](https://www.duplicati.com/) works with standard protocols like FTP, SSH, WebDAV as well as popular services like Microsoft OneDrive, Amazon Cloud Drive & S3, Google Drive, box.com, Mega, hubiC and many others.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1546,19 +1546,19 @@
             ],
             "description": "[Emby](https://emby.media/) organizes video, music, live TV, and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices. This container is packaged as a standalone emby Media Server.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1597,19 +1597,19 @@
         {
             "description": "[Embystat](https://github.com/mregni/EmbyStat) is a personal web server that can calculate all kinds of statistics from your (local) Emby server. Just install this on your server and let him calculate all kinds of fun stuff.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1634,19 +1634,19 @@
         {
             "description": "[Emulatorjs](https://github.com/linuxserver/emulatorjs) - In browser web based emulation portable to nearly any device for many retro consoles. A mix of emulators is used between Libretro and EmulatorJS.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1679,19 +1679,19 @@
         {
             "description": "[Endlessh](https://github.com/skeeto/endlessh) is an SSH tarpit that very slowly sends an endless, random SSH banner. It keeps SSH clients locked up for hours or even days at a time. The purpose is to put your real SSH server on another port and then let the script kiddies get stuck in this tarpit instead of bothering a real server.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1746,19 +1746,19 @@
         {
             "description": "This container needs special attention. Please check https://hub.docker.com/r/linuxserver/ffmpeg for details.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1783,19 +1783,19 @@
         {
             "description": "[FIleZilla](https://filezilla-project.org/) Client is a fast and reliable cross-platform FTP, FTPS and SFTP client with lots of useful features and an intuitive graphical user interface.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1820,19 +1820,19 @@
         {
             "description": "[Firefox](https://www.mozilla.org/en-US/firefox/) Browser, also known as Mozilla Firefox or simply Firefox, is a free and open-source web browser developed by the Mozilla Foundation and its subsidiary, the Mozilla Corporation. Firefox uses the Gecko layout engine to render web pages, which implements current and anticipated web standards.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1857,14 +1857,14 @@
         {
             "description": "[Fleet](https://github.com/linuxserver/fleet) provides an online web interface which displays a set of maintained images from one or more owned repositories.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -1918,19 +1918,19 @@
         {
             "description": "[Folding@home](https://foldingathome.org/) is a distributed computing project for simulating protein dynamics, including the process of protein folding and the movements of proteins implicated in a variety of diseases. It brings together citizen scientists who volunteer to run simulations of protein dynamics on their personal computers. Insights from this data are helping scientists to better understand biology, and providing new opportunities for developing therapeutics.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1956,19 +1956,19 @@
         {
             "description": "[Freshrss](https://freshrss.org/) is a free, self-hostable aggregator for rss feeds.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -1996,19 +1996,19 @@
             ],
             "description": "[Grav](https://github.com/getgrav/grav/) is a Fast, Simple, and Flexible, file-based Web-platform.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2033,19 +2033,19 @@
         {
             "description": "[Grocy](https://github.com/grocy/grocy) is an ERP system for your kitchen! Cut down on food waste, and manage your chores with this brilliant utility. Keep track of your purchases, how much food you are wasting, what chores need doing and what batteries need charging with this proudly Open Source tool For more information on grocy visit their website and check it out: https://grocy.info",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2084,14 +2084,14 @@
         {
             "description": "[Habridge](http://bwssystems.com/#/habridge) emulates Philips Hue API to other home automation gateways such as an Amazon Echo/Dot Gen 1 (gen 2 has issues discovering ha-bridge) or other systems that support Philips Hue. The Bridge handles basic commands such as 'On', 'Off' and 'brightness' commands of the hue protocol. This bridge can control most devices that have a distinct API. In the cases of systems that require authorization and/or have APIs that cannot be handled in the current method, a module may need to be built. The Harmony Hub is such a module and so is the Nest module. The Bridge has helpers to build devices for the gateway for the Logitech Harmony Hub, Vera, Vera Lite or Vera Edge, Nest, Somfy Tahoma, Home Assistant, Domoticz, MQTT, HAL, Fibaro, HomeWizard, LIFX, OpenHAB, FHEM, Broadlink and the ability to proxy all of your real Hue bridges behind this bridge. This bridge was built to help put the Internet of Things together. For more information about how to use this software have a look at their Wiki [https://github.com/bwssytems/ha-bridge/wiki](https://github.com/bwssytems/ha-bridge/wiki)",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -2102,7 +2102,7 @@
                     "name": "SEC_KEY"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2128,19 +2128,19 @@
         {
             "description": "[Headphones](https://github.com/rembo10/headphones) is an automated music downloader for NZB and Torrent, written in Python. It supports SABnzbd, NZBget, Transmission, µTorrent and Blackhole.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2174,14 +2174,14 @@
         {
             "description": "[Healthchecks](https://github.com/healthchecks/healthchecks) is a watchdog for your cron jobs. It's a web server that listens for pings from your cron jobs, plus a web interface.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -2292,14 +2292,14 @@
             ],
             "description": "[HedgeDoc](https://hedgedoc.org/) gives you access to all your files wherever you are. HedgeDoc is a real-time, multi-platform collaborative markdown note editor. This means that you can write notes with other people on your desktop, tablet or even on the phone. You can sign-in via multiple auth providers like Facebook, Twitter, GitHub and many more on the homepage.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -2334,7 +2334,7 @@
                     "name": "DB_NAME"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2377,19 +2377,19 @@
         {
             "description": "[Heimdall](https://heimdall.site) is a way to organise all those links to your most used web sites and web applications in a simple way. Simplicity is the key to Heimdall. Why not use it as your browser start page? It even has the ability to include a search bar using either Google, Bing or DuckDuckGo.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2418,19 +2418,19 @@
             ],
             "description": "[Homeassistant](https://www.home-assistant.io/) is open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2459,19 +2459,19 @@
             ],
             "description": "[Ipfs](https://ipfs.io/) - A peer-to-peer hypermedia protocol designed to make the web faster, safer, and more open.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2500,19 +2500,19 @@
         {
             "description": "[Jackett](https://github.com/Jackett/Jackett) works as a proxy server: it translates queries from apps (Sonarr, SickRage, CouchPotato, Mylar, etc) into tracker-site-specific http queries, parses the html response, then sends results back to the requesting software. This allows for getting recent uploads (like RSS) and performing searches. Jackett is a single repository of maintained indexer scraping & translation logic - removing the burden from other apps.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2554,19 +2554,19 @@
         {
             "description": "[Jellyfin](https://jellyfin.github.io/) is a Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps. Jellyfin is descended from Emby's 3.5.2 release and ported to the .NET Core framework to enable full cross-platform support. There are no strings attached, no premium licenses or features, and no hidden agendas: just a team who want to build something better and work together to achieve it.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2609,19 +2609,19 @@
         {
             "description": "This container needs special attention. Please check https://hub.docker.com/r/linuxserver/jenkins-builder for details.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2646,19 +2646,19 @@
         {
             "description": "[Kanzi](https://lexigr.am/), formerly titled Kodi-Alexa, this custom skill is the ultimate voice remote control for navigating Kodi. It can do anything you can think of (100+ intents). This container also contains lexigram-cli to setup Kanzi with an Amazon Developer Account and automatically deploy it to Amazon.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2695,19 +2695,19 @@
         {
             "description": "[Lazylibrarian](https://lazylibrarian.gitlab.io/) is a program to follow authors and grab metadata for all your digital reading needs. It uses a combination of Goodreads Librarything and optionally GoogleBooks as sources for author info and book info. This container is based on the DobyTang fork.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2747,7 +2747,7 @@
         {
             "description": "[Ldap-auth](https://github.com/nginxinc/nginx-ldap-auth) software is for authenticating users who request protected resources from servers proxied by nginx. It includes a daemon (ldap-auth) that communicates with an authentication server, and a webserver daemon that generates an authentication cookie based on the user’s credentials. The daemons are written in Python for use with a Lightweight Directory Access Protocol (LDAP) authentication server (OpenLDAP or Microsoft Windows Active Directory 2003 and 2012).",
             "env": [{
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2790,19 +2790,19 @@
             ],
             "description": "[LibreOffice](https://www.libreoffice.org/) is a free and powerful office suite, and a successor to OpenOffice.org (commonly known as OpenOffice). Its clean interface and feature-rich tools help you unleash your creativity and enhance your productivity.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2827,19 +2827,19 @@
         {
             "description": "[Librespeed](https://github.com/librespeed/speedtest) is a very lightweight Speedtest implemented in Javascript, using XMLHttpRequest and Web Workers. No Flash, No Java, No Websocket, No Bullshit.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2912,19 +2912,19 @@
         {
             "description": "[Lidarr](https://github.com/lidarr/Lidarr) is a music collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new tracks from your favorite artists and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2958,19 +2958,19 @@
         {
             "description": "[Limnoria](https://github.com/ProgVal/limnoria) A robust, full-featured, and user/programmer-friendly Python IRC bot, with many existing plugins. Successor of the well-known Supybot.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -2995,19 +2995,19 @@
         {
             "description": "[Lychee](https://lycheeorg.github.io/) is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.' ### UPGRADE WARNING Please note that the v4 upgrade process resets ALL password-protected albums. Any albums that were made public with a password will need to be re-secured.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3061,14 +3061,14 @@
         {
             "description": "[Mariadb](https://mariadb.org/) is one of the most popular database servers. Made by the original developers of MySQL.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -3079,7 +3079,7 @@
                     "name": "MYSQL_ROOT_PASSWORD"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3128,19 +3128,19 @@
         {
             "description": "[Medusa](https://pymedusa.com/) is an automatic Video Library Manager for TV Shows. It watches for new episodes of your favorite shows, and when they are posted it does its magic.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3174,19 +3174,19 @@
         {
             "description": "[Minetest](http://www.minetest.net/) (server) is a near-infinite-world block sandbox game and a game engine, inspired by InfiniMiner, Minecraft, and the like.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3217,19 +3217,19 @@
         {
             "description": "[Minisatip](https://github.com/catalinii/minisatip) is a multi-threaded satip server version 1.2 that runs under Linux and it was tested with DVB-S, DVB-S2, DVB-T, DVB-T2, DVB-C, DVB-C2, ATSC and ISDB-T cards.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3262,19 +3262,19 @@
         {
             "description": "[Mstream](https://mstream.io/) is a personal music streaming server. You can use mStream to stream your music from your home computer to any device, anywhere. There are mobile apps available for both Android and iPhone.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3304,19 +3304,19 @@
         {
             "description": "[Muximux](https://github.com/mescon/Muximux) is a lightweight portal to view & manage your HTPC apps without having to run anything more than a PHP enabled webserver. With Muximux you don't need to keep multiple tabs open, or bookmark the URL to all of your apps.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3341,14 +3341,14 @@
         {
             "description": "[Mylar3](https://github.com/mylar3/mylar3) is an automated Comic Book downloader (cbr/cbz) for use with NZB and torrents written in python. It supports SABnzbd, NZBGET, and many torrent clients in addition to DDL.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 }
@@ -3381,19 +3381,19 @@
         {
             "description": "[MySQL Workbench](https://www.mysql.com/products/workbench/) is a unified visual tool for database architects, developers, and DBAs. MySQL Workbench provides data modeling, SQL development, and comprehensive administration tools for server configuration, user administration, backup, and much more.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3418,19 +3418,19 @@
         {
             "description": "[Nano](https://nano.org/) is a digital payment protocol designed to be accessible and lightweight, with a focus on removing inefficiencies present in other cryptocurrencies. With ultrafast transactions and zero fees on a secure, green and decentralized network, this makes Nano ideal for everyday transactions.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3513,14 +3513,14 @@
         {
             "description": "[Netbootxyz](https://netboot.xyz) is a way to PXE boot various operating system installers or utilities from one place within the BIOS without the need of having to go retrieve the media to run the tool. iPXE is used to provide a user friendly menu from within the BIOS that lets you easily choose the operating system you want along with any specific types of versions or bootable flags.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -3569,19 +3569,19 @@
         {
             "description": "[Netbox](https://github.com/netbox-community/netbox) is an IP address management (IPAM) and data center infrastructure management (DCIM) tool. Initially conceived by the network engineering team at DigitalOcean, NetBox was developed specifically to address the needs of network and infrastructure engineers. It is intended to function as a domain-specific source of truth for network operations.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3726,19 +3726,19 @@
         {
             "description": "[Nextcloud](https://nextcloud.com/) gives you access to all your files wherever you are. Where are your photos and documents? With Nextcloud you pick a server of your choice, at home, in a data center or at a provider. And that is where your files will be. Nextcloud runs on that server, protecting your data and giving you access from your desktop or mobile devices. Through Nextcloud you also access, sync and share your existing data on that FTP drive at the office, a Dropbox or a NAS you have at home.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3768,19 +3768,19 @@
         {
             "description": "[Nginx](https://nginx.org/) is a simple webserver with php support. The config files reside in `/config` for easy user customization.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3806,19 +3806,19 @@
         {
             "description": "[Ngircd](https://ngircd.barton.de/) is a free, portable and lightweight Internet Relay Chat server for small or private networks, developed under the GNU General Public License (GPL). It is easy to configure, can cope with dynamic IP addresses, and supports IPv6, SSL-protected connections as well as PAM for authentication. It is written from scratch and not based on the original IRCd.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3843,14 +3843,14 @@
         {
             "description": "[Nntp2nntp](https://github.com/linuxserver/nntp2nntp) proxy allow you to use your NNTP Account from multiple systems, each with own user name and password. It fully supports SSL and you can also limit the access to proxy with SSL certificates. nntp2nntp proxy is very simple and pretty fast. ## Warning Whilst we know of no nntp2nntp security issues the [upstream code](https://github.com/linuxserver/nntp2nntp) for this project has received no changes since 06.08.15 and is likely abandoned permanently. For this reason we strongly recommend you do not make this application public facing and if you must do so other layers of security and SSL should be considered an absolute bare minimum requirement. We see this proxy being used primarily on a LAN so that all the users NNTP applications can share a common set of internal credentials allowing for central managment of the upstream account e.g change provider, server, thread limits for all applications with one global config change.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -3867,7 +3867,7 @@
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3892,19 +3892,19 @@
         {
             "description": "[Nzbget](http://nzbget.net/) is a usenet downloader, written in C++ and designed with performance in mind to achieve maximum download speed by using very little system resources.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3940,19 +3940,19 @@
         {
             "description": "[Nzbhydra2](https://github.com/theotherp/nzbhydra2) is a meta search application for NZB indexers, the 'spiritual successor' to NZBmegasearcH, and an evolution of the original application [NZBHydra](https://github.com/theotherp/nzbhydra). It provides easy access to a number of raw and newznab based indexers. The application NZBHydra 2 is replacing NZBHydra 1 and supports migrating from V1. Be wary that there may be some compatibility issues for those migrating from V1 to V2, so ensure you back up your old configuration before moving over to the new version. **NOTE:** The last version that supports migration is `linuxserver/nzbhydra2:v2.10.2-ls49`",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -3982,19 +3982,19 @@
         {
             "description": "[Ombi](https://ombi.io) allows you to host your own Plex Request and user management system. If you are sharing your Plex server with other users, allow them to request new content using an easy to manage interface! Manage all your requests for Movies and TV with ease, leave notes for the user and get notification when a user requests something. Allow your users to post issues against their requests so you know there is a problem with the audio etc. Even automatically send them weekly newsletters of new content that has been added to your Plex server!",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4025,19 +4025,19 @@
         {
             "description": "[Openssh-server](https://www.openssh.com/) is a sandboxed environment that allows ssh access without giving keys to the entire server. Giving ssh access via private key often means giving full access to the server. This container creates a limited and sandboxed environment that others can ssh into. The users only have access to the folders mapped and the processes running inside this container.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4116,19 +4116,19 @@
         {
             "description": "[Openvscode-server](https://github.com/gitpod-io/openvscode-server) provides a version of VS Code that runs a server on a remote machine and allows access through a modern web browser.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4177,19 +4177,19 @@
         {
             "description": "[Oscam](http://www.streamboard.tv/oscam/) is an Open Source Conditional Access Module software used for descrambling DVB transmissions using smart cards. It's both a server and a client.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4217,19 +4217,19 @@
             ],
             "description": "[Overseerr](https://overseerr.dev/) is a request management and media discovery tool built to work with your existing Plex ecosystem.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4254,19 +4254,19 @@
         {
             "description": "[Paperless-ng](https://github.com/jonaswinkler/paperless-ng) is an application by Daniel Quinn and contributors that indexes your scanned documents and allows you to easily search for documents and store metadata alongside your documents.'",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4302,19 +4302,19 @@
         {
             "description": "[Papermerge](https://www.papermerge.com/) is an open source document management system (DMS) primarily designed for archiving and retrieving your digital documents. Instead of having piles of paper documents all over your desk, office or drawers - you can quickly scan them and configure your scanner to directly upload to Papermerge DMS.'",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4350,19 +4350,19 @@
         {
             "description": "[Photoshow](https://github.com/thibaud-rohmer/PhotoShow) is gallery software at its easiest, it doesn't even require a database.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4399,19 +4399,19 @@
             ],
             "description": "[Phpmyadmin](https://github.com/phpmyadmin/phpmyadmin/) is a free software tool written in PHP, intended to handle the administration of MySQL over the Web. phpMyAdmin supports a wide range of operations on MySQL and MariaDB.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4448,19 +4448,19 @@
         {
             "description": "[Pidgin](https://pidgin.im/) is a chat program which lets you log into accounts on multiple chat networks simultaneously. This means that you can be chatting with friends on XMPP and sitting in an IRC channel at the same time.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4485,19 +4485,19 @@
         {
             "description": "[Piwigo](http://piwigo.org/) is a photo gallery software for the web that comes with powerful features to publish and manage your collection of pictures.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4530,19 +4530,19 @@
             ],
             "description": "[Pixapop](https://github.com/bierdok/pixapop) is an open-source single page application to view your photos in the easiest way possible.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4584,14 +4584,14 @@
         {
             "description": "[Plex](https://plex.tv) organizes video, music and photos from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices. This container is packaged as a standalone Plex Media Server. has always been a top priority. Straightforward design and bulk actions mean getting things done faster.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -4634,19 +4634,19 @@
         {
             "description": "[Projectsend](http://www.projectsend.org) is a self-hosted application that lets you upload files and assign them to specific clients that you create yourself. Secure, private and easy. No more depending on external services or e-mail to send those files.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4682,19 +4682,19 @@
         {
             "description": "[Pwndrop](https://github.com/kgretzky/pwndrop) is a self-deployable file hosting service for sending out red teaming payloads or securely sharing your private files over HTTP and WebDAV.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4725,19 +4725,19 @@
         {
             "description": "[Pydio-cells](https://pydio.com/) is the nextgen file sharing platform for organizations. It is a full rewrite of the Pydio project using the Go language following a micro-service architecture.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4775,19 +4775,19 @@
         {
             "description": "[Pyload](https://pyload.net/) is a Free and Open Source download manager written in Python and designed to be extremely lightweight, easily extensible and fully manageable via web.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4818,19 +4818,19 @@
         {
             "description": "[Pylon](https://github.com/pylonide/pylon) is a web based integrated development environment built with Node.js as a backend and with a supercharged JavaScript/HTML5 frontend, licensed under GPL version 3. This project originates from Cloud9 v2 project.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4878,19 +4878,19 @@
         {
             "description": "The [Qbittorrent](https://www.qbittorrent.org/) project aims to provide an open-source software alternative to µTorrent. qBittorrent is based on the Qt toolkit and libtorrent-rasterbar library.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4928,19 +4928,19 @@
         {
             "description": "[Quassel-core](http://quassel-irc.org/) is a modern, cross-platform, distributed IRC client, meaning that one (or multiple) client(s) can attach to and detach from a central core. This container handles the IRC connection (quasselcore) and requires a desktop client (quasselclient) to be used and configured. It is designed to be always on and will keep your identity present in IRC even when your clients cannot be online. Backlog (history) is downloaded by your client upon reconnection allowing infinite scrollback through time.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -4972,14 +4972,14 @@
         {
             "description": "[Quassel-web](https://github.com/magne4000/quassel-webserver) is a web client for Quassel. Note that a Quassel-Core instance is required, we have a container available [here.](https://hub.docker.com/r/linuxserver/quassel-core/)",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -5021,19 +5021,19 @@
         {
             "description": "[Radarr](https://github.com/Radarr/Radarr) - A fork of Sonarr to work with movies à la Couchpotato.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5067,19 +5067,19 @@
         {
             "description": "[Raneto](http://raneto.com/) - is an open source Knowledgebase platform that uses static Markdown files to power your Knowledgebase.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5104,19 +5104,19 @@
         {
             "description": "[Rdesktop](http://xrdp.org/) - Ubuntu based containers containing full desktop environments in officially supported flavors accessible via RDP.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5147,19 +5147,19 @@
         {
             "description": "[Remmina](https://remmina.org/) is a remote desktop client written in GTK, aiming to be useful for system administrators and travellers, who need to work with lots of remote computers in front of either large or tiny screens. Remmina supports multiple network protocols, in an integrated and consistent user interface. Currently RDP, VNC, SPICE, NX, XDMCP, SSH and EXEC are supported.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5187,19 +5187,19 @@
             ],
             "description": "[Requestrr](https://github.com/darkalfx/requestrr) is a chatbot used to simplify using services like Sonarr/Radarr/Ombi via the use of chat.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5224,19 +5224,19 @@
         {
             "description": "[Resilio-sync](https://www.resilio.com/individuals/) (formerly BitTorrent Sync) uses the BitTorrent protocol to sync files and folders between all of your devices. There are both free and paid versions, this container supports both. There is an official sync image but we created this one as it supports user mapping to simplify permissions for volumes.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5271,19 +5271,19 @@
         {
             "description": "[Rsnapshot](http://www.rsnapshot.org/) is a filesystem snapshot utility based on rsync. rsnapshot makes it easy to make periodic snapshots of local machines, and remote machines over ssh. The code makes extensive use of hard links whenever possible, to greatly reduce the disk space required.'",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5317,19 +5317,19 @@
         {
             "description": "[Sabnzbd](http://sabnzbd.org/) makes Usenet as simple and streamlined as possible by automating everything we can. All you have to do is add an .nzb. SABnzbd takes over from there, where it will be automatically downloaded, verified, repaired, extracted and filed away with zero human interaction.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5364,19 +5364,19 @@
         {
             "description": "[Scrutiny](https://github.com/AnalogJ/scrutiny) WebUI for smartd S.M.A.R.T monitoring. Scrutiny is a Hard Drive Health Dashboard & Monitoring solution, merging manufacturer provided S.M.A.R.T metrics with real-world failure rates from Backblaze.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5424,19 +5424,19 @@
         {
             "description": "[Sickchill](https://github.com/SickChill/SickChill) is an Automatic Video Library Manager for TV Shows. It watches for new episodes of your favorite shows, and when they are posted it does its magic.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5470,14 +5470,14 @@
         {
             "description": "[SickGear](https://github.com/sickgear/sickgear) provides management of TV shows and/or Anime, it detects new episodes, links downloader apps, and more.. For more information on SickGear visit their website and check it out: https://github.com/SickGear/SickGear",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 }
@@ -5510,19 +5510,19 @@
         {
             "description": "[Smokeping](https://oss.oetiker.ch/smokeping/) keeps track of your network latency. For a full example of what this application is capable of visit [UCDavis](http://smokeping.ucdavis.edu/cgi-bin/smokeping.fcgi).",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5552,19 +5552,19 @@
         {
             "description": "[Snapdrop](https://github.com/RobinLinus/snapdrop) A local file sharing in your browser. Inspired by Apple's Airdrop.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5590,14 +5590,14 @@
         {
             "description": "[Snipe-it](https://github.com/snipe/snipe-it) makes asset management easy. It was built by people solving real-world IT and asset management problems, and a solid UX has always been a top priority. Straightforward design and bulk actions mean getting things done faster.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -5660,19 +5660,19 @@
             ],
             "description": "[Sonarr](https://sonarr.tv/) (formerly NZBdrone) is a PVR for usenet and bittorrent users. It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them. It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5706,19 +5706,19 @@
         {
             "description": "[DB Browser for SQLite](https://sqlitebrowser.org/) is a high quality, visual, open source tool to create, design, and edit database files compatible with SQLite.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5743,19 +5743,19 @@
         {
             "description": "SWAG - Secure Web Application Gateway (formerly known as letsencrypt, no relation to Let's Encrypt™) sets up an Nginx webserver and reverse proxy with php support and a built-in certbot client that automates free SSL server certificate generation and renewal processes (Let's Encrypt and ZeroSSL). It also contains fail2ban for intrusion prevention.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5847,7 +5847,7 @@
         {
             "description": "[Synclounge](https://github.com/samcm/synclounge) is a third party tool that allows you to watch Plex in sync with your friends/family, wherever you are.",
             "env": [{
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5886,19 +5886,19 @@
         {
             "description": "[Syncthing](https://syncthing.net) replaces proprietary sync and cloud services with something open, trustworthy and decentralized. Your data is your data alone and you deserve to choose where it is stored, if it is shared with some third party and how it's transmitted over the Internet.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -5938,19 +5938,19 @@
             ],
             "description": "[syslog-ng](https://www.syslog-ng.com/products/open-source-log-management/) allows you to flexibly collect, parse, classify, rewrite and correlate logs from across your infrastructure and store or route them to log analysis tools.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6000,19 +6000,19 @@
         {
             "description": "[Tautulli](http://tautulli.com) is a python based web application for monitoring, analytics and notifications for Plex Media Server.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6037,19 +6037,19 @@
         {
             "description": "[Thelounge](https://thelounge.github.io/) (a fork of shoutIRC) is a web IRC client that you host on your own server.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6074,19 +6074,19 @@
         {
             "description": "[Transmission](https://www.transmissionbt.com/) is designed for easy, powerful use. Transmission has the features you want from a BitTorrent client: encryption, a web interface, peer exchange, magnet links, DHT, µTP, UPnP and NAT-PMP port forwarding, webseed support, watch directories, tracker editing, global and per-torrent speed limits, and more.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6152,19 +6152,19 @@
         {
             "description": "[Tvheadend](https://www.tvheadend.org/) works as a proxy server: is a TV streaming server and recorder for Linux, FreeBSD and Android supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, ISDB-T, IPTV, SAT>IP and HDHomeRun as input sources. Tvheadend offers the HTTP (VLC, MPlayer), HTSP (Kodi, Movian) and SAT>IP streaming. Multiple EPG sources are supported (over-the-air DVB and ATSC including OpenTV DVB extensions, XMLTV, PyXML).",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6201,19 +6201,19 @@
         {
             "description": "[Ubooquity](https://vaemendis.net/ubooquity/) is a free, lightweight and easy-to-use home server for your comics and ebooks. Use it to access your files from anywhere, with a tablet, an e-reader, a phone or a computer.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6261,14 +6261,14 @@
             ],
             "description": "The [Unifi-controller](https://www.ubnt.com/enterprise/#unifi) software is a powerful, enterprise wireless software engine ideal for high-density client deployments requiring low latency and high uptime performance.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -6312,19 +6312,19 @@
         {
             "description": "[Webgrabplus](http://www.webgrabplus.com) is a multi-site incremental xmltv epg grabber. It collects tv-program guide data from selected tvguide sites for your favourite channels.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6354,19 +6354,19 @@
             ],
             "description": "[Webtop](https://github.com/linuxserver/docker-webtop) - Alpine, Ubuntu, Fedora, and Arch based containers containing full desktop environments in officially supported flavors accessible via any modern web browser.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6403,19 +6403,19 @@
         {
             "description": "[Wikijs](https://github.com/Requarks/wiki) A modern, lightweight and powerful wiki app built on NodeJS.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6445,19 +6445,19 @@
         {
             "description": "[WireGuard®](https://www.wireguard.com/) is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography. It aims to be faster, simpler, leaner, and more useful than IPsec, while avoiding the massive headache. It intends to be considerably more performant than OpenVPN. WireGuard is designed as a general purpose VPN for running on embedded interfaces and super computers alike, fit for many different circumstances. Initially released for the Linux kernel, it is now cross-platform (Windows, macOS, BSD, iOS, Android) and widely deployable. It is currently under heavy development, but already it might be regarded as the most secure, easiest to use, and simplest VPN solution in the industry.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6523,19 +6523,19 @@
         {
             "description": "[Wireshark](https://www.wireshark.org/) is the world’s foremost and widely-used network protocol analyzer. It lets you see what’s happening on your network at a microscopic level and is the de facto (and often de jure) standard across many commercial and non-profit enterprises, government agencies, and educational institutions. Wireshark development thrives thanks to the volunteer contributions of networking experts around the globe and is the continuation of a project started by Gerald Combs in 1998.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6561,19 +6561,19 @@
         {
             "description": "[Xbackbone](https://github.com/SergiX44/XBackBone) is a simple, self-hosted, lightweight PHP file manager that support the instant sharing tool ShareX and *NIX systems. It supports uploading and displaying images, GIF, video, code, formatted text, and file downloading and uploading. Also have a web UI with multi user management, past uploads history and search support.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6599,19 +6599,19 @@
         {
             "description": "This container needs special attention. Please check https://hub.docker.com/r/linuxserver/yq for details.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6636,19 +6636,19 @@
         {
             "description": "[Znc](http://wiki.znc.in/ZNC) is an IRC network bouncer or BNC. It can detach the client from the actual IRC server, and also from selected channels. Multiple clients from different locations can connect to a single ZNC account simultaneously and therefore appear under the same nickname on IRC.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
-                    "default": "100",
-                    "description": "for UserID",
+                    "default": "6006",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
                 {
-                    "default": "Europe/Amsterdam",
+                    "default": "America/New_York",
                     "description": "Specify a timezone to use for example Europe/Amsterdam",
                     "label": "TZ",
                     "name": "TZ"
@@ -6683,12 +6683,12 @@
                 {
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -6741,12 +6741,12 @@
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -6780,12 +6780,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 }
             ],
             "image": "linuxserver/gazee:latest",
@@ -6815,12 +6815,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -6848,12 +6848,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -6883,12 +6883,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -6925,12 +6925,12 @@
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -6961,12 +6961,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -7027,12 +7027,12 @@
                 {
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "VALIDATION",
@@ -7071,12 +7071,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -7111,12 +7111,12 @@
             "env": [{
                     "label": "PUID",
                     "name": "PUID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "PGID",
                     "name": "PGID",
-                    "set": "1000"
+                    "set": "6006"
                 },
                 {
                     "label": "TZ",
@@ -7382,7 +7382,7 @@
             ],
             "description": "McMyAdmin 2 is the leading web control panel and administration console for Minecraft servers.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7415,7 +7415,7 @@
             ],
             "description": "Mumble is a voicechat program for gamers written on top of Qt and Opus. Murmur is the server backend for Mumble.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7501,7 +7501,7 @@
             ],
             "description": "ownCloud is a self-hosted file sync and share server. It provides access to your data through a web interface, sync clients or WebDAV while providing a platform to view, sync and share across devices easily—all under your control. ownCloud’s open architecture is extensible via a simple but powerful API for applications and plugins and it works with any storage.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7553,7 +7553,7 @@
             ],
             "description": "Petio is a third party companion app available to Plex server owners to allow their users to request, review and discover content.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7621,7 +7621,7 @@
             ],
             "description": "Simple automated way for users to request new content for Plex.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7683,7 +7683,7 @@
             ],
             "description": "Prowlarr is a indexer manager/proxy built on the popular arr .net/reactjs base stack to integrate with your various PVR apps. Prowlarr supports both Torrent Trackers and Usenet Indexers. It integrates seamlessly with Sonarr, Radarr, Lidarr, and Readarr offering complete management of your indexers with no per app Indexer setup required (we do it all).",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7799,7 +7799,7 @@
             ],
             "description": "Tiny Tiny RSS is an open source web-based news feed (RSS/Atom) reader and aggregator, designed to allow you to read news from any location, while feeling as close to a real desktop application as possible.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -7832,7 +7832,7 @@
             ],
             "description": "This container contains OpenVPN and Transmission with a configuration where Transmission is running only when OpenVPN has an active tunnel. It bundles configuration files for many popular VPN providers to make the setup easier.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
@@ -8263,7 +8263,7 @@
             ],
             "description": "HTPC Manaager, a front end for many htpc related applications. Hellowlol version.",
             "env": [{
-                    "default": "1000",
+                    "default": "6006",
                     "label": "PUID",
                     "name": "PUID"
                 },
