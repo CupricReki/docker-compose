@@ -114,14 +114,14 @@
             ],
             "description": "[Apprise-api](https://github.com/caronc/apprise-api) Takes advantage of [Apprise](https://github.com/caronc/apprise) through your network with a user-friendly API. * Send notifications to more then 65+ services. * An incredibly lightweight gateway to Apprise. * A production ready micro-service at your disposal. Apprise API was designed to easily fit into existing (and new) eco-systems that are looking for a simple notification solution.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
                     "default": "6006",
-                    "description": "for UserID",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -151,14 +151,14 @@
         {
             "description": "[Audacity](https://www.audacityteam.org/) is an easy-to-use, multi-track audio editor and recorder. Developed by a group of volunteers as open source.",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
                     "default": "6006",
-                    "description": "for UserID",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
@@ -392,14 +392,14 @@
             ],
             "description": "[Booksonic-air](http://booksonic.org) is a platform for accessing the audibooks you own wherever you are. At the moment the platform consists of Booksonic Air - A server for streaming your audiobooks, successor to the original Booksonic server and based on Airsonic. Booksonic App - An DSub based Android app for connection to Booksonic-Air servers. .",
             "env": [{
-                    "default": "1024",
-                    "description": "for GroupID",
+                    "default": "6006",
+                    "description": "for UserID",
                     "label": "PUID",
                     "name": "PUID"
                 },
                 {
                     "default": "6006",
-                    "description": "for UserID",
+                    "description": "for GroupID",
                     "label": "PGID",
                     "name": "PGID"
                 },
