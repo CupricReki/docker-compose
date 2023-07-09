@@ -17,7 +17,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/data
-      - ./templates.json:/usr/share/nginx/html/templates.json
 
 volumes:
   portainer_data:
