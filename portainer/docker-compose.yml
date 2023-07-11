@@ -8,9 +8,9 @@ services:
     command: -H unix:///var/run/docker.sock
     restart: always
     environment:
-      - TZ=America/Denver
-      - PUID=$docker_run_user
-      - PGID=$docker_run_group
+      - TZ=${TIMEZONE:-America/New_York}
+      - PUID=${DOCKER_RUN_USER:-6006}
+      - PGID=${DOCKER_RUN_GROUP:-6006}
     ports:
       - 9000:9000
       - 8000:8000
