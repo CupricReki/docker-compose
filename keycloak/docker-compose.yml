@@ -7,7 +7,7 @@ services:
       - POSTGRESQL_USERNAME=keycloak
       - POSTGRESQL_DATABASE=keycloak
     volumes:
-      - 'postgresql_data:/bitnami/postgresql'
+      - ./postgresql_data:/bitnami/postgresql
   keycloak:
     image: docker.io/bitnami/keycloak:latest
     ports:
@@ -26,8 +26,5 @@ services:
         #      - KEYCLOAK_ENABLE_HTTPS=true
     depends_on:
       - postgresql
-    volumes:
-      - './mynewtheme:/opt/bitnami/keycloak/themes/mynewtheme'
-volumes:
-  postgresql_data:
-    driver: local
+        #    volumes:
+        #      - './mynewtheme:/opt/bitnami/keycloak/themes/mynewtheme'
