@@ -6,6 +6,8 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
       - POSTGRESQL_USERNAME=keycloak
       - POSTGRESQL_DATABASE=keycloak
+      - UID=${UID:-6006}
+      - GID=$[GID:-6006}
     volumes:
       - ./postgresql_data:/bitnami/postgresql
   keycloak:
@@ -23,6 +25,8 @@ services:
       - KEYCLOAK_DATABASE_NAME=keycloak
       - KEYCLOAK_DATABASE_USER=${KEYCLOAK_DATABASE_USER:-keycloak}
       - KEYCLOAK_DATABASE_PASSWORD=${KEYCLOAK_DATABASE_PASSWORD:-keycloak}
+      - UID=${UID:-6006}
+      - GID=$[GID:-6006}
         #      - KEYCLOAK_ENABLE_HTTPS=true
     depends_on:
       - postgresql
