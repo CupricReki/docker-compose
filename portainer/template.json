@@ -8926,7 +8926,47 @@
             "type": 1,
             "volumes": [{
                 "container": "/var/lib/wowza"
-            }]
+            }
+        ]
+        },
+        {
+            "categories": [
+                "Authentication"
+            ],
+            "description": "Authentication frontend",
+            "env": [
+                {
+                    "description": "Postgres DB name",
+                    "label": "Database name",
+                    "name": "POSTGRES_DB"
+                },
+                {
+                    "description": "User used by the Postgres Database.",
+                    "label": "Database user",
+                    "name": "POSTGRES_USER"
+                },
+                {
+                    "description": "Password used by the Postgres user.",
+                    "label": "Database user password",
+                    "name": "POSTGRES_PASSWORD"
+                }
+            ],
+            "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/wordpress.png",
+            "note": "Deploys a Keycloak instance connected to a Postgres database.",
+            "platform": "linux",
+            "repository": {
+                "stackfile": "stacks/wordpress/docker-stack.yml",
+                "url": "https://github.com/mikestraney/portainer-templates"
+            },
+            "title": "Keycloak",
+            "type": 3
+        },
+        {
+            "description": "Wordpress setup with a MySQL database",
+            "note": "Deploys a Wordpress instance connected to a MySQL database.",
+            "stackfile": "https://raw.githubusercontent.com/mikestraney/portainer-templates/master/stacks/wordpress/edge/docker-stack.yml",
+            "title": "Wordpress",
+            "type": 4
         }
     ]
 }
