@@ -3,7 +3,7 @@ services:
   couchdb:
     image: couchdb
     container_name: obsidian-livesync
-    user: "${UID;-6006}:${GID:-6006}"
+    user: "${UID:-6006}:${GID:-6006}"
     environment:
       - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-password}
