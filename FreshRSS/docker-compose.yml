@@ -13,6 +13,7 @@ services:
       context: https://github.com/FreshRSS/FreshRSS.git#latest
       dockerfile: Docker/Dockerfile
     container_name: freshrss
+    user: "${DUID:-6006}:${DGID:-6006}"
     hostname: freshrss
     restart: unless-stopped
     logging:
@@ -32,6 +33,7 @@ services:
   freshrss-db:
     image: postgres:15
     container_name: freshrss-db
+    user: "${DUID:-6006}:${DGID:-6006}"
     hostname: freshrss-db
     restart: unless-stopped
     logging:
@@ -54,6 +56,7 @@ services:
 
   rss-bridge:
     image: rssbridge/rss-bridge:latest
+    user: "${DUID:-6006}:${DGID:-6006}"
     volumes:
       - ./rss-bridge/config:/config
       # Cache Folder 
