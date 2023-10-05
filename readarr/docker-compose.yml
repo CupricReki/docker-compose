@@ -2,7 +2,7 @@
 version: "3.7"
 services:
   readarr:
-    image: lscr.io/linuxserver/readarr:develop
+    image: ghcr.io/hotio/readarr:latest
     container_name: readarr
     environment:
       - PUID=1007
