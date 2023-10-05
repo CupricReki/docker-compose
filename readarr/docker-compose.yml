@@ -9,7 +9,7 @@ services:
       - PGID=1008
       - TZ=America/Denver
     volumes:
-      - /opt/radarr/config:/config
+      - /opt/readarr/config:/config
       - calibre-library:/media/books #optional
       - downloads:/data/downloads #optional
     ports:
