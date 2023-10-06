@@ -13,7 +13,7 @@ services:
       - calibre-library:/media/books #optional
       - downloads:/data/downloads #optional
     ports:
-      - 8787:7878
+      - 8787:8787
     restart: unless-stopped
 volumes:
   downloads:
