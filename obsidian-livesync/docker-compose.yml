@@ -8,8 +8,8 @@ services:
       - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-password}
     volumes:
-      - /opt/couchdb/data:/opt/couchdb/data
-      - /opt/couchdb/etc:/opt/couchdb/etc/local.d
+      - /opt/obsidian-livesync/couchdb/data:/opt/couchdb/data
+      - /opt/obsidian-livesync/couchdb/etc:/opt/couchdb/etc/local.d
     ports:
       - 5984:5984
     restart: unless-stopped
