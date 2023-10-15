@@ -1,15 +1,15 @@
 version: "2.1"
 services:
   couchdb:
-    image: couchdb
-    container_name: obsidian-livesync
+    image: couchdb:latest
+    container_name: obsidian-livesync-couchdb
     user: "${DUID:-6006}:${DGID:-6006}"
     environment:
       - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-password}
     volumes:
-      - ./data:/opt/couchdb/data
-      - ./local.ini:/opt/couchdb/etc/local.ini
+      - /opt/couchdb/data:/opt/couchdb/data
+      - /opt/couchdb/local.ini:/opt/couchdb/etc/local.ini
     ports:
       - 5984:5984
     restart: unless-stopped
