@@ -9,7 +9,7 @@ services:
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD:-password}
     volumes:
       - /opt/couchdb/data:/opt/couchdb/data
-      - /opt/couchdb/local.ini:/opt/couchdb/etc/local.ini
+      - /opt/couchdb/etc:/opt/couchdb/etc/local.d
     ports:
       - 5984:5984
     restart: unless-stopped
