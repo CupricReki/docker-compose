@@ -2,7 +2,7 @@ version: "2.1"
 services:
   couchdb:
     image: couchdb:latest
-    container_name: obsidian-livesync-couchdb
+    container_name: obsidian-livesync
     user: "${DUID:-6006}:${DGID:-6006}"
     environment:
       - COUCHDB_USER=admin
