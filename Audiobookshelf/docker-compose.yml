@@ -2,6 +2,10 @@ version: "3.7"
 services:
   audiobookshelf:
     image: ghcr.io/advplyr/audiobookshelf:latest
+    environment:
+      - PUID=1007
+      - PGID=1008
+      - TZ=America/Denver
     ports:
       - 13378:80
     volumes:
