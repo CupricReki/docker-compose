@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    ports:
+      - 13378:80
+    volumes:
+      - audiobooks:/audiobooks
+      - podcasts:/podcasts
+      - /opt/audiobookshelf/config:/config
+      - /opt/audiobookshelf/metadata:/metadata
+volumes:
+  audiobooks:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/audiobooks"
+  podcasts:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/podcasts"

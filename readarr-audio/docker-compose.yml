@@ -1,0 +1,30 @@
+---
+version: "3.7"
+services:
+  readarr:
+    image: ghcr.io/hotio/readarr:latest
+    container_name: readarr-audio
+    environment:
+      - PUID=1007
+      - PGID=1008
+      - TZ=America/Denver
+    volumes:
+      - /opt/readarr-audio/config:/config
+      - downloads:/data/downloads #optional
+      - audiobooks:/media/audiobooks
+    ports:
+      - 8788:8787
+    restart: unless-stopped
+volumes:
+  downloads:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/cache_slow-striped/downloads"
+  audiobooks:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=10.0.0.3"
+      device: ":/mnt/media/misc/audiobooks"
