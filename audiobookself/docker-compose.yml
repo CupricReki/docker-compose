@@ -2,6 +2,7 @@ version: "3.7"
 services:
   audiobookshelf:
     image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
     environment:
       - PUID=1007
       - PGID=1008
