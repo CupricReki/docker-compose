@@ -1,0 +1,16 @@
+---
+version: 3.7
+services:
+  openaudible:
+    image: openaudible/openaudible:latest
+    container_name: openaudible
+    stdin_open: true
+    tty: true
+    volumes:
+        - /opt/openAudible/config:/config/OpenAudible
+    ports:
+        - 13379:3000
+    environment:
+        - PGID=1007
+        - PUID=1008
+    user: "true"
