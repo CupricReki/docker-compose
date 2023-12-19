@@ -10,7 +10,7 @@ services:
       - TZ=America/Denver
     volumes:
       - /opt/readarr/config:/config
-      - calibre-library:/media/books #optional
+      - calibre-library:/calibre-library
       - downloads:/data/downloads #optional
     ports:
       - 8787:8787
