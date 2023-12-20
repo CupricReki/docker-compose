@@ -1,0 +1,12 @@
+---
+version: "3"
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=privado
+      - OPENVPN_USER=${USERNAME}
+      - OPENVPN_PASSWORD=${PASSWORD}
+      - SERVER_COUNTRIES=Netherlands
