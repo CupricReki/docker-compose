@@ -1,0 +1,62 @@
+name: rtorrent-rutorrent
+
+services:
+  gluetun-vpn:
+    container_name: gluetun-vpn
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=privado
+      - OPENVPN_USER=${USERNAME}
+      - OPENVPN_PASSWORD=${PASSWORD}
+      - SERVER_COUNTRIES=Netherlands
+      - HTTP_CONTROL_SERVER_ADDRESS=":5234"
+    ports:
+      - 4444:8080
+      - 5234:5234
+#      - 6881:6881/udp
+#      - 8000:8000
+#      - 9000:9000
+#      - 50000:50000
+  geoip-updater:
+    image: crazymax/geoip-updater:latest
+    container_name: geoip-updater
+#    networks:
+#      - rtorrent-rutorrent
+    network_mode: "service:gluetun-vpn"
+    volumes:
+      - "./data/geoip:/data"
+    env_file:
+      - "./geoip-updater.env"
+    restart: always
+
+  rtorrent-rutorrent:
+    image: crazymax/rtorrent-rutorrent:latest
+    container_name: rtorrent-rutorrent
+#    networks:
+#      - rtorrent-rutorrent
+    network_mode: "service:gluetun-vpn"
+    env_file:
+      - "rtorrent-rutorrent.env"
+    volumes:
+      - "./data:/data"
+      - "./downloads:/downloads"
+      - "./passwd:/passwd"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 32000
+        hard: 40000
+    restart: always
+
+  rtorrent-logs:
+    image: bash
+    container_name: rtorrent-rutorrent-logs
+    command: bash -c 'tail -f /log/*.log'
+    network_mode: none
+    depends_on:
+      - rtorrent-rutorrent
+    volumes:
+      - "./data/rtorrent/log:/log"
+    restart: always

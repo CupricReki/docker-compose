@@ -2,6 +2,7 @@
 version: "3"
 services:
   gluetun:
+    container_name: gluetun-vpn
     image: qmcgaw/gluetun
     cap_add:
       - NET_ADMIN
