@@ -1,0 +1,67 @@
+name: qbitorrent
+
+services:
+  gluetun-vpn:
+    container_name: gluetun-vpn
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=wireguard
+      - VPN_PORT_FORWARDING_PROVIDER=protonvpn
+      - VPN_PORT_FORWARDING=on
+      # - WIREGUARD_PRIVATE_KEY=${WG_PVT_KEY}
+      # - WIREGUARD_PUBLIC_KEY=${WG_PUB_KEY}
+      # - HTTP_CONTROL_SERVER_ADDRESS=":5234"
+    ports:
+      - 4444:4444       # torrent web interface
+      - 5234:5234
+#      - 6881:6881/udp
+#      - 8000:8000
+#      - 9000:9000
+#      - 50000:50000
+    volumes:
+      - "./gluetun/wireguard:/gluetun/wireguard"
+      - "./gluetun/tmp:/tmp/gluetun"
+    restart: always
+
+  qbittorrent:
+    image: qbittorrentofficial/qbittorrent-nox:${QBT_VERSION:-latest}
+    container_name: qbittorrent
+    restart: unless-stopped
+    environment:
+    - QBT_EULA=accept
+    #- PAGID=10000
+    - PUID=1007
+    - PGID=1008
+    - QBT_WEBUI_PORT=${QBT_WEBUI_PORT:-4444}
+    - TZ=America/New_York
+    #- UMASK=022
+    volumes:
+      - ${DIR:-/opt/qbittorrent}/config:/config
+      - ${DOWNLOADS:-/opt/qbittorrent}:/downloads
+    network_mode: "service:gluetun-vpn"
+    depends_on:
+      gluetun-vpn:
+        condition: service_healthy
+
+  qmap:
+    image: snoringdragon/gluetun-qbittorrent-port-manager:latest
+    container_name: qmap
+    restart: unless-stopped
+    volumes:
+      - ${DIR:-/opt/qbittorrent}/gluetun/tmp:/tmp/gluetun
+    environment:
+      QBITTORRENT_SERVER: localhost
+      QBITTORRENT_PORT: ${QBT_WEBUI_PORT:-4444}
+      QBITTORRENT_USER: ${QBT_USER:-admin}
+      QBITTORRENT_PASS: ${QBT_PASS:-adminadmin}
+      PORT_FORWARDED: /tmp/gluetun/forwarded_port
+      HTTP_S: http
+    network_mode: "service:gluetun-vpn"
+    depends_on:
+      qbittorrent:
+        condition: service_started
+      gluetun-vpn:
+        condition: service_healthy
