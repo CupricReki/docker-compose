@@ -7,18 +7,25 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - VPN_SERVICE_PROVIDER=privado
-      - OPENVPN_USER=${USERNAME}
-      - OPENVPN_PASSWORD=${PASSWORD}
-      - SERVER_COUNTRIES=Netherlands
-      - HTTP_CONTROL_SERVER_ADDRESS=":5234"
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=wireguard
+      - VPN_PORT_FORWARDING_PROVIDER=protonvpn
+      - VPN_PORT_FORWARDING=on
+      # - WIREGUARD_PRIVATE_KEY=${WG_PVT_KEY}
+      # - WIREGUARD_PUBLIC_KEY=${WG_PUB_KEY}
+      # - HTTP_CONTROL_SERVER_ADDRESS=":5234"
     ports:
-      - 4444:8080
+      - 4444:8080     # rutorrent web interface
       - 5234:5234
 #      - 6881:6881/udp
 #      - 8000:8000
 #      - 9000:9000
 #      - 50000:50000
+    volumes:
+      - "./gluetun/wireguard:/gluetun/wireguard"
+      - "./gluetun/tmp:/tmp/gluetun"
+    restart: always
+
   geoip-updater:
     image: crazymax/geoip-updater:latest
     container_name: geoip-updater
@@ -39,10 +46,14 @@ services:
     network_mode: "service:gluetun-vpn"
     env_file:
       - "rtorrent-rutorrent.env"
+    environment:
+      # PORT_FORWARDED: /tmp/gluetun/forwarded_port
+      TEST_ENV: "yes"
     volumes:
       - "./data:/data"
       - "./downloads:/downloads"
       - "./passwd:/passwd"
+      - "./gluetun/tmp:/tmp/gluetun"
     ulimits:
       nproc: 65535
       nofile:
