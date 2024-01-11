@@ -1,1 +1,2 @@
 *.override.yml
+/rtorrent-rutorrent/geoip-updater.env
