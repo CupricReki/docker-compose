@@ -22,8 +22,8 @@ services:
 #      - 9000:9000
 #      - 50000:50000
     volumes:
-      - "./gluetun/wireguard:/gluetun/wireguard"
-      - "./gluetun/tmp:/tmp/gluetun"
+      - "${DIR:-/opt/qbittorrent}/gluetun/wireguard:/gluetun/wireguard"
+      - "${DIR:-/opt/qbittorrent}/gluetun/tmp:/tmp/gluetun"
     restart: always
 
   qbittorrent:
