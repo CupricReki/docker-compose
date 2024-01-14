@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   couchdb:
-    image: couchdb:latest
+    image: couchdb:{image_version:-latest}
     container_name: obsidian-livesync
     user: "${DUID:-6006}:${DGID:-6006}"
     environment:
