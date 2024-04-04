@@ -2,7 +2,7 @@
 version: "2"
 services:
   airsonic:
-    image: airsonicadvanced/airsonic-advanced:latest
+    image: ghcr.io/kagemomiji/airsonic-advanced
     container_name: airsonic-advanced
     restart: unless-stopped
     environment:
