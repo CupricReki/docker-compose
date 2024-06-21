@@ -1,0 +1,16 @@
+services:
+    couchserver:
+        image: couchdb:3.1.2
+        container_name: obsidian_livesync-couchdb
+        ports:
+          - "5984:5984"
+        environment:
+          - COUCHDB_USER=${COUCHDB_USER}
+          - COUCHDB_PASSWORD=${COUCHDB_PW}
+        volumes:
+          # The files' owner will be id:5984 when you launch the image.
+          # Because CouchDB writes on-the-fly configurations into local.ini.
+          # So when you want to perform git pull or change something, you have to change owners back.
+          - "${DATA_DIR:-/opt/couchdb/data}:/opt/couchdb/data"
+          - "${CONFIG_FILE:-/opt/couchdb/local.ini}:/opt/couchdb/etc/local.ini"
+        restart: unless-stopped
