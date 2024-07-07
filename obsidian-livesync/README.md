@@ -74,8 +74,9 @@ $ cloudflared tunnel --url http://localhost:5984
   :
   :
 ```
-Now `https://tiles-photograph-routine-groundwater.trycloudflare.com` is our server. Make it into background once please.
 
+##
+Build from [apache/couchdb-docker](https://github.com/apache/couchdb-docker)
 
 ## 4. Client Setup
 > [!TIP]
