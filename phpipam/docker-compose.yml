@@ -14,6 +14,7 @@ services:
       - IPAM_DATABASE_HOST=phpipam-mariadb
       - IPAM_DATABASE_PASS=my_secret_phpipam_pass
       - IPAM_DATABASE_WEBHOST=%
+      - IPAM_TRUST_X_FORWARDED=true
     restart: always
     volumes:
       - /opt/phpipam/phpipam-logo:/phpipam/css/images/logo
