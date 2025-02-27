@@ -1,0 +1,18 @@
+# Run with docker compose up -d
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8144:8080
+    restart: always
+    environment:
+      - DOZZLE_REMOTE_AGENT=$REMOTE_AGENT
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
