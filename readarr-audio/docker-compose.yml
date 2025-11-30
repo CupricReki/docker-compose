@@ -1,30 +1,40 @@
 ---
-version: "3.7"
 services:
-  readarr:
-    image: ghcr.io/hotio/readarr:latest
+  readarr-audio:
+    image: lscr.io/linuxserver/readarr:${READARR_AUDIO_TAG:-0.4.18-develop}
     container_name: readarr-audio
+    hostname: readarr-audio
     environment:
-      - PUID=1007
-      - PGID=1008
-      - TZ=America/Denver
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
     volumes:
-      - /opt/readarr-audio/config:/config
-      - downloads:/data/downloads #optional
-      - audiobooks:/media/audiobooks
+      - ${ROOT_DIR}/readarr-audio/config:/config
+      - media:/media
     ports:
-      - 8788:8787
+      - ${READARR_AUDIO_PORT:-8788}:8787
+    mem_limit: 1.5g
+    mem_reservation: 256m
+    cpus: 1.0
     restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
 volumes:
-  downloads:
+  media:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/cache_slow-striped/downloads"
-  audiobooks:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/audiobooks"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
+
+networks:
+  arr:
+    external: true

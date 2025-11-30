@@ -1,22 +1,21 @@
 ---
 services:
-  readarr:
-    image: lscr.io/linuxserver/readarr:${READARR_TAG:-nightly}
-    container_name: readarr
-    hostname: readarr
+  whisparr-v3:
+    image: ghcr.io/hotio/whisparr:${WHISPARR_V3_TAG:-v3}
+    container_name: whisparr-v3
+    hostname: whisparr-v3
     environment:
       - TZ=${TZ}
       - PUID=${PUID_MEDIA}
       - PGID=${PGID_MEDIA}
     volumes:
-      - ${ROOT_DIR}/readarr/config:/config
-      - books:/calibre-library
+      - ${ROOT_DIR}/whisparr-v3/config:/config
       - media:/media
     ports:
-      - ${READARR_PORT:-8787}:8787
-    mem_limit: 1.5g
-    mem_reservation: 256m
-    cpus: 1.0
+      - ${WHISPARR_V3_PORT:-6970}:6969
+    mem_limit: 1g
+    mem_reservation: 128m
+    cpus: 0.5
     restart: unless-stopped
     networks:
       - arr
@@ -29,12 +28,6 @@ services:
       - diun.enable=true
 
 volumes:
-  books:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
-      device: ":${NFS_BOOKS_PATH}"
   media:
     driver: local
     driver_opts:

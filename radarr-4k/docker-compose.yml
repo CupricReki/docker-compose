@@ -1,20 +1,19 @@
 ---
 services:
-  readarr:
-    image: lscr.io/linuxserver/readarr:${READARR_TAG:-nightly}
-    container_name: readarr
-    hostname: readarr
+  radarr-4k:
+    image: ghcr.io/linuxserver/radarr:${RADARR_4K_TAG:-latest}
+    container_name: radarr-4k
+    hostname: radarr-4k
     environment:
       - TZ=${TZ}
       - PUID=${PUID_MEDIA}
       - PGID=${PGID_MEDIA}
     volumes:
-      - ${ROOT_DIR}/readarr/config:/config
-      - books:/calibre-library
+      - ${ROOT_DIR}/radarr-4k/config:/config
       - media:/media
     ports:
-      - ${READARR_PORT:-8787}:8787
-    mem_limit: 1.5g
+      - ${RADARR_4K_PORT:-7879}:7878
+    mem_limit: 2g
     mem_reservation: 256m
     cpus: 1.0
     restart: unless-stopped
@@ -25,16 +24,15 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:7878/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
     labels:
       - diun.enable=true
 
 volumes:
-  books:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
-      device: ":${NFS_BOOKS_PATH}"
   media:
     driver: local
     driver_opts:

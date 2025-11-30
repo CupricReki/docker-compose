@@ -1,17 +1,36 @@
 ---
-version: "2.1"
 services:
   prowlarr:
-    image: ghcr.io/linuxserver/prowlarr:develop
+    image: ghcr.io/linuxserver/prowlarr:${PROWLARR_TAG:-develop}
     container_name: prowlarr
+    hostname: prowlarr
     environment:
-      - PUID=1007
-      - PGID=1008
-      - TZ=America/Denver
-      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:prowlarr
-      # - TP_THEME=hotline
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
     volumes:
-      - /opt/prowlarr:/config
+      - ${ROOT_DIR}/prowlarr/config:/config
     ports:
-      - 9696:9696
-    restart: always
+      - ${PROWLARR_PORT:-9696}:9696
+    mem_limit: 1g
+    mem_reservation: 128m
+    cpus: 0.5
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:9696/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
+networks:
+  arr:
+    external: true
