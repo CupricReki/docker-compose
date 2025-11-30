@@ -1,0 +1,130 @@
+---
+#
+# Immich - Self-hosted photo and video backup solution
+# https://immich.app/docs/install/environment-variables
+#
+
+name: immich
+
+services:
+  immich-server:
+    container_name: immich_server
+    hostname: immich-server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    environment:
+      - TZ=${TZ}
+      - REDIS_HOSTNAME=${REDIS_HOSTNAME:-redis}
+      - DB_HOSTNAME=${DB_HOSTNAME:-database}
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_DATABASE_NAME=${DB_DATABASE_NAME:-immich}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - IMMICH_MACHINE_LEARNING_URL=http://${MACHINE_LEARNING_HOST:-immich-machine-learning}:3003
+    volumes:
+      - photos:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - ${IMMICH_PORT:-2283}:2283
+    mem_limit: 4g
+    mem_reservation: 512m
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:2283/api/server/ping || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+    labels:
+      - diun.enable=true
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    hostname: immich-ml
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-${ML_BACKEND:-openvino}
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - model-cache:/cache
+    mem_limit: 8g
+    mem_reservation: 1g
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c 'import requests; requests.get(\"http://localhost:3003/ping\", timeout=2)' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    labels:
+      - diun.enable=true
+
+  redis:
+    container_name: immich_redis
+    hostname: immich-redis
+    image: docker.io/redis:6.2-alpine
+    mem_limit: 512m
+    mem_reservation: 64m
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: redis-cli ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
+  database:
+    container_name: immich_postgres
+    hostname: immich-postgres
+    image: docker.io/tensorchord/pgvecto-rs:${POSTGRES_VERSION:-pg14-v0.2.0}
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_DB=${DB_DATABASE_NAME:-immich}
+      - POSTGRES_INITDB_ARGS=--data-checksums
+    volumes:
+      - ${ROOT_DIR}/immich/postgres:/var/lib/postgresql/data
+    mem_limit: 2g
+    mem_reservation: 256m
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: pg_isready --dbname='${DB_DATABASE_NAME:-immich}' --username='${DB_USERNAME:-postgres}' || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    command: ["postgres", "-c", "shared_preload_libraries=vectors.so", "-c", "search_path=\"$$user\", public, vectors", "-c", "logging_collector=on", "-c", "max_wal_size=2GB", "-c", "shared_buffers=512MB", "-c", "wal_compression=on"]
+    labels:
+      - diun.enable=true
+
+volumes:
+  model-cache:
+  photos:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_PHOTOS_PATH}"
