@@ -83,6 +83,7 @@ services:
     network_mode: "service:gluetun-vpn"
     mem_limit: 4g
     mem_reservation: 512m
+    cpus: 2.0
     logging:
       driver: json-file
       options:

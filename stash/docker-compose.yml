@@ -32,6 +32,7 @@ services:
       - ${STASH_PORT:-9999}:9999
     mem_limit: 4g
     mem_reservation: 512m
+    cpus: 4.0
     restart: unless-stopped
     networks:
       - arr

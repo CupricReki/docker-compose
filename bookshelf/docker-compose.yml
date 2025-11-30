@@ -16,6 +16,7 @@ services:
       - ${BOOKSHELF_PORT:-8797}:8787
     mem_limit: 2g
     mem_reservation: 256m
+    cpus: 1.0
     restart: unless-stopped
     logging:
       driver: json-file

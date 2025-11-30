@@ -11,6 +11,9 @@ services:
       - ${ROOT_DIR}/diun/data:/data
       - ${ROOT_DIR}/diun/diun.yml:/diun.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    cpus: 0.5
+    mem_limit: 256m
+    mem_reservation: 64m
     restart: unless-stopped
     logging:
       driver: json-file

@@ -19,6 +19,7 @@ services:
       - /dev/dri/renderD128:/dev/dri/renderD128
     mem_limit: 8g
     mem_reservation: 2g
+    cpus: 8.0
     restart: unless-stopped
     networks:
       - arr

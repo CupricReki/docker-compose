@@ -11,6 +11,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
       - ${DOZZLE_PORT:-7007}:7007
+    cpus: 0.5
+    mem_limit: 256m
+    mem_reservation: 64m
     restart: unless-stopped
     logging:
       driver: json-file
