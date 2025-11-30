@@ -1,0 +1,43 @@
+---
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:${AUDIOBOOKSHELF_TAG:-latest}
+    container_name: audiobookshelf
+    hostname: audiobookshelf
+    environment:
+      - user=${PUID_MEDIA}:${PGID_MEDIA}
+    volumes:
+      - ${ROOT_DIR}/audiobookshelf/config:/config
+      - ${ROOT_DIR}/audiobookshelf/metadata:/metadata
+      - media:/media
+    ports:
+      - ${AUDIOBOOKSHELF_PORT:-13378}:80
+    mem_limit: 2g
+    mem_reservation: 256m
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: wget --spider -q http://localhost:80/healthcheck || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
+
+networks:
+  arr:
+    external: true

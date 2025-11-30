@@ -1,0 +1,72 @@
+---
+services:
+  lidarr:
+    image: ${LIDARR_IMAGE:-ghcr.io/linuxserver-labs/prarr}:${LIDARR_TAG:-lidarr-plugins}
+    container_name: lidarr-plugins
+    hostname: lidarr
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+    volumes:
+      - ${ROOT_DIR}/lidarr-stack/lidarr/config:/config
+      - media:/media
+      - ${LOCAL_DOWNLOADS}/sabnzbd/complete/music:/media/downloads/sabnzbd/complete/music
+    ports:
+      - ${LIDARR_PORT_WEB:-8686}:8686
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 1.0
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8686/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
+  slskd:
+    image: slskd/slskd:${SLSKD_TAG:-latest}
+    container_name: slskd
+    hostname: slskd
+    user: ${PUID_MEDIA}:${PGID_MEDIA}
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+    volumes:
+      - ${ROOT_DIR}/lidarr-stack/slskd:/app
+      - media:/media
+    ports:
+      - ${SLSKD_WEB_PORT_HTTP:-5030}:5030/tcp
+      - ${SLSKD_LISTEN_PORT:-51234}:51234
+    mem_limit: 1g
+    mem_reservation: 128m
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
+
+networks:
+  arr:
+    external: true

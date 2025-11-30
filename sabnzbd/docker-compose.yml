@@ -1,19 +1,38 @@
 ---
-version: "2"
 services:
   sabnzbd:
-    image: ghcr.io/linuxserver/sabnzbd:latest
+    image: ghcr.io/linuxserver/sabnzbd:${SABNZBD_TAG:-latest}
     container_name: sabnzbd
+    hostname: sabnzbd
     environment:
-      - TZ=America/Denver
-      - PUID=1007
-      - PGID=1008
-      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
-      # - TP_THEME=hotline
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
     volumes:
-      - /opt/sabnzbd/config:/config
-      - /mnt/downloads:/data/downloads
+      - ${ROOT_DIR}/sabnzbd/config:/config
+      - ${LOCAL_DOWNLOADS}/sabnzbd:/media/downloads/sabnzbd
     ports:
-      - 8080:8080
-    mem_limit: 4096m
+      - ${SABNZBD_PORT:-8080}:8080
+    mem_limit: 4g
+    mem_reservation: 256m
+    cpus: 2.0
     restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8080/sabnzbd/api?mode=queue&output=json&apikey=${SABNZBD_API_KEY} || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+    labels:
+      - diun.enable=true
+
+networks:
+  arr:
+    external: true
