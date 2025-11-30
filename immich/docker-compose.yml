@@ -26,6 +26,7 @@ services:
       - ${IMMICH_PORT:-2283}:2283
     mem_limit: 4g
     mem_reservation: 512m
+    cpus: 4.0
     restart: unless-stopped
     logging:
       driver: json-file
@@ -56,6 +57,7 @@ services:
       - model-cache:/cache
     mem_limit: 8g
     mem_reservation: 1g
+    cpus: 8.0
     restart: unless-stopped
     logging:
       driver: json-file
@@ -77,6 +79,7 @@ services:
     image: docker.io/redis:6.2-alpine
     mem_limit: 512m
     mem_reservation: 64m
+    cpus: 1.0
     restart: unless-stopped
     logging:
       driver: json-file
@@ -104,6 +107,7 @@ services:
       - ${ROOT_DIR}/immich/postgres:/var/lib/postgresql/data
     mem_limit: 2g
     mem_reservation: 256m
+    cpus: 2.0
     restart: unless-stopped
     logging:
       driver: json-file
