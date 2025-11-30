@@ -1,38 +1,45 @@
 ---
-version: "2"
 services:
   sonarr:
-    image: ghcr.io/linuxserver/sonarr:latest
+    image: ghcr.io/linuxserver/sonarr:${SONARR_TAG:-latest}
     container_name: sonarr
+    hostname: sonarr
     environment:
-      - TZ=America/Denver
-      - PUID=1007
-      - PGID=1008
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
     volumes:
-      - /opt/sonarr/config:/config
-      - shows:/media/tv
-      - anime:/media/anime 
-      - downloads:/data/downloads
+      - ${ROOT_DIR}/sonarr/config:/config
+      - media:/media
     ports:
-      - 8989:8989
-    mem_limit: 4096m
+      - ${SONARR_PORT:-8989}:8989
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 1.0
     restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8989/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
 volumes:
-  shows:
+  media:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/shows"
-  anime:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/anime"
-  downloads:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/cache_slow-striped/downloads"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
+
+networks:
+  arr:
+    external: true
