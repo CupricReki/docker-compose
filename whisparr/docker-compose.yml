@@ -24,6 +24,11 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:6969/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
     labels:
       - diun.enable=true
 

@@ -1,7 +1,7 @@
 ---
 services:
   readarr:
-    image: lscr.io/linuxserver/readarr:${READARR_TAG:-nightly}
+    image: lscr.io/linuxserver/readarr:${READARR_TAG:-develop}
     container_name: readarr
     hostname: readarr
     environment:
@@ -25,6 +25,11 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8787/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
     labels:
       - diun.enable=true
 
