@@ -1,0 +1,66 @@
+---
+services:
+  qbit_manage:
+    container_name: qbit_manage
+    hostname: qbit_manage
+    image: ghcr.io/stuffanthings/qbit_manage:${QBM_TAG:-latest}
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - QBT_WEB_SERVER=${QBT_WEB_SERVER:-true}
+      - QBT_PORT=${QBT_PORT:-8080}
+      - QBT_RUN=${QBT_RUN:-false}
+      - QBT_SCHEDULE=${QBT_SCHEDULE:-1440}
+      - QBT_CONFIG_DIR=/config
+      - QBT_LOGFILE=${QBT_LOGFILE:-qbit_manage.log}
+      - QBT_RECHECK=${QBT_RECHECK:-false}
+      - QBT_CAT_UPDATE=${QBT_CAT_UPDATE:-false}
+      - QBT_TAG_UPDATE=${QBT_TAG_UPDATE:-false}
+      - QBT_REM_UNREGISTERED=${QBT_REM_UNREGISTERED:-false}
+      - QBT_REM_ORPHANED=${QBT_REM_ORPHANED:-false}
+      - QBT_TAG_TRACKER_ERROR=${QBT_TAG_TRACKER_ERROR:-false}
+      - QBT_TAG_NOHARDLINKS=${QBT_TAG_NOHARDLINKS:-false}
+      - QBT_SHARE_LIMITS=${QBT_SHARE_LIMITS:-false}
+      - QBT_SKIP_CLEANUP=${QBT_SKIP_CLEANUP:-false}
+      - QBT_DRY_RUN=${QBT_DRY_RUN:-true}
+      - QBT_STARTUP_DELAY=${QBT_STARTUP_DELAY:-0}
+      - QBT_SKIP_QB_VERSION_CHECK=${QBT_SKIP_QB_VERSION_CHECK:-false}
+      - QBT_DEBUG=${QBT_DEBUG:-false}
+      - QBT_TRACE=${QBT_TRACE:-false}
+      - QBT_LOG_LEVEL=${QBT_LOG_LEVEL:-INFO}
+      - QBT_LOG_SIZE=${QBT_LOG_SIZE:-10}
+      - QBT_LOG_COUNT=${QBT_LOG_COUNT:-5}
+      - QBT_DIVIDER=${QBT_DIVIDER:-=}
+      - QBT_WIDTH=${QBT_WIDTH:-100}
+    volumes:
+      - ${ROOT_DIR}/qbit_manage/config:/config:rw
+      - ${ROOT_DIR}/qbit_manage/data/torrents:/data/torrents:rw
+      - ${QBM_QBIT_CONFIG_PATH}:/qbittorrent:ro
+      - media:/media
+    ports:
+      - ${QBM_PORT:-8471}:8080
+    mem_limit: 1g
+    mem_reservation: 128m
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8080/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"

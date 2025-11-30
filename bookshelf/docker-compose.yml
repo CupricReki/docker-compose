@@ -1,0 +1,46 @@
+---
+services:
+  bookshelf:
+    image: ghcr.io/pennydreadful/bookshelf:${BOOKSHELF_TAG:-hardcover}
+    container_name: bookshelf
+    hostname: bookshelf
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+    volumes:
+      - ${ROOT_DIR}/bookshelf/config:/config
+      - books:/calibre-library
+      - media:/media
+    ports:
+      - ${BOOKSHELF_PORT:-8797}:8787
+    mem_limit: 2g
+    mem_reservation: 256m
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8787/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true
+
+volumes:
+  books:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_BOOKS_PATH}"
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
