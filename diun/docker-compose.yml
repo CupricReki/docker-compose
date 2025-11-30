@@ -1,0 +1,21 @@
+---
+services:
+  diun:
+    image: crazymax/diun:${DIUN_TAG:-latest}
+    container_name: diun
+    hostname: ${DIUN_HOSTNAME:-diun}
+    command: serve
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT_DIR}/diun/data:/data
+      - ${ROOT_DIR}/diun/diun.yml:/diun.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

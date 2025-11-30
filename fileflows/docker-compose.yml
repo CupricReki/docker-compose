@@ -1,0 +1,83 @@
+---
+services:
+  fileflows:
+    image: revenz/fileflows:${FILEFLOWS_TAG:-latest}
+    container_name: fileflows
+    hostname: fileflows
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+    volumes:
+      - ${ROOT_DIR}/fileflows/internal-node/data:/app/Data
+      - ${ROOT_DIR}/fileflows/internal-node/logs:/app/Logs
+      - ${LOCAL_CACHE}/cache/fileflows/internal-node/processing:/mnt/processing
+      - ${LOCAL_CACHE}/cache/fileflows/internal-node/temp:/temp
+      - ${LOCAL_CACHE}/downloads/sabnzbd/complete:/mnt/downloads/sabnzbd/complete
+      - ${LOCAL_CACHE}/downloads/fileflows/converted:/mnt/downloads/fileflows/converted
+      - ${LOCAL_CACHE}/downloads/misc:/mnt/downloads/misc
+      - media:/media
+    ports:
+      - ${FILEFLOWS_PORT:-19200}:5000
+    cpus: 12.0
+    mem_limit: 8g
+    mem_reservation: 512m
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:5000/api/status || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true
+
+  fileflows-node1:
+    image: revenz/fileflows:${FILEFLOWS_TAG:-latest}
+    container_name: fileflows-node1
+    hostname: fileflows-node1
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - ServerUrl=${FILEFLOWS_SERVER_URL}
+      - FFNODE=1
+      - NodeName=Node1 [GPU]
+    volumes:
+      - ${ROOT_DIR}/fileflows/node1/data:/app/Data
+      - ${ROOT_DIR}/fileflows/node1/logs:/app/Logs
+      - ${LOCAL_CACHE}/cache/fileflows/node1/processing:/mnt/processing
+      - ${LOCAL_CACHE}/cache/fileflows/node1/temp:/temp
+      - ${LOCAL_CACHE}/downloads/sabnzbd/complete:/mnt/downloads/sabnzbd/complete
+      - ${LOCAL_CACHE}/downloads/fileflows/converted:/mnt/downloads/fileflows/converted
+      - ${LOCAL_CACHE}/downloads/misc:/mnt/downloads/misc
+      - media:/media
+    cpus: 12.0
+    mem_limit: 16g
+    mem_reservation: 1g
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+    depends_on:
+      fileflows:
+        condition: service_healthy
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"

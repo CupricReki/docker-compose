@@ -1,16 +1,27 @@
+---
 services:
   dozzle-agent:
-    image: amir20/dozzle:latest
+    image: amir20/dozzle:${DOZZLE_TAG:-latest}
     container_name: dozzle-agent
+    hostname: ${HOSTNAME:-dozzle-agent}
     command: agent
-    healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 5s
-      retries: 5
-      start_period: 5s
-      start_interval: 5s
+    environment:
+      - TZ=${TZ}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
-      - 7007:7007
+      - ${DOZZLE_PORT:-7007}:7007
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "/dozzle", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    labels:
+      - diun.enable=true

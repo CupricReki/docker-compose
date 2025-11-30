@@ -1,0 +1,157 @@
+---
+services:
+  gluetun-qbt-port-manager:
+    container_name: qbt_gluetun-qbt-port-manager
+    image: snoringdragon/gluetun-qbittorrent-port-manager:${GLUETUN_PORT_MANAGER_TAG:-latest}
+    restart: unless-stopped
+    volumes:
+      - ${ROOT_DIR}/qbittorrent/gluetun/tmp:/tmp/gluetun
+    environment:
+      - QBITTORRENT_SERVER=localhost
+      - QBITTORRENT_PORT=${QBT_WEBUI_PORT:-4444}
+      - PORT_FORWARDED=/tmp/gluetun/forwarded_port
+      - HTTP_S=http
+    network_mode: "service:gluetun-vpn"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      gluetun-vpn:
+        condition: service_healthy
+      qbittorrent:
+        condition: service_healthy
+
+  gluetun-vpn:
+    container_name: qbt_gluetun-vpn
+    image: ghcr.io/qdm12/gluetun:${GLUETUN_TAG:-latest}
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - ${QBT_WEBUI_PORT:-4444}:${QBT_WEBUI_PORT:-4444}
+      - ${GLUETUN_CONTROL_PORT:-5010}:${GLUETUN_CONTROL_PORT:-5010}
+      - ${PROMETHEUS_EXPORTER_PORT:-9911}:${PROMETHEUS_EXPORTER_PORT:-9911}
+    volumes:
+      - ${ROOT_DIR}/qbittorrent/gluetun/tmp:/tmp/gluetun
+    environment:
+      - TZ=${TZ}
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER:-protonvpn}
+      - VPN_TYPE=${VPN_TYPE:-wireguard}
+      - VPN_PORT_FORWARDING_PROVIDER=${VPN_PORT_FORWARDING_PROVIDER:-protonvpn}
+      - VPN_PORT_FORWARDING=${VPN_PORT_FORWARDING:-on}
+      - SERVER_COUNTRIES=${SERVER_COUNTRIES}
+      - SERVER_CITIES=${SERVER_CITIES}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES:-10.2.0.2/32}
+      - HTTP_CONTROL_SERVER_ADDRESS=${HTTP_CONTROL_SERVER_ADDRESS:-:8000}
+      - MTU=${MTU:-1420}
+      - WIREGUARD_MTU=${WIREGUARD_MTU:-1420}
+    networks:
+      - pir8-lan
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true
+
+  qbittorrent:
+    container_name: qbt_qbittorrent
+    image: ${QBITTORRENT_IMAGE:-ghcr.io/linuxserver/qbittorrent:latest}
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - UMASK=002
+      - WEBUI_PORT=${QBT_WEBUI_PORT:-4444}
+    volumes:
+      - ${ROOT_DIR}/qbittorrent/qbittorrent-appdata:/config
+      - media:/media
+      - ${ROOT_DIR}/qbittorrent/watchfolder:/watchfolder
+    network_mode: "service:gluetun-vpn"
+    mem_limit: 4g
+    mem_reservation: 512m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${QBT_WEBUI_PORT:-4444}/api/v2/app/version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      gluetun-vpn:
+        condition: service_healthy
+    labels:
+      - diun.enable=true
+
+  mousehole:
+    container_name: qbt_mousehole
+    image: tmmrtn/mousehole:${MOUSEHOLE_TAG:-latest}
+    restart: unless-stopped
+    volumes:
+      - ${ROOT_DIR}/qbittorrent/mousehole:/srv/mousehole
+    network_mode: "service:gluetun-vpn"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      gluetun-vpn:
+        condition: service_healthy
+    labels:
+      - diun.enable=true
+
+  prometheus-qbittorrent-exporter:
+    container_name: qbt_prometheus-qbt-exporter
+    image: ghcr.io/esanchezm/prometheus-qbittorrent-exporter:${PROMETHEUS_EXPORTER_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      - QBITTORRENT_HOST=localhost
+      - QBITTORRENT_PORT=${QBT_WEBUI_PORT:-4444}
+      - EXPORTER_PORT=${PROMETHEUS_EXPORTER_PORT:-9911}
+    network_mode: "service:gluetun-vpn"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PROMETHEUS_EXPORTER_PORT:-9911}/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      qbittorrent:
+        condition: service_healthy
+    labels:
+      - diun.enable=true
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
+
+networks:
+  pir8-lan:
+    name: gluetun-vpn_qbittorrent
+    external: true
