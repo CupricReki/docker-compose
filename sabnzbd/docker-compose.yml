@@ -25,7 +25,7 @@ services:
         max-size: "10m"
         max-file: "3"
     healthcheck:
-      test: curl --fail http://localhost:8080/sabnzbd/api?mode=queue&output=json&apikey=${SABNZBD_API_KEY} || exit 1
+      test: curl --fail http://localhost:8080/sabnzbd/ || exit 1
       interval: 30s
       timeout: 10s
       retries: 5
