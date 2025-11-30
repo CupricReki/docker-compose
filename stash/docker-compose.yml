@@ -1,0 +1,67 @@
+---
+x-quicksync: &quicksync
+  devices:
+    - /dev/dri:/dev/dri
+  group_add:
+    - "${VIDEO_GID:-44}"
+    - "${RENDER_GID:-989}"
+
+services:
+  stash:
+    <<: *quicksync
+    image: ghcr.io/feederbox826/stash-s6:${STASH_TAG:-hwaccel}
+    container_name: stash
+    hostname: stash
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - STASH_STASH=${STASH_STASH_PATH}
+      - STASH_GENERATED=/generated/
+      - STASH_METADATA=/metadata/
+      - STASH_CACHE=/cache/
+      - STASH_PORT=9999
+    volumes:
+      - ${ROOT_DIR}/stash/config:/config
+      - ${ROOT_DIR}/stash/metadata:/metadata
+      - ${ROOT_DIR}/stash/cache:/cache
+      - ${ROOT_DIR}/stash/blobs:/blobs
+      - nas1:/media/nas1
+      - nas2:/media/nas2
+    ports:
+      - ${STASH_PORT:-9999}:9999
+    mem_limit: 4g
+    mem_reservation: 512m
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:9999 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
+volumes:
+  nas1:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_NAS1_PATH}"
+  nas2:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER_2},${NFS_OPTS}"
+      device: ":${NFS_NAS2_PATH}"
+
+networks:
+  arr:
+    external: true

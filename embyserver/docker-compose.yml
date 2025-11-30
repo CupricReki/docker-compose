@@ -1,0 +1,48 @@
+---
+services:
+  emby:
+    image: linuxserver/emby:${EMBY_TAG:-latest}
+    container_name: embyserver
+    hostname: embyserver
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - GIDLIST=${GIDLIST}
+    volumes:
+      - ${ROOT_DIR}/embyserver/config:/config
+      - media:/media
+    ports:
+      - ${EMBY_PORT:-8096}:8096
+      - ${EMBY_HTTPS_PORT:-8920}:8920
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    mem_limit: 8g
+    mem_reservation: 2g
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8096/emby/system/ping || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - diun.enable=true
+
+volumes:
+  media:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
+
+networks:
+  arr:
+    external: true

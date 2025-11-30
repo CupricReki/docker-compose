@@ -1,86 +1,80 @@
+---
 services:
   jellyfin:
-    image: jellyfin/jellyfin
+    image: jellyfin/jellyfin:${JELLYFIN_TAG:-latest}
     container_name: jellyfin
-    # user: 3001:3001
-    # network_mode: 'host'
-    ports:
-      - 8496:8096
-    group_add:
-      - "989"
-    volumes:
-      - ./config:/config
-      - ./cache:/cache
-      - media:/media
-    restart: 'unless-stopped'
-    # Optional - alternative address used for autodiscovery
+    hostname: jellyfin
     environment:
-      - JELLYFIN_PublishedServerUrl=${JELLYFIN_FQDN}
-    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
-    # extra_hosts:
-      # - 'host.docker.internal:host-gateway'
+      - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
+    group_add:
+      - "${RENDER_GID:-989}"
+    volumes:
+      - ${ROOT_DIR}/jellyfin/config:/config
+      - ${ROOT_DIR}/jellyfin/cache:/cache
+      - media:/media
+    ports:
+      - ${JELLYFIN_PORT:-8496}:8096
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
+    mem_limit: 8g
+    mem_reservation: 2g
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8096/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
     labels:
-      - homepage.group=${HOMEPAGE_GROUP}
-      - homepage.name=${HOMEPAGE_NAME}
-      - homepage.icon=${HOMEPAGE_ICON}
-      - homepage.href=${JELLYFIN_FQDN}
-      - homepage.description=${HOMEPAGE_DESCRIPTION}
-      - homepage.widget.type=${HOMEPAGE_WIDGET_TYPE}
-      - homepage.widget.url=${JELLYFIN_FQDN}
-      - homepage.widget.key=${HOMEPAGE_WIDGET_KEY}
-      - homepage.widget.enableBlocks=${HOMEPAGE_WIDGET_ENABLE_BLOCKS}
-      - homepage.widget.enableNowPlaying=${HOMEPAGE_WIDGET_ENABLE_NOW_PLAYING}
-      - homepage.widget.enableUser=${HOMEPAGE_WIDGET_ENABLE_USER}
-      - homepage.widget.showEpisodeNumber=${HOMEPAGE_WIDGET_SHOW_EPISODE_NUMBER}
-      - homepage.widget.expandOneStreamToTwoRows=${HOMEPAGE_WIDGET_EXPAND_ONE_STREAM_TO_TWO_ROWS}
-      - diun.enable=${DIUN_ENABLE}
+      - diun.enable=true
 
   jellysearch:
-    image: domistyle/jellysearch
+    image: domistyle/jellysearch:${JELLYSEARCH_TAG:-latest}
+    container_name: jellyfin-jellysearch
     restart: unless-stopped
     volumes:
-      - ./config:/config:ro
+      - ${ROOT_DIR}/jellyfin/config:/config:ro
     ports:
-      - 5000:5000
+      - ${JELLYSEARCH_PORT:-5000}:5000
     environment:
-      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
-      INDEX_CRON: "0 0 0/2 ? * * *"
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+      - INDEX_CRON=0 0 0/2 ? * * *
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   meilisearch:
-    image: getmeili/meilisearch:v1.9
+    image: getmeili/meilisearch:${MEILISEARCH_TAG:-v1.9}
+    container_name: jellyfin-meilisearch
     restart: unless-stopped
     volumes:
-      - ./meilisearch:/meili_data
+      - ${ROOT_DIR}/jellyfin/meilisearch:/meili_data
     ports:
-      - 7700:7700
+      - ${MEILISEARCH_PORT:-7700}:7700
     environment:
-      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   media:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=10.1.0.4"
-      device: ":/mnt/vol2/media"
+      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      device: ":${NFS_MEDIA_PATH}"
 
-# Caddy configuration
-# jellyfin.timepiggy.com {
-#         @fe575457-ed61-4350-bea7-498d2edeeec6 {
-#                 host jellyfin.timepiggy.com
-#         }
-#         handle @fe575457-ed61-4350-bea7-498d2edeeec6 {
-#                 handle {
-#                         reverse_proxy pothos:8496 {
-#                         }
-#                         @search {
-#                                 query searchTerm=*
-#                         }
-#                         reverse_proxy @search pothos:5000
-#
-#                 }
-#         }
-# }
-
+networks:
+  arr:
+    external: true
