@@ -18,7 +18,7 @@ This guide documents the standards and best practices for creating Docker Compos
 
 ## Environment Variables
 
-### Global Variables (`/etc/environment.d/docker-compose.conf`)
+### Global Variables (`/etc/environment`)
 
 These are available system-wide but NOT automatically loaded by Docker Compose:
 ```bash
@@ -292,7 +292,7 @@ docker network create arr
 ## Common Issues
 
 ### "Variable not set" warnings
-These are normal for global variables from `/etc/environment.d/`. The container will use defaults or values from `.env`.
+These are normal for global variables from `/etc/environment`. The container will use defaults or values from `.env`.
 
 ### Volume "doesn't match configuration"
 Old volumes may have different options. Remove with `docker volume rm <volume>` before recreating.
