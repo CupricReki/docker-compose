@@ -50,9 +50,13 @@ services:
     environment:
       - INDEX_CRON=0 0 0/2 ? * * *
       - MEILI_URL=http://meilisearch.jellyfin_default:7700
+      - JELLYFIN_URL=http://jellyfin.arr:8096
     mem_limit: 1g
     mem_reservation: 128m
     cpus: 2.0
+    networks:
+      - default
+      - arr
     logging:
       driver: json-file
       options:
