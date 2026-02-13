@@ -38,14 +38,21 @@ services:
   jellysearch:
     image: domistyle/jellysearch:${JELLYSEARCH_TAG:-latest}
     container_name: jellyfin-jellysearch
+    hostname: jellysearch
     restart: unless-stopped
+    depends_on:
+      meilisearch:
+        condition: service_healthy
     volumes:
       - ${ROOT_DIR}/jellyfin/config:/config:ro
     ports:
       - ${JELLYSEARCH_PORT:-5000}:5000
     environment:
-      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
       - INDEX_CRON=0 0 0/2 ? * * *
+      - MEILISEARCH_URL=http://meilisearch.jellyfin_default:7700
+    mem_limit: 1g
+    mem_reservation: 128m
+    cpus: 2.0
     logging:
       driver: json-file
       options:
@@ -55,18 +62,26 @@ services:
   meilisearch:
     image: getmeili/meilisearch:${MEILISEARCH_TAG:-v1.9}
     container_name: jellyfin-meilisearch
+    hostname: meilisearch
     restart: unless-stopped
     volumes:
       - ${ROOT_DIR}/jellyfin/meilisearch:/meili_data
     ports:
       - ${MEILISEARCH_PORT:-7700}:7700
-    environment:
-      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:7700/health || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
 volumes:
   media:
