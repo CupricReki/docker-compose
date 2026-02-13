@@ -49,7 +49,7 @@ services:
       - ${JELLYSEARCH_PORT:-5000}:5000
     environment:
       - INDEX_CRON=0 0 0/2 ? * * *
-      - MEILISEARCH_URL=http://meilisearch.jellyfin_default:7700
+      - MEILI_URL=http://meilisearch.jellyfin_default:7700
     mem_limit: 1g
     mem_reservation: 128m
     cpus: 2.0
