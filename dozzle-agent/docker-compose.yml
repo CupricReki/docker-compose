@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   dozzle-agent:
     image: amir20/dozzle:${DOZZLE_TAG:-latest}

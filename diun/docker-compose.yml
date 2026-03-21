@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   diun:
     image: crazymax/diun:${DIUN_TAG:-latest}

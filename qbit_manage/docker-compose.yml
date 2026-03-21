@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   qbit_manage:
     container_name: qbit_manage
@@ -63,5 +66,5 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_MEDIA_PATH}"

@@ -6,6 +6,9 @@ x-quicksync: &quicksync
     - "${VIDEO_GID:-44}"
     - "${RENDER_GID:-989}"
 
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   stash:
     <<: *quicksync
@@ -54,13 +57,13 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      o: "addr=${NFS_NAS1_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_NAS1_PATH}"
   nas2:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER_2},${NFS_OPTS}"
+      o: "addr=${NFS_NAS2_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_NAS2_PATH}"
 
 networks:

@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   sabnzbd:
     image: ghcr.io/linuxserver/sabnzbd:${SABNZBD_TAG:-latest}

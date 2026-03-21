@@ -6,6 +6,9 @@
 
 name: immich
 
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   immich-server:
     container_name: immich_server
@@ -130,5 +133,5 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      o: "addr=${NFS_PHOTOS_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_PHOTOS_PATH}"

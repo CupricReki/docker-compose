@@ -18,37 +18,63 @@ This guide documents the standards and best practices for creating Docker Compos
 
 ## Environment Variables
 
-### Global Variables (`/etc/environment`)
+### Global Variables (`/opt/environment/env/global.env`)
 
-These are available system-wide but NOT automatically loaded by Docker Compose:
+Global variables are managed in the version-controlled
+[tp-environment](https://gitlab.timepiggy.com/cupric/tp-environment) repo and deployed
+to `/opt/environment/env/global.env` on each host via a pull-based systemd timer.
+
+Each `docker-compose.yml` declares a project-level `env_file` to load them at compose time:
+
+```yaml
+env_file:
+  - /opt/environment/env/global.env
+
+services:
+  ...
+```
+
+Current globals:
+
 ```bash
 PUID=1000                    # Default user ID
 PGID=1000                    # Default group ID
 PUID_MEDIA=3001              # Media applications user ID
 PGID_MEDIA=3001              # Media applications group ID
 TZ=America/New_York          # Timezone
-DOMAIN=example.com           # Domain for service URLs
+DOMAIN=timepiggy.com         # Domain for service URLs
 ROOT_DIR=/opt                # Base directory for configs
 SCRIPTS_ROOT=/opt/scripts    # Scripts directory
 LOCAL_CACHE=/media           # Local media cache path
-NFS_OPTS=soft,timeo=50,retrans=3,rsize=1048576,wsize=1048576,noatime,nolock
+LOCAL_DOWNLOADS=/media/downloads
+NFS_MEDIA_OPTS=soft,timeo=50,retrans=3,nfsvers=4.2,rsize=1048576,wsize=1048576,nconnect=8,noatime
+```
+
+### Host-Specific Variables (`/opt/environment/env/hosts/<hostname>.env`)
+
+NFS server addresses and shared mount paths that differ per host. Also version-controlled
+in tp-environment. Sourced automatically by the `dc()` shell function.
+
+```bash
+NFS_MEDIA_ADDR=10.1.80.4     # NFS server address for media volumes
+NFS_BOOKS_ADDR=10.1.80.4     # NFS server address for books volumes
+NFS_PHOTOS_ADDR=10.1.80.4    # NFS server address for photos volumes
+NFS_NAS1_ADDR=10.1.80.4      # Primary NAS address
+NFS_NAS2_ADDR=10.1.0.8       # Secondary NAS address
+NFS_MEDIA_PATH=/mnt/vol2/media
+NFS_BOOKS_PATH=/mnt/vol2/media/books
+NFS_PHOTOS_PATH=/mnt/vol2/media/photos
 ```
 
 ### Local `.env` Files
 
-Each service should have a `.env` file with:
+Each service should have a `.env` file with **only** service-specific variables.
+Do **not** duplicate globals (TZ, PUID, DOMAIN, ROOT_DIR, etc.) — those come from
+`global.env` automatically via the project-level `env_file`.
+
 ```bash
-# Service-specific settings
-NFS_SERVER=10.1.0.4
-NFS_MEDIA_PATH=/mnt/vol2/media
-
-# Replicate global vars needed at compose-time
-TZ=America/New_York
-ROOT_DIR=/opt
-NFS_OPTS=soft,timeo=50,retrans=3,rsize=1048576,wsize=1048576,noatime,nolock
-DOMAIN=example.com
-
-# Service-specific
+# Service-specific settings only
+NFS_CONVERTED_TORRENTS_PATH=/mnt/vol2/media/downloads/fileflows/converted/torrents
 SERVICE_PORT=8080
 SERVICE_TAG=latest
 ```
@@ -62,7 +88,7 @@ API_KEY=secret_value
 DB_PASSWORD=secret_value
 ```
 
-Reference in `docker-compose.override.yml`:
+Reference in `docker-compose.override.yml` for container injection:
 ```yaml
 services:
   myservice:
@@ -70,10 +96,18 @@ services:
       - /opt/secrets/service.env
 ```
 
+The `dc()` shell function also sources all `/opt/secrets/*.env` files before running
+compose, making secret variables (e.g. `${RADARR_API_KEY}`) available for YAML
+interpolation in labels and other compose YAML fields. Always use `dc`/`dcud` rather
+than raw `docker compose` to ensure consistent variable resolution.
+
 ## Compose File Template
 
 ```yaml
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   myservice:
     image: organization/image:${SERVICE_TAG:-latest}
@@ -118,7 +152,7 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_MEDIA_PATH}"
 
 networks:
@@ -152,9 +186,9 @@ networks:
 
 ## NFS Mount Options
 
-Always use these options for NFS volumes:
+Always use `${NFS_MEDIA_OPTS}` (defined in `global.env`) for NFS volumes:
 ```
-soft,timeo=50,retrans=3,rsize=1048576,wsize=1048576,noatime,nolock
+soft,timeo=50,retrans=3,nfsvers=4.2,rsize=1048576,wsize=1048576,nconnect=8,noatime
 ```
 
 - `soft` - Return errors instead of hanging on timeout
@@ -278,21 +312,24 @@ docker network create arr
 ## Deployment Checklist
 
 1. ☐ Create backup of existing config
-2. ☐ Create compose file in `/etc/docker-compose/<service>/`
-3. ☐ Create `.env` with all required variables
-4. ☐ Create `docker-compose.override.yml` for local settings
-5. ☐ Create symlink from `/opt/<service>/docker-compose.yml`
-6. ☐ Add secrets to `/opt/secrets/` if needed
+2. ☐ Create compose file in `/opt/<service>/docker-compose.yml`
+3. ☐ Add project-level `env_file: [/opt/environment/env/global.env]` at top of compose file
+4. ☐ Create `/opt/<service>/.env` with **only** service-specific variables (no global duplicates)
+5. ☐ Create `docker-compose.override.yml` for machine-specific settings and secret `env_file` refs
+6. ☐ Add secrets to `/opt/secrets/` if needed (chmod 640, chown root:docker)
 7. ☐ Set correct file permissions
-8. ☐ Test with `docker compose config`
-9. ☐ Deploy with `docker compose up -d`
+8. ☐ Test with `dc config` (uses dc function — not raw docker compose)
+9. ☐ Deploy with `dcud`
 10. ☐ Verify healthchecks pass
-11. ☐ Commit to git repository
+11. ☐ Commit compose file to git repository
 
 ## Common Issues
 
 ### "Variable not set" warnings
-These are normal for global variables from `/etc/environment`. The container will use defaults or values from `.env`.
+Verify that `/opt/environment/env/global.env` exists on the host (deployed by the
+`environment_sync` Ansible role). If running `docker compose` manually, use the `dc`
+shell function instead — it sources global.env, the host env file, and secrets
+automatically. Raw `docker compose` invocations will not resolve these variables.
 
 ### Volume "doesn't match configuration"
 Old volumes may have different options. Remove with `docker volume rm <volume>` before recreating.

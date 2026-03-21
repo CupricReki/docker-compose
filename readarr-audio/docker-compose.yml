@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   readarr-audio:
     image: lscr.io/linuxserver/readarr:${READARR_AUDIO_TAG:-0.4.18-develop}
@@ -37,7 +40,7 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_MEDIA_PATH}"
 
 networks:

@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   radarr:
     image: ghcr.io/linuxserver/radarr:${RADARR_TAG:-latest}
@@ -37,7 +40,7 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=${NFS_SERVER},${NFS_OPTS}"
+      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
       device: ":${NFS_MEDIA_PATH}"
 
 networks:

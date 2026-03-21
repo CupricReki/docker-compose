@@ -1,4 +1,7 @@
 ---
+env_file:
+  - /opt/environment/env/global.env
+
 services:
   prowlarr:
     image: ghcr.io/linuxserver/prowlarr:${PROWLARR_TAG:-develop}
