@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:${BAZARR_TAG:-latest}

@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   emby:
     image: linuxserver/emby:${EMBY_TAG:-latest}

@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   readarr-audio:
     image: lscr.io/linuxserver/readarr:${READARR_AUDIO_TAG:-0.4.18-develop}

@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   bookshelf:
     image: ghcr.io/pennydreadful/bookshelf:${BOOKSHELF_TAG:-hardcover}

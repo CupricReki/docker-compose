@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   sonarr:
     image: ghcr.io/linuxserver/sonarr:${SONARR_TAG:-latest}

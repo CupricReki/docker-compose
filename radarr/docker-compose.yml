@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   radarr:
     image: ghcr.io/linuxserver/radarr:${RADARR_TAG:-latest}

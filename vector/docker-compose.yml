@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   vector:
     image: timberio/vector:${VECTOR_TAG:-latest-alpine}

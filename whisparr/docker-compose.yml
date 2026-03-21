@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   whisparr:
     image: ghcr.io/hotio/whisparr:${WHISPARR_TAG:-latest}

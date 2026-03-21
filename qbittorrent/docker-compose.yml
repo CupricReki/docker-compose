@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   gluetun-qbt-port-manager:
     container_name: qbt_gluetun-qbt-port-manager

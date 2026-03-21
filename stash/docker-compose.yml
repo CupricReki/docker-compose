@@ -6,9 +6,6 @@ x-quicksync: &quicksync
     - "${VIDEO_GID:-44}"
     - "${RENDER_GID:-989}"
 
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   stash:
     <<: *quicksync

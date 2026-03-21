@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   fileflows:
     image: revenz/fileflows:${FILEFLOWS_TAG:-latest}

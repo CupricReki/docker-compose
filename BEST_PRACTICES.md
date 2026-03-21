@@ -24,15 +24,10 @@ Global variables are managed in the version-controlled
 [tp-environment](https://gitlab.timepiggy.com/cupric/tp-environment) repo and deployed
 to `/opt/environment/env/global.env` on each host via a pull-based systemd timer.
 
-Each `docker-compose.yml` declares a project-level `env_file` to load them at compose time:
-
-```yaml
-env_file:
-  - /opt/environment/env/global.env
-
-services:
-  ...
-```
+The `dc()` shell function sources `global.env`, the host-specific env file, and
+`/opt/secrets/*.env` before running docker compose, making all variables available for
+YAML interpolation (`${TZ}`, `${PUID_MEDIA}`, `${DOMAIN}`, etc.). Always use `dc`/`dcud`
+rather than raw `docker compose` to ensure correct variable resolution.
 
 Current globals:
 
@@ -105,9 +100,6 @@ than raw `docker compose` to ensure consistent variable resolution.
 
 ```yaml
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   myservice:
     image: organization/image:${SERVICE_TAG:-latest}

@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   sonarr-4k:
     image: ghcr.io/linuxserver/sonarr:${SONARR_4K_TAG:-latest}

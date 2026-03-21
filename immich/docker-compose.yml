@@ -6,9 +6,6 @@
 
 name: immich
 
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   immich-server:
     container_name: immich_server

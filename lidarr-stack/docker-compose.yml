@@ -1,7 +1,4 @@
 ---
-env_file:
-  - /opt/environment/env/global.env
-
 services:
   lidarr:
     image: ${LIDARR_IMAGE:-ghcr.io/linuxserver-labs/prarr}:${LIDARR_TAG:-lidarr-plugins}
