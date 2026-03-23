@@ -1,4 +1,5 @@
 ---
+# Optional log pipeline. Deploy with dcud on hosts that use Vector; omit entirely if unused.
 services:
   vector:
     image: timberio/vector:${VECTOR_TAG:-latest-alpine}

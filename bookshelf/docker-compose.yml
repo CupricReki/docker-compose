@@ -18,6 +18,8 @@ services:
     mem_reservation: 256m
     cpus: 1.0
     restart: unless-stopped
+    networks:
+      - arr
     logging:
       driver: json-file
       options:
@@ -47,3 +49,7 @@ services:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
 #       device: ":${MEDIA_PATH}"
+
+networks:
+  arr:
+    external: true

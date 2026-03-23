@@ -248,6 +248,23 @@ healthcheck:
   start_period: 60s
 ```
 
+### Prometheus exporters
+Scrape endpoints are usually **`/metrics`**, not `/`. Example: `prometheus-qbittorrent-exporter`
+in `qbittorrent/docker-compose.yml` uses `curl -f http://localhost:<port>/metrics`.
+
+### Dozzle agent
+`dozzle-agent` uses `["CMD", "/dozzle", "healthcheck"]` (see upstream Dozzle agent docs). Prefer
+`start_period: 30s`, `retries: 5`, and `start_interval: 5s` so Docker does not mark the agent
+unhealthy before the agent finishes talking to the Docker API.
+
+## Pothos alignment (reference)
+
+- Host bind paths: [tp-environment `env/hosts/pothos.env`](https://gitlab.timepiggy.com/cupric/tp-environment/-/blob/main/env/hosts/pothos.env) (`MEDIA_PATH`, `BOOKS_PATH`, `PHOTOS_PATH`, …).
+- Stacks **not** in this repo (aurcache, musicbrainz, intel-gpu-exporter): [docs/pothos-host-only.md](docs/pothos-host-only.md).
+- Optional Emby/Jellyfin Prometheus sidecars: [docs/prometheus-media-exporters.md](docs/prometheus-media-exporters.md).
+- Optional **vector** stack: deploy with `dcud vector` if used; otherwise omit.
+- Directory name is **`audiobookshelf`**, not `audiobookself`.
+
 ## Override Files
 
 Use `docker-compose.override.yml` for:
