@@ -261,7 +261,7 @@ unhealthy before the agent finishes talking to the Docker API.
 
 - Host bind paths: [tp-environment `env/hosts/pothos.env`](https://gitlab.timepiggy.com/cupric/tp-environment/-/blob/main/env/hosts/pothos.env) (`MEDIA_PATH`, `BOOKS_PATH`, `PHOTOS_PATH`, …).
 - Stacks **not** in this repo (aurcache, musicbrainz, intel-gpu-exporter): [docs/pothos-host-only.md](docs/pothos-host-only.md).
-- Optional Emby/Jellyfin Prometheus sidecars: [docs/prometheus-media-exporters.md](docs/prometheus-media-exporters.md).
+- Emby Prometheus exporter is in the **`embyserver`** stack; Jellyfin sidecar patterns: [docs/prometheus-media-exporters.md](docs/prometheus-media-exporters.md).
 - Optional **vector** stack: deploy with `dcud vector` if used; otherwise omit.
 - Directory name is **`audiobookshelf`**, not `audiobookself`.
 

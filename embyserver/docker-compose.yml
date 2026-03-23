@@ -36,6 +36,39 @@ services:
     labels:
       - diun.enable=true
 
+  emby-exporter:
+    image: williamclot/emby_exporter:${EMBY_EXPORTER_TAG:-latest}
+    container_name: emby-exporter
+    restart: unless-stopped
+    depends_on:
+      emby:
+        condition: service_healthy
+    command:
+      # In-container Emby HTTP port is 8096; EMBY_PORT is only the host mapping.
+      - "--emby.addr=http://emby.arr:8096"
+      - "--emby.token=${EMBY_EXPORTER_API}"
+    ports:
+      - ${EMBY_EXPORTER_PORT:-9162}:9162
+    mem_limit: 256m
+    mem_reservation: 64m
+    cpus: 0.25
+    networks:
+      - arr
+      - default
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "/bin/emby_exporter", "-health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    labels:
+      - diun.enable=true
+
 # Legacy NFS volumes (reference only). Compose uses host bind mounts above;
 # mount NFS (or other storage) on the host at these paths as needed.
 # volumes:

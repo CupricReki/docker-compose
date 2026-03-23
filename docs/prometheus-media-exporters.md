@@ -1,8 +1,11 @@
 # Optional Prometheus sidecars (Emby / Jellyfin)
 
-Git-standard `embyserver` and `jellyfin` compose files intentionally include **only** the main
-app (plus Jellyfin’s jellysearch/meilisearch). Prometheus scrape targets for Emby/Jellyfin
-belong in **`docker-compose.override.yml`** so API tokens stay out of git.
+The **`embyserver`** stack includes **`emby-exporter`** (`williamclot/emby_exporter`). Set
+**`EMBY_EXPORTER_API`** via `/opt/secrets` (sourced by `dc`) or `docker-compose.override.yml`
+`env_file` — do not commit the token.
+
+The **`jellyfin`** stack includes the main app plus jellysearch/meilisearch; a Jellyfin
+Prometheus sidecar can stay in **`docker-compose.override.yml`** so API tokens stay out of git.
 
 ## Jellyfin (example)
 
@@ -30,11 +33,12 @@ admin UI). Reference that file from the override with `env_file`.
 Healthcheck: use `curl -f http://localhost:<exporter-port>/metrics` (or the image’s documented
 path).
 
-## Emby (example)
+## Emby (in-repo)
 
-Emby has several community exporters (Go or Python); none are standardized in this repo.
-Typical pattern: small sidecar on `arr`, `EMBY_SERVER` + API key from `/opt/secrets/emby.env`,
-scrape `:metrics` from Prometheus.
+`embyserver/docker-compose.yml` defines **`emby-exporter`**, scraping Emby at
+`http://emby.arr:8096` on network **`arr`**. Add an Emby API key to the host environment as
+**`EMBY_EXPORTER_API`** (e.g. `/opt/secrets/emby.env` or `embyserver` stack `.env`, not git).
+Prometheus scrapes **`${EMBY_EXPORTER_PORT:-9162}`** (metrics path per upstream image docs).
 
 ## qBittorrent stack
 
