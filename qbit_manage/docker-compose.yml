@@ -37,7 +37,7 @@ services:
       - ${ROOT_DIR}/qbit_manage/config:/config:rw
       - ${ROOT_DIR}/qbit_manage/data/torrents:/data/torrents:rw
       - ${QBM_QBIT_CONFIG_PATH}:/qbittorrent:ro
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     ports:
       - ${QBM_PORT:-8471}:8080
     mem_limit: 1g
@@ -66,4 +66,4 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"

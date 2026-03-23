@@ -11,7 +11,7 @@ services:
       - GIDLIST=${GIDLIST}
     volumes:
       - ${ROOT_DIR}/embyserver/config:/config
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     ports:
       - ${EMBY_PORT:-8096}:8096
       - ${EMBY_HTTPS_PORT:-8920}:8920
@@ -44,7 +44,7 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"
 #
 networks:
   arr:

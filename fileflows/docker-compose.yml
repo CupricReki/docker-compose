@@ -16,7 +16,7 @@ services:
       - ${LOCAL_CACHE}/downloads/sabnzbd/complete:/mnt/downloads/sabnzbd/complete
       - ${LOCAL_CACHE}/downloads/fileflows/converted:/mnt/downloads/fileflows/converted
       - ${LOCAL_CACHE}/downloads/misc:/mnt/downloads/misc
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     ports:
       - ${FILEFLOWS_PORT:-19200}:5000
     cpus: 12.0
@@ -58,7 +58,7 @@ services:
       - ${LOCAL_CACHE}/downloads/sabnzbd/complete:/mnt/downloads/sabnzbd/complete
       - ${LOCAL_CACHE}/downloads/fileflows/converted:/mnt/downloads/fileflows/converted
       - ${LOCAL_CACHE}/downloads/misc:/mnt/downloads/misc
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     cpus: 12.0
     mem_limit: 16g
     mem_reservation: 1g
@@ -82,4 +82,4 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"

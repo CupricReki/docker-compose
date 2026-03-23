@@ -47,7 +47,7 @@ NFS_MEDIA_OPTS=soft,timeo=50,retrans=3,nfsvers=4.2,rsize=1048576,wsize=1048576,n
 
 ### Host-Specific Variables (`/opt/environment/env/hosts/<hostname>.env`)
 
-Host paths used for **bind mounts** in compose (`${NFS_MEDIA_PATH}`, `${NFS_BOOKS_PATH}`,
+Host paths used for **bind mounts** in compose (`${MEDIA_PATH}`, `${BOOKS_PATH}`,
 etc.). Mount NFS (or local disks) at these paths on the host (fstab, systemd `.mount`,
 Ansible) — Docker Compose does not create NFS mounts. `NFS_*_ADDR` / `NFS_MEDIA_OPTS`
 remain documented here for reference when configuring host-side NFS.
@@ -60,9 +60,11 @@ NFS_BOOKS_ADDR=10.1.80.4
 NFS_PHOTOS_ADDR=10.1.80.4
 NFS_NAS1_ADDR=10.1.80.4
 NFS_NAS2_ADDR=10.1.0.8
-NFS_MEDIA_PATH=/mnt/vol2/media          # Bind-mount source in compose
-NFS_BOOKS_PATH=/mnt/vol2/media/books
-NFS_PHOTOS_PATH=/mnt/vol2/media/photos
+MEDIA_PATH=/mnt/vol2/media          # Bind-mount source in compose
+BOOKS_PATH=/mnt/vol2/media/books
+PHOTOS_PATH=/mnt/vol2/media/photos
+NAS1_PATH=/mnt/vol2/media           # Stash (and similar); override per host
+NAS2_PATH=/mnt/vol2/media
 ```
 
 ### Local `.env` Files
@@ -73,7 +75,7 @@ Do **not** duplicate globals (TZ, PUID, DOMAIN, ROOT_DIR, etc.) — those come f
 
 ```bash
 # Service-specific settings only
-NFS_CONVERTED_TORRENTS_PATH=/mnt/vol2/media/downloads/fileflows/converted/torrents
+CONVERTED_TORRENTS_PATH=/mnt/vol2/media/downloads/fileflows/converted/torrents
 SERVICE_PORT=8080
 SERVICE_TAG=latest
 ```
@@ -115,7 +117,7 @@ services:
       - PGID=${PGID_MEDIA}
     volumes:
       - ${ROOT_DIR}/myservice/config:/config
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     ports:
       - ${SERVICE_PORT:-8080}:8080
     # Resource Limits (REQUIRED)
@@ -150,7 +152,7 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"
 
 networks:
   arr:
@@ -183,7 +185,7 @@ networks:
 
 ## Media storage: bind mounts (not Docker NFS volumes)
 
-Compose files use **bind mounts** to host paths such as `${NFS_MEDIA_PATH}`. Ensure those
+Compose files use **bind mounts** to host paths such as `${MEDIA_PATH}`. Ensure those
 paths exist on the host and point at your media (NFS mounted at OS level, local disk,
 etc.). Many stacks keep the old `volumes:` + `driver_opts` NFS definition **commented out**
 below the active YAML for reference.
@@ -309,7 +311,7 @@ docker network create arr
 
 1. ☐ Create backup of existing config
 2. ☐ Create compose file in `/opt/<service>/docker-compose.yml`
-3. ☐ Use bind mounts to host media paths (`${NFS_MEDIA_PATH}`, etc.); mount NFS on the host if needed
+3. ☐ Use bind mounts to host media paths (`${MEDIA_PATH}`, etc.); mount NFS on the host if needed
 4. ☐ Create `/opt/<service>/.env` with **only** service-specific variables (no global duplicates)
 5. ☐ Create `docker-compose.override.yml` for machine-specific settings and secret `env_file` refs
 6. ☐ Add secrets to `/opt/secrets/` if needed (chmod 640, chown root:docker)

@@ -26,8 +26,8 @@ services:
       - ${ROOT_DIR}/stash/metadata:/metadata
       - ${ROOT_DIR}/stash/cache:/cache
       - ${ROOT_DIR}/stash/blobs:/blobs
-      - ${NFS_NAS1_PATH}:/media/nas1
-      - ${NFS_NAS2_PATH}:/media/nas2
+      - ${NAS1_PATH}:/media/nas1
+      - ${NAS2_PATH}:/media/nas2
     ports:
       - ${STASH_PORT:-9999}:9999
     mem_limit: 4g
@@ -57,13 +57,13 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_NAS1_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_NAS1_PATH}"
+#       device: ":${NAS1_PATH}"
 #   nas2:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_NAS2_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_NAS2_PATH}"
+#       device: ":${NAS2_PATH}"
 #
 networks:
   arr:

@@ -20,7 +20,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - IMMICH_MACHINE_LEARNING_URL=http://${MACHINE_LEARNING_HOST:-immich-machine-learning}:3003
     volumes:
-      - ${NFS_PHOTOS_PATH}:/usr/src/app/upload
+      - ${PHOTOS_PATH}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     ports:
       - ${IMMICH_PORT:-2283}:2283
@@ -136,4 +136,4 @@ volumes:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_PHOTOS_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_PHOTOS_PATH}"
+#       device: ":${PHOTOS_PATH}"

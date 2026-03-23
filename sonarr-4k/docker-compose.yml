@@ -10,7 +10,7 @@ services:
       - PGID=${PGID_MEDIA}
     volumes:
       - ${ROOT_DIR}/sonarr-4k/config:/config
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     ports:
       - ${SONARR_4K_PORT:-8990}:8989
     mem_limit: 2g
@@ -40,7 +40,7 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"
 #
 networks:
   arr:

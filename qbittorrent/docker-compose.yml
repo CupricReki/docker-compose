@@ -78,7 +78,7 @@ services:
       - WEBUI_PORT=${QBT_WEBUI_PORT:-4444}
     volumes:
       - ${ROOT_DIR}/qbittorrent/qbittorrent-appdata:/config
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
       - ${ROOT_DIR}/qbittorrent/watchfolder:/watchfolder
     network_mode: "service:gluetun-vpn"
     mem_limit: 4g
@@ -152,7 +152,7 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"
 #
 networks:
   pir8-lan:

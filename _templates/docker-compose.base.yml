@@ -6,17 +6,10 @@
 #   2. Create a .env file with required variables (see .env.example)
 #   3. Create docker-compose.override.yml for machine-specific config
 #
-# NFS Mount Options (set NFS_OPTS in .env):
-#   soft          - Return error after timeout instead of hanging forever
-#   timeo=50      - 5 second timeout before retry (deciseconds)
-#   retrans=3     - Number of retries before giving up
-#   rsize=1048576 - 1MB read buffer for better throughput
-#   wsize=1048576 - 1MB write buffer for better throughput  
-#   noatime       - Don't update access times (reduces NFS traffic)
-#   nolock        - Disable NFS locking (good for media files)
-#
-# Example NFS_OPTS:
-#   NFS_OPTS=soft,timeo=50,retrans=3,rsize=1048576,wsize=1048576,noatime,nolock
+# Media: use a host bind mount (path from env, e.g. hosts/<hostname>.env):
+#   - ${MEDIA_PATH}:/media
+# Mount NFS (or other storage) on the host at MEDIA_PATH; see tp-environment
+# host env and global NFS_MEDIA_OPTS for fstab-style options.
 #
 ---
 services:
@@ -33,11 +26,11 @@ services:
     labels:
       - diun.enable=true
 
-# Example NFS volume definition:
+# Legacy Docker NFS volume (reference only; prefer bind mounts above):
 # volumes:
 #   media:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
-#       o: "addr=${NFS_SERVER},${NFS_OPTS}"
-#       device: ":${NFS_PATH}"
+#       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${MEDIA_PATH}"

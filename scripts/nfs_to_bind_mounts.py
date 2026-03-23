@@ -19,12 +19,12 @@ HEADER = (
 )
 
 BIND_REPLACEMENTS_TP = [
-    (re.compile(r"^(\s*)-\s+nas1:/media/nas1\s*$", re.M), r"\1- ${NFS_NAS1_PATH}:/media/nas1"),
-    (re.compile(r"^(\s*)-\s+nas2:/media/nas2\s*$", re.M), r"\1- ${NFS_NAS2_PATH}:/media/nas2"),
-    (re.compile(r"^(\s*)-\s+photos:/usr/src/app/upload\s*$", re.M), r"\1- ${NFS_PHOTOS_PATH}:/usr/src/app/upload"),
-    (re.compile(r"^(\s*)-\s+books:/calibre-library\s*$", re.M), r"\1- ${NFS_BOOKS_PATH}:/calibre-library"),
+    (re.compile(r"^(\s*)-\s+nas1:/media/nas1\s*$", re.M), r"\1- ${NAS1_PATH}:/media/nas1"),
+    (re.compile(r"^(\s*)-\s+nas2:/media/nas2\s*$", re.M), r"\1- ${NAS2_PATH}:/media/nas2"),
+    (re.compile(r"^(\s*)-\s+photos:/usr/src/app/upload\s*$", re.M), r"\1- ${PHOTOS_PATH}:/usr/src/app/upload"),
+    (re.compile(r"^(\s*)-\s+books:/calibre-library\s*$", re.M), r"\1- ${BOOKS_PATH}:/calibre-library"),
     (re.compile(r"^(\s*)-\s+media:/media/frigate\s*$", re.M), r"\1- /mnt/media/surveillance:/media/frigate"),
-    (re.compile(r"^(\s*)-\s+media:/media\s*$", re.M), r"\1- ${NFS_MEDIA_PATH}:/media"),
+    (re.compile(r"^(\s*)-\s+media:/media\s*$", re.M), r"\1- ${MEDIA_PATH}:/media"),
 ]
 
 
@@ -106,7 +106,7 @@ def process_immich(path: Path) -> None:
 
     body = re.sub(
         r"^(\s*)-\s+photos:/usr/src/app/upload\s*$",
-        r"\1- ${NFS_PHOTOS_PATH}:/usr/src/app/upload",
+        r"\1- ${PHOTOS_PATH}:/usr/src/app/upload",
         body,
         flags=re.MULTILINE,
     )

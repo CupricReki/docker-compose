@@ -10,7 +10,7 @@ services:
       - PGID=${PGID_MEDIA}
     volumes:
       - ${ROOT_DIR}/whisparr-v3/config:/config
-      - ${NFS_MEDIA_PATH}:/media
+      - ${MEDIA_PATH}:/media
     ports:
       - ${WHISPARR_V3_PORT:-6970}:6969
     mem_limit: 1g
@@ -40,7 +40,7 @@ services:
 #     driver_opts:
 #       type: "nfs4"
 #       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-#       device: ":${NFS_MEDIA_PATH}"
+#       device: ":${MEDIA_PATH}"
 #
 networks:
   arr:
