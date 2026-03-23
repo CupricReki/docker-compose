@@ -47,16 +47,20 @@ NFS_MEDIA_OPTS=soft,timeo=50,retrans=3,nfsvers=4.2,rsize=1048576,wsize=1048576,n
 
 ### Host-Specific Variables (`/opt/environment/env/hosts/<hostname>.env`)
 
-NFS server addresses and shared mount paths that differ per host. Also version-controlled
-in tp-environment. Sourced automatically by the `dc()` shell function.
+Host paths used for **bind mounts** in compose (`${NFS_MEDIA_PATH}`, `${NFS_BOOKS_PATH}`,
+etc.). Mount NFS (or local disks) at these paths on the host (fstab, systemd `.mount`,
+Ansible) — Docker Compose does not create NFS mounts. `NFS_*_ADDR` / `NFS_MEDIA_OPTS`
+remain documented here for reference when configuring host-side NFS.
+
+Sourced automatically by the `dc()` shell function.
 
 ```bash
-NFS_MEDIA_ADDR=10.1.80.4     # NFS server address for media volumes
-NFS_BOOKS_ADDR=10.1.80.4     # NFS server address for books volumes
-NFS_PHOTOS_ADDR=10.1.80.4    # NFS server address for photos volumes
-NFS_NAS1_ADDR=10.1.80.4      # Primary NAS address
-NFS_NAS2_ADDR=10.1.0.8       # Secondary NAS address
-NFS_MEDIA_PATH=/mnt/vol2/media
+NFS_MEDIA_ADDR=10.1.80.4     # For host NFS/fstab (not used in compose YAML)
+NFS_BOOKS_ADDR=10.1.80.4
+NFS_PHOTOS_ADDR=10.1.80.4
+NFS_NAS1_ADDR=10.1.80.4
+NFS_NAS2_ADDR=10.1.0.8
+NFS_MEDIA_PATH=/mnt/vol2/media          # Bind-mount source in compose
 NFS_BOOKS_PATH=/mnt/vol2/media/books
 NFS_PHOTOS_PATH=/mnt/vol2/media/photos
 ```
@@ -65,7 +69,7 @@ NFS_PHOTOS_PATH=/mnt/vol2/media/photos
 
 Each service should have a `.env` file with **only** service-specific variables.
 Do **not** duplicate globals (TZ, PUID, DOMAIN, ROOT_DIR, etc.) — those come from
-`global.env` automatically via the project-level `env_file`.
+`global.env` when using the `dc()` shell function (or explicit `--env-file`).
 
 ```bash
 # Service-specific settings only
@@ -111,7 +115,7 @@ services:
       - PGID=${PGID_MEDIA}
     volumes:
       - ${ROOT_DIR}/myservice/config:/config
-      - media:/media
+      - ${NFS_MEDIA_PATH}:/media
     ports:
       - ${SERVICE_PORT:-8080}:8080
     # Resource Limits (REQUIRED)
@@ -139,13 +143,14 @@ services:
     networks:
       - arr
 
-volumes:
-  media:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-      device: ":${NFS_MEDIA_PATH}"
+# Legacy Docker NFS volume (reference only during transition to bind mounts):
+# volumes:
+#   media:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${NFS_MEDIA_PATH}"
 
 networks:
   arr:
@@ -176,19 +181,18 @@ networks:
 
 **Note:** `cpus` limits CPU time, not visible cores. Containers still see all host CPUs but are throttled.
 
-## NFS Mount Options
+## Media storage: bind mounts (not Docker NFS volumes)
 
-Always use `${NFS_MEDIA_OPTS}` (defined in `global.env`) for NFS volumes:
+Compose files use **bind mounts** to host paths such as `${NFS_MEDIA_PATH}`. Ensure those
+paths exist on the host and point at your media (NFS mounted at OS level, local disk,
+etc.). Many stacks keep the old `volumes:` + `driver_opts` NFS definition **commented out**
+below the active YAML for reference.
+
+`NFS_MEDIA_OPTS` in `global.env` is for **host** NFS mount options (e.g. in fstab), not for
+Compose. Example options:
 ```
 soft,timeo=50,retrans=3,nfsvers=4.2,rsize=1048576,wsize=1048576,nconnect=8,noatime
 ```
-
-- `soft` - Return errors instead of hanging on timeout
-- `timeo=50` - 5 second timeout (in deciseconds)
-- `retrans=3` - 3 retries before failing
-- `rsize/wsize=1048576` - 1MB read/write buffer
-- `noatime` - Don't update access times (performance)
-- `nolock` - Disable NFS locking (use for media files)
 
 ## DNS Considerations
 
@@ -305,7 +309,7 @@ docker network create arr
 
 1. ☐ Create backup of existing config
 2. ☐ Create compose file in `/opt/<service>/docker-compose.yml`
-3. ☐ Add project-level `env_file: [/opt/environment/env/global.env]` at top of compose file
+3. ☐ Use bind mounts to host media paths (`${NFS_MEDIA_PATH}`, etc.); mount NFS on the host if needed
 4. ☐ Create `/opt/<service>/.env` with **only** service-specific variables (no global duplicates)
 5. ☐ Create `docker-compose.override.yml` for machine-specific settings and secret `env_file` refs
 6. ☐ Add secrets to `/opt/secrets/` if needed (chmod 640, chown root:docker)

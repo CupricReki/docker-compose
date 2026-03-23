@@ -12,22 +12,24 @@ services:
       # - TP_THEME=hotline
     volumes:
       - /opt/lidarr/config:/config
-      - music:/media/music
-      - downloads:/data/downloads
+      - /mnt/cache_slow-striped/music:/media/music
+      - /mnt/cache_slow-striped/downloads:/data/downloads
       # - /mnt/imports:/media/imports
     ports:
       - 8686:8686
     restart: unless-stopped
-volumes:
-  downloads:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/cache_slow-striped/downloads"
-  music:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/cache_slow-striped/music"
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   downloads:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/cache_slow-striped/downloads"
+#   music:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/cache_slow-striped/music"

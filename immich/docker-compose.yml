@@ -20,7 +20,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - IMMICH_MACHINE_LEARNING_URL=http://${MACHINE_LEARNING_HOST:-immich-machine-learning}:3003
     volumes:
-      - photos:/usr/src/app/upload
+      - ${NFS_PHOTOS_PATH}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     ports:
       - ${IMMICH_PORT:-2283}:2283
@@ -126,9 +126,14 @@ services:
 
 volumes:
   model-cache:
-  photos:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_PHOTOS_ADDR},${NFS_MEDIA_OPTS}"
-      device: ":${NFS_PHOTOS_PATH}"
+
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   model-cache:
+#   photos:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=${NFS_PHOTOS_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${NFS_PHOTOS_PATH}"

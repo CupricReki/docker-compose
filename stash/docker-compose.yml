@@ -26,8 +26,8 @@ services:
       - ${ROOT_DIR}/stash/metadata:/metadata
       - ${ROOT_DIR}/stash/cache:/cache
       - ${ROOT_DIR}/stash/blobs:/blobs
-      - nas1:/media/nas1
-      - nas2:/media/nas2
+      - ${NFS_NAS1_PATH}:/media/nas1
+      - ${NFS_NAS2_PATH}:/media/nas2
     ports:
       - ${STASH_PORT:-9999}:9999
     mem_limit: 4g
@@ -49,20 +49,22 @@ services:
     labels:
       - diun.enable=true
 
-volumes:
-  nas1:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_NAS1_ADDR},${NFS_MEDIA_OPTS}"
-      device: ":${NFS_NAS1_PATH}"
-  nas2:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_NAS2_ADDR},${NFS_MEDIA_OPTS}"
-      device: ":${NFS_NAS2_PATH}"
-
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   nas1:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=${NFS_NAS1_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${NFS_NAS1_PATH}"
+#   nas2:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=${NFS_NAS2_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${NFS_NAS2_PATH}"
+#
 networks:
   arr:
     external: true

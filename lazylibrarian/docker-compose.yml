@@ -11,28 +11,30 @@ services:
       - DOCKER_MODS=linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
     volumes:
       - /opt/lazylibrarian:/config
-      - downloads:/downloads
-      - books:/books
-      - audiobooks:/audiobooks
+      - /mnt/cache_slow-striped/downloads:/downloads
+      - /mnt/media/misc/books:/books
+      - /mnt/media/misc/audiobooks:/audiobooks
     ports:
       - 5299:5299
     restart: always
-volumes:
-  downloads:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/cache_slow-striped/downloads"
-  books:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/books"
-  audiobooks:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/audiobooks"
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   downloads:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/cache_slow-striped/downloads"
+#   books:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/books"
+#   audiobooks:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/audiobooks"

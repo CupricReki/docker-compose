@@ -22,22 +22,24 @@ services:
       - 4040:4040 # WebUI
     # devices:
       # - /dev/snd:/dev/snd # Only needed to pass your host sound device to Airsonic's Java jukebox player.
-volumes:
-  music:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/cache_slow-striped/music"
-  playlists:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/playlists"
-  podcasts:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/podcasts"
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   music:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/cache_slow-striped/music"
+#   playlists:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/playlists"
+#   podcasts:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/podcasts"

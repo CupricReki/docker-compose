@@ -11,7 +11,7 @@ services:
     volumes:
       - ${ROOT_DIR}/jellyfin/config:/config
       - ${ROOT_DIR}/jellyfin/cache:/cache
-      - media:/media
+      - ${NFS_MEDIA_PATH}:/media
     ports:
       - ${JELLYFIN_PORT:-8496}:8096
     devices:
@@ -87,14 +87,16 @@ services:
       retries: 3
       start_period: 30s
 
-volumes:
-  media:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-      device: ":${NFS_MEDIA_PATH}"
-
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   media:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${NFS_MEDIA_PATH}"
+#
 networks:
   arr:
     external: true

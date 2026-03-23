@@ -13,14 +13,16 @@ services:
       # - TP_THEME=hotline
     volumes:
       - /opt/calibre-web:/config
-      - calibre-library:/calibre-library
+      - /mnt/media/misc/calibre-library:/calibre-library
     ports:
       - 8783:8083
     restart: unless-stopped
-volumes:
-  calibre-library:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/calibre-library"
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   calibre-library:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/calibre-library"

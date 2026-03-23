@@ -10,20 +10,22 @@ services:
     ports:
       - 13378:80
     volumes:
-      - audiobooks:/audiobooks
-      - podcasts:/podcasts
+      - /mnt/media/misc/audiobooks:/audiobooks
+      - /mnt/media/misc/podcasts:/podcasts
       - /opt/audiobookshelf/config:/config
       - /opt/audiobookshelf/metadata:/metadata
-volumes:
-  audiobooks:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/audiobooks"
-  podcasts:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/misc/podcasts"
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   audiobooks:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/audiobooks"
+#   podcasts:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/misc/podcasts"

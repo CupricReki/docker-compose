@@ -9,7 +9,7 @@ services:
     volumes:
       - ${ROOT_DIR}/audiobookshelf/config:/config
       - ${ROOT_DIR}/audiobookshelf/metadata:/metadata
-      - media:/media
+      - ${NFS_MEDIA_PATH}:/media
     ports:
       - ${AUDIOBOOKSHELF_PORT:-13378}:80
     mem_limit: 2g
@@ -31,14 +31,16 @@ services:
     labels:
       - diun.enable=true
 
-volumes:
-  media:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
-      device: ":${NFS_MEDIA_PATH}"
-
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   media:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${NFS_MEDIA_PATH}"
+#
 networks:
   arr:
     external: true

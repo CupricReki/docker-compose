@@ -27,7 +27,7 @@ services:
       - /dev/dri/renderD128 # for intel hwaccel, needs to be updated for your hardware
     volumes:
       - /opt/frigatenvr/config/config.yml:/config/config.yml:ro
-      - media:/media/frigate
+      - /mnt/media/surveillance:/media/frigate
       - /opt/frigatenvr/db:/db
       - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
         target: /tmp/cache
@@ -38,13 +38,15 @@ services:
       - "1935:1935" # RTMP feeds
     environment:
       FRIGATE_RTSP_PASSWORD: "frigate"
-volumes:
-  media:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.0.0.3"
-      device: ":/mnt/media/surveillance"
+# Legacy NFS volumes (reference only). Compose uses host bind mounts above;
+# mount NFS (or other storage) on the host at these paths as needed.
+# volumes:
+#   media:
+#     driver: local
+#     driver_opts:
+#       type: "nfs4"
+#       o: "addr=10.0.0.3"
+#       device: ":/mnt/media/surveillance"
 networks:
   frigate:
  
