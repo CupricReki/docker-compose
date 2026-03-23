@@ -65,6 +65,9 @@ BOOKS_PATH=/mnt/vol2/media/books
 PHOTOS_PATH=/mnt/vol2/media/photos
 NAS1_PATH=/mnt/vol2/media           # Stash (and similar); override per host
 NAS2_PATH=/mnt/vol2/media
+# Optional Jellyfin: config + Meilisearch data off ROOT_DIR (defaults: ${ROOT_DIR}/jellyfin/...)
+# JELLYFIN_CONFIG_PATH=/mnt/jellyfin_metadata/config
+# JELLYFIN_MEILISEARCH_DATA=/mnt/jellyfin_metadata/meilisearch
 ```
 
 ### Local `.env` Files
@@ -261,7 +264,7 @@ unhealthy before the agent finishes talking to the Docker API.
 
 - Host bind paths: [tp-environment `env/hosts/pothos.env`](https://gitlab.timepiggy.com/cupric/tp-environment/-/blob/main/env/hosts/pothos.env) (`MEDIA_PATH`, `BOOKS_PATH`, `PHOTOS_PATH`, …).
 - Stacks **not** in this repo (aurcache, musicbrainz, intel-gpu-exporter): [docs/pothos-host-only.md](docs/pothos-host-only.md).
-- Emby Prometheus exporter is in the **`embyserver`** stack; Jellyfin sidecar patterns: [docs/prometheus-media-exporters.md](docs/prometheus-media-exporters.md).
+- Emby exporter: **`embyserver`** stack; Jellyfin exporter: **`jellyfin`** stack — [docs/prometheus-media-exporters.md](docs/prometheus-media-exporters.md).
 - Optional **vector** stack: deploy with `dcud vector` if used; otherwise omit.
 - Directory name is **`audiobookshelf`**, not `audiobookself`.
 

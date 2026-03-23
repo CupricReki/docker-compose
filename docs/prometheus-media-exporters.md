@@ -4,34 +4,17 @@ The **`embyserver`** stack includes **`emby-exporter`** (`williamclot/emby_expor
 **`EMBY_EXPORTER_API`** via `/opt/secrets` (sourced by `dc`) or `docker-compose.override.yml`
 `env_file` — do not commit the token.
 
-The **`jellyfin`** stack includes the main app plus jellysearch/meilisearch; a Jellyfin
-Prometheus sidecar can stay in **`docker-compose.override.yml`** so API tokens stay out of git.
+The **`jellyfin`** stack includes **`jellyfin-exporter`** (`rebelcore/jellyfin-exporter`).
+Set **`JELLYFIN_EXPORTER_API`** (Jellyfin admin → API keys) via `/opt/secrets` or stack `.env`, not git.
+Scrape **`${JELLYFIN_EXPORTER_PORT:-9594}`** (metrics on **`/metrics`** for rebelcore).
 
-## Jellyfin (example)
+Optional host overrides (see `env/hosts/*.env`): **`JELLYFIN_CONFIG_PATH`**, **`JELLYFIN_MEILISEARCH_DATA`**
+when config and Meilisearch data live outside `${ROOT_DIR}/jellyfin/`.
 
-Pick an exporter image you trust (e.g. `ghcr.io/stefanabl/jellyfin-prometheus-exporter` or
-`rebelcore/jellyfin-exporter`). Add a service on the same Docker network as Jellyfin (`arr`).
+## Jellyfin (alternate images)
 
-```yaml
-services:
-  jellyfin-exporter:
-    image: ghcr.io/stefanabl/jellyfin-prometheus-exporter:${JELLYFIN_EXPORTER_TAG:-latest}
-    container_name: jellyfin-exporter
-    environment:
-      - JF_URL=http://jellyfin:8096/
-      - TOKEN=${JELLYFIN_EXPORTER_TOKEN}
-    ports:
-      - ${JELLYFIN_EXPORTER_PORT:-9594}:8080
-    networks:
-      - arr
-    restart: unless-stopped
-```
-
-Put `JELLYFIN_EXPORTER_TOKEN` in `/opt/secrets/jellyfin.env` (create a Jellyfin API key in the
-admin UI). Reference that file from the override with `env_file`.
-
-Healthcheck: use `curl -f http://localhost:<exporter-port>/metrics` (or the image’s documented
-path).
+Other exporters (e.g. `ghcr.io/stefanabl/jellyfin-prometheus-exporter`) can replace the default
+service in a **`docker-compose.override.yml`** if you prefer different metrics or ports.
 
 ## Emby (in-repo)
 
