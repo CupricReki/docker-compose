@@ -1,0 +1,67 @@
+---
+# BookLore + MariaDB. Set BOOKLORE_DB_PASSWORD and BOOKLORE_MYSQL_ROOT_PASSWORD in service .env (not global.env).
+services:
+  booklore:
+    image: booklore/booklore:${BOOKLORE_TAG:-latest}
+    container_name: booklore
+    hostname: booklore
+    environment:
+      - USER_ID=${PUID_MEDIA}
+      - GROUP_ID=${PGID_MEDIA}
+      - TZ=${TZ}
+      - DATABASE_URL=jdbc:mariadb://mariadb:3306/booklore
+      - DATABASE_USERNAME=booklore
+      - DATABASE_PASSWORD=${BOOKLORE_DB_PASSWORD:?set BOOKLORE_DB_PASSWORD in .env}
+      - BOOKLORE_PORT=${BOOKLORE_PORT:-6060}
+      - SWAGGER_ENABLED=${BOOKLORE_SWAGGER_ENABLED:-false}
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "${BOOKLORE_PORT:-6060}:${BOOKLORE_PORT:-6060}"
+    volumes:
+      - ${ROOT_DIR}/booklore/data:/app/data
+      - ${BOOKS_PATH}:/books
+      - ${ROOT_DIR}/booklore/bookdrop:/bookdrop
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:${BOOKLORE_MARIADB_TAG:-11.4.5}
+    container_name: booklore-mariadb
+    hostname: booklore-mariadb
+    environment:
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${BOOKLORE_MYSQL_ROOT_PASSWORD:?set BOOKLORE_MYSQL_ROOT_PASSWORD in .env}
+      - MYSQL_DATABASE=booklore
+      - MYSQL_USER=booklore
+      - MYSQL_PASSWORD=${BOOKLORE_DB_PASSWORD:?set BOOKLORE_DB_PASSWORD in .env}
+    volumes:
+      - ${ROOT_DIR}/booklore/mariadb/config:/config
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

@@ -1,0 +1,85 @@
+---
+# Seerr (https://seerr.dev/) with PostgreSQL. Use ghcr image; override with build in docker-compose.override.yml if needed.
+services:
+  seerr:
+    image: ghcr.io/seerr-team/seerr:${SEERR_TAG:-latest}
+    container_name: seerr
+    hostname: seerr
+    restart: unless-stopped
+    init: true
+    user: "${SEERR_PUID:-1000}:${SEERR_PGID:-1000}"
+    ports:
+      - "${SEERR_PORT:-5055}:5055"
+    environment:
+      TZ: ${TZ}
+      DB_TYPE: postgres
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: ${SEERR_DB_USER:-seerr}
+      DB_PASS: ${SEERR_DB_PASS:?set SEERR_DB_PASS in .env}
+      DB_NAME: ${SEERR_DB_NAME:-seerr}
+    volumes:
+      - ${ROOT_DIR}/seerr/config:/app/config
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "--spider",
+          "http://127.0.0.1:5055/api/v1/status",
+        ]
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    networks:
+      - seerr_network
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  postgres:
+    image: postgres:${SEERR_POSTGRES_TAG:-18-alpine}
+    container_name: seerr_db
+    hostname: seerr_db
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ}
+      POSTGRES_USER: ${SEERR_DB_USER:-seerr}
+      POSTGRES_PASSWORD: ${SEERR_DB_PASS:?set SEERR_DB_PASS in .env}
+      POSTGRES_DB: ${SEERR_DB_NAME:-seerr}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -t 2 -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ${ROOT_DIR}/seerr/postgres:/var/lib/postgresql/data
+    networks:
+      - seerr_network
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+networks:
+  seerr_network:
+    name: seerr_network
+    driver: bridge

@@ -1,0 +1,155 @@
+---
+# Monitoring stack (Prometheus, Grafana, cAdvisor, node_exporter, InfluxDB, Chronograf, Telegraf).
+# Config under ${ROOT_DIR}/grafana (prometheus.yaml, telegraf.conf, etc.). Chronograf Influx URL via CHRONOGRAF_INFLUXDB_URL.
+services:
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_TAG:-v2.37.9}
+    container_name: prometheus
+    hostname: prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-3554}:9090"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+    volumes:
+      - ${ROOT_DIR}/grafana/config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - ${ROOT_DIR}/grafana/prometheus-data:/prometheus
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  grafana:
+    image: grafana/grafana-oss:${GRAFANA_TAG:-latest}
+    container_name: grafana
+    hostname: grafana
+    ports:
+      - "${GRAFANA_PORT:-3555}:3000"
+    volumes:
+      - ${ROOT_DIR}/grafana/grafana-data:/var/lib/grafana
+      - ${ROOT_DIR}/grafana/Teslamate-CustomGrafanaDashboards/customdashboards.yml:/etc/grafana/provisioning/dashboards/customdashboards.yml:ro
+      - ${ROOT_DIR}/grafana/Teslamate-CustomGrafanaDashboards/dashboards:/TeslamateCustomDashboards:ro
+    restart: unless-stopped
+    environment:
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=${GRAFANA_PLUGINS_ALLOW_UNSIGNED:-openobserve}
+      - GF_PLUGINS_ENABLE_ALPHA=${GRAFANA_PLUGINS_ALPHA:-true}
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:${NODE_EXPORTER_TAG:-v1.5.0}
+    container_name: node_exporter
+    hostname: node_exporter
+    command: "--path.rootfs=/host"
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:${CADVISOR_TAG:-v0.47.0}
+    container_name: cadvisor
+    hostname: cadvisor
+    command:
+      - "-port=8098"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  influxdb:
+    image: influxdb:${INFLUXDB_TAG:-2}
+    container_name: influxdb
+    hostname: influxdb
+    ports:
+      - "${INFLUXDB_PORT:-8086}:8086"
+    volumes:
+      - ${ROOT_DIR}/grafana/influxdb-storage/data:/var/lib/influxdb2
+      - ${ROOT_DIR}/grafana/influxdb-storage/config:/etc/influxdb2
+    environment:
+      - INFLUXDB_DB=db0
+    restart: unless-stopped
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  chronograf:
+    image: chronograf:${CHRONOGRAF_TAG:-latest}
+    container_name: chronograf
+    hostname: chronograf
+    ports:
+      - "127.0.0.1:${CHRONOGRAF_PORT:-8888}:8888"
+    volumes:
+      - ${ROOT_DIR}/grafana/chronograf-storage:/var/lib/chronograf
+    depends_on:
+      - influxdb
+    environment:
+      - INFLUXDB_URL=${CHRONOGRAF_INFLUXDB_URL:-https://influxdb.example.com}
+      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME:-}
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD:-}
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  telegraf:
+    image: telegraf:${TELEGRAF_TAG:-1.29}
+    container_name: telegraf
+    hostname: telegraf
+    volumes:
+      - ${ROOT_DIR}/grafana/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    ports:
+      - "${TELEGRAF_EXTRA_PORT:-12003}:12003"
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

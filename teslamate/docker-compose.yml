@@ -1,0 +1,66 @@
+---
+# TeslaMate + PostgreSQL. Set TESLAMATE_ENCRYPTION_KEY and TESLAMATE_DB_PASSWORD in /opt/teslamate/.env (and optional MQTT_*).
+# Grafana for TeslaMate is optional; this host uses a separate Grafana stack.
+services:
+  teslamate:
+    image: teslamate/teslamate:${TESLAMATE_TAG:-latest}
+    container_name: teslamate
+    hostname: teslamate
+    restart: unless-stopped
+    environment:
+      - ENCRYPTION_KEY=${TESLAMATE_ENCRYPTION_KEY:?set TESLAMATE_ENCRYPTION_KEY in .env}
+      - DATABASE_USER=${TESLAMATE_DB_USER:-teslamate}
+      - DATABASE_PASS=${TESLAMATE_DB_PASSWORD:?set TESLAMATE_DB_PASSWORD in .env}
+      - DATABASE_NAME=${TESLAMATE_DB_NAME:-teslamate}
+      - DATABASE_HOST=database
+      - MQTT_HOST=${TESLAMATE_MQTT_HOST:-localhost}
+      - MQTT_PORT=${TESLAMATE_MQTT_PORT:-1883}
+      - MQTT_USERNAME=${TESLAMATE_MQTT_USERNAME:-}
+      - MQTT_PASSWORD=${TESLAMATE_MQTT_PASSWORD:-}
+      - TZ=${TZ}
+    ports:
+      - "${TESLAMATE_PORT:-4000}:4000"
+    volumes:
+      - ${ROOT_DIR}/teslamate/import:/opt/app/import
+    cap_drop:
+      - ALL
+    depends_on:
+      database:
+        condition: service_healthy
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  database:
+    image: postgres:${TESLAMATE_POSTGRES_TAG:-17}
+    container_name: teslamate-db
+    hostname: teslamate-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${TESLAMATE_DB_USER:-teslamate}
+      - POSTGRES_PASSWORD=${TESLAMATE_DB_PASSWORD:?set TESLAMATE_DB_PASSWORD in .env}
+      - POSTGRES_DB=${TESLAMATE_DB_NAME:-teslamate}
+    volumes:
+      - ${ROOT_DIR}/teslamate/teslamate-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -t 2 -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

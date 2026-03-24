@@ -1,0 +1,130 @@
+---
+# Slurp'it network inventory (https://slurpit.io/). Set SLURPIT_PORTAL_BASE_URL to the portal’s public base URL.
+name: slurpit
+
+services:
+  slurpit-warehouse:
+    image: slurpit/warehouse:${SLURPIT_WAREHOUSE_TAG:-latest}
+    container_name: slurpit-warehouse
+    hostname: slurpit-warehouse
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/services"]
+      interval: 10s
+      timeout: 10s
+      retries: 360
+    networks:
+      - slurpit-network
+    environment:
+      TZ: ${TZ}
+      WAREHOUSE_PORTAL_URL: http://slurpit-portal
+    volumes:
+      - ${ROOT_DIR}/slurpit/backup/warehouse:/backup/files
+      - ${ROOT_DIR}/slurpit/db/warehouse:/var/lib/mongodb
+      - ${ROOT_DIR}/slurpit/logs/warehouse/mongodb:/var/log/mongodb
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  slurpit-scraper:
+    image: slurpit/scraper:${SLURPIT_SCRAPER_TAG:-latest}
+    container_name: slurpit-scraper
+    hostname: slurpit-scraper
+    depends_on:
+      slurpit-warehouse:
+        condition: service_healthy
+    networks:
+      - slurpit-network
+    environment:
+      TZ: ${TZ}
+      SCRAPER_TIMEOUT: ${SLURPIT_SCRAPER_TIMEOUT:-20}
+      SCRAPER_POOLSIZE: ${SLURPIT_SCRAPER_POOLSIZE:-8}
+      SCRAPER_WAREHOUSE_HOSTNAME: slurpit-warehouse
+    restart: unless-stopped
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  slurpit-scanner:
+    image: slurpit/scanner:${SLURPIT_SCANNER_TAG:-latest}
+    container_name: slurpit-scanner
+    hostname: slurpit-scanner
+    depends_on:
+      slurpit-warehouse:
+        condition: service_healthy
+    networks:
+      - slurpit-network
+    environment:
+      TZ: ${TZ}
+      SCANNER_POOLSIZE: ${SLURPIT_SCANNER_POOLSIZE:-8}
+      SCANNER_SNMP_TIMEOUT: ${SLURPIT_SCANNER_SNMP_TIMEOUT:-6}
+      SCANNER_WAREHOUSE_HOSTNAME: slurpit-warehouse
+    restart: unless-stopped
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  slurpit-portal:
+    image: slurpit/portal:${SLURPIT_PORTAL_TAG:-latest}
+    container_name: slurpit-portal
+    hostname: slurpit-portal
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 360
+    networks:
+      - slurpit-network
+    depends_on:
+      slurpit-warehouse:
+        condition: service_healthy
+    environment:
+      TZ: ${TZ}
+      PORTAL_BASE_URL: ${SLURPIT_PORTAL_BASE_URL:-http://localhost}
+      PORTAL_WAREHOUSE_URL: http://slurpit-warehouse
+      PORTAL_MENU_MODE: ${SLURPIT_PORTAL_MENU_MODE:-classic}
+    volumes:
+      - ${ROOT_DIR}/slurpit/logs/nginx:/var/log/nginx
+      - ${ROOT_DIR}/slurpit/logs/mysql:/var/log/mysql
+      - ${ROOT_DIR}/slurpit/logs/php:/var/log/php
+      - ${ROOT_DIR}/slurpit/certs:/etc/nginx/certs
+      - ${ROOT_DIR}/slurpit/db/portal:/var/lib/mysql
+      - ${ROOT_DIR}/slurpit/backup/portal:/backup/files
+    restart: unless-stopped
+    ports:
+      - "${SLURPIT_PORT:-8951}:80"
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+networks:
+  slurpit-network:
+    driver: bridge

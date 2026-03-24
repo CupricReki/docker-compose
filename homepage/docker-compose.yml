@@ -1,0 +1,27 @@
+---
+# Homepage (https://gethomepage.dev/). Set HOMEPAGE_ALLOWED_HOSTS to your host:port and/or public hostname.
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:${HOMEPAGE_TAG:-latest}
+    container_name: homepage
+    hostname: homepage
+    environment:
+      - TZ=${TZ}
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS:?set HOMEPAGE_ALLOWED_HOSTS (comma-separated hosts)}
+    ports:
+      - "${HOMEPAGE_PORT:-3000}:3000"
+    volumes:
+      - ${ROOT_DIR}/homepage/config:/app/config
+      - ${ROOT_DIR}/homepage/icons:/app/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

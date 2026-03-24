@@ -1,0 +1,100 @@
+---
+# Authentik (https://goauthentik.io/). Secrets in /opt/authentik/.env (PG_PASS, AUTHENTIK_SECRET_KEY, etc.).
+services:
+  postgresql:
+    image: docker.io/library/postgres:${AUTHENTIK_POSTGRES_TAG:-16-alpine}
+    container_name: authent-postgres
+    hostname: authent-postgres
+    volumes:
+      - ${ROOT_DIR}/authentik/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${PG_PASS:?database password required}
+      POSTGRES_USER: ${PG_USER:-authentik}
+      POSTGRES_DB: ${PG_DB:-authentik}
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 20s
+      test:
+        - CMD-SHELL
+        - pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}
+      timeout: 5s
+    env_file:
+      - .env
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  server:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.12}
+    container_name: authentik-server
+    hostname: authentik-server
+    command: server
+    environment:
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
+    volumes:
+      - ${ROOT_DIR}/authentik/data:/data
+      - ${ROOT_DIR}/authentik/custom-templates:/templates
+      - ${ROOT_DIR}/authentik/custom-assets:/assets
+    env_file:
+      - .env
+    ports:
+      - "${COMPOSE_PORT_HTTP:-9000}:9000"
+      - "${COMPOSE_PORT_HTTPS:-9443}:9443"
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    shm_size: 515mb
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  worker:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.12}
+    container_name: authentik-worker
+    hostname: authentik-worker
+    command: worker
+    environment:
+      AUTHENTIK_POSTGRESQL__HOST: postgresql
+      AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
+    restart: unless-stopped
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${ROOT_DIR}/authentik/data:/data
+      - ${ROOT_DIR}/authentik/certs:/certs
+      - ${ROOT_DIR}/authentik/custom-templates:/templates
+      - ${ROOT_DIR}/authentik/custom-assets:/assets
+    env_file:
+      - .env
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

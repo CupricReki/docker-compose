@@ -1,0 +1,28 @@
+---
+# Homarr dashboard (https://homarr.dev/). Set SECRET_ENCRYPTION_KEY and DOCKER_GID (host docker group id) in .env.
+services:
+  homarr:
+    container_name: homarr
+    hostname: homarr
+    image: ghcr.io/homarr-labs/homarr:${HOMARR_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      - PUID=${HOMARR_PUID:-1000}
+      - PGID=${HOMARR_PGID:-1000}
+      - DOCKER_GID=${DOCKER_GID:?set DOCKER_GID to host docker group id}
+      - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY:?set SECRET_ENCRYPTION_KEY in .env}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${ROOT_DIR}/homarr/appdata:/appdata
+    ports:
+      - "${HOMARR_PORT:-7575}:7575"
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
