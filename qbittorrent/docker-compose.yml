@@ -68,7 +68,10 @@ services:
 
   qbittorrent:
     container_name: qbt_qbittorrent
-    image: ${QBITTORRENT_IMAGE:-ghcr.io/linuxserver/qbittorrent:latest}
+    build:
+      context: ${ROOT_DIR}/qbittorrent/build/qbittorrent
+      dockerfile: Dockerfile
+    # image: ${QBITTORRENT_IMAGE:-ghcr.io/linuxserver/qbittorrent:latest}
     restart: unless-stopped
     environment:
       - TZ=${TZ}

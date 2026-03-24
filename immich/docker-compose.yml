@@ -76,7 +76,7 @@ services:
   redis:
     container_name: immich_redis
     hostname: immich-redis
-    image: docker.io/redis:6.2-alpine
+    image: docker.io/redis:${IMMICH_REDIS_TAG:-6.2-alpine}
     mem_limit: 512m
     mem_reservation: 64m
     cpus: 1.0
