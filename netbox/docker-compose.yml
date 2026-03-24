@@ -1,29 +1,150 @@
 ---
-version: "2.1"
+# NetBox community stack (aligned with lauber / netbox-docker). Run from ${ROOT_DIR}/netbox with
+# env/*.env files present (see https://github.com/netbox-community/netbox-docker).
+name: netbox
+
+x-netbox-common: &netbox-common
+  image: docker.io/netboxcommunity/netbox:${NETBOX_VERSION:-v4.5-4.0.1}
+  env_file: env/netbox.env
+  user: "netbox:root"
+  volumes:
+    - ./configuration:/etc/netbox/config:z,ro
+    - ./netbox-media-files:/opt/netbox/netbox/media:rw
+    - ./netbox-reports-files:/opt/netbox/netbox/reports:rw
+    - ./netbox-scripts-files:/opt/netbox/netbox/scripts:rw
+  restart: unless-stopped
+
 services:
   netbox:
-    image: ghcr.io/linuxserver/netbox
+    <<: *netbox-common
     container_name: netbox
-    environment:
-      - PUID=1015
-      - PGID=1015
-      - SUPERUSER_EMAIL=cupricreki@gmail.com
-      - SUPERUSER_PASSWORD=vetencis
-      - ALLOWED_HOST=netbox.ogbase.net
-      - DB_NAME=netbox
-      - DB_USER=netbox
-      - DB_PASSWORD=netbox
-      - DB_HOST=postgres
-# optional
-#      - DB_PORT=<DB_PORT>
-      - REDIS_HOST=redis
-# optional default: 6379
-#      - REDIS_PORT=<REDIS_PORT>
-# optional default: none
-#      - REDIS_PASSWORD=<REDIS_PASSWORD>
-      - TZ=America/Denver
-    volumes:
-      - /opt/dl/netdata:/config
+    hostname: netbox
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      redis-cache:
+        condition: service_healthy
     ports:
-      - 8000:8000
-    restart: always
+      - ${NETBOX_PORT:-8455}:8080
+    healthcheck:
+      start_period: 90s
+      timeout: 3s
+      interval: 15s
+      test: "curl -f http://localhost:8080/login/ || exit 1"
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  netbox-worker:
+    <<: *netbox-common
+    container_name: netbox-worker
+    hostname: netbox-worker
+    depends_on:
+      netbox:
+        condition: service_healthy
+    command:
+      - /opt/netbox/venv/bin/python
+      - /opt/netbox/netbox/manage.py
+      - rqworker
+    healthcheck:
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      test: "ps -aux | grep -v grep | grep -q rqworker || exit 1"
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  postgres:
+    image: docker.io/postgres:${NETBOX_POSTGRES_TAG:-16-alpine}
+    container_name: netbox-postgres
+    hostname: netbox-postgres
+    env_file: env/postgres.env
+    healthcheck:
+      test: pg_isready -q -t 2 -d $$POSTGRES_DB -U $$POSTGRES_USER
+      start_period: 20s
+      timeout: 30s
+      interval: 10s
+      retries: 5
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  redis:
+    image: docker.io/valkey/valkey:${NETBOX_VALKEY_TAG:-9.0-alpine}
+    container_name: netbox-redis
+    hostname: netbox-redis
+    command:
+      - sh
+      - -c
+      - valkey-server --appendonly yes --requirepass $$REDIS_PASSWORD
+    healthcheck: &valkey-healthcheck
+      test: '[ $$(valkey-cli --pass "$${REDIS_PASSWORD}" ping) = ''PONG'' ]'
+      start_period: 5s
+      timeout: 3s
+      interval: 1s
+      retries: 5
+    env_file: env/redis.env
+    volumes:
+      - ./data/redis:/data
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 64m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  redis-cache:
+    image: docker.io/valkey/valkey:${NETBOX_VALKEY_TAG:-9.0-alpine}
+    container_name: netbox-redis-cache
+    hostname: netbox-redis-cache
+    command:
+      - sh
+      - -c
+      - valkey-server --requirepass $$REDIS_PASSWORD
+    healthcheck: *valkey-healthcheck
+    env_file: env/redis-cache.env
+    volumes:
+      - ./data/redis-cache:/data
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 64m
+    cpus: 0.5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

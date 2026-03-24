@@ -1,48 +1,75 @@
 ---
-version: "2"
+# Secrets: set BOOKSTACK_DB_PASSWORD, BOOKSTACK_DB_ROOT_PASSWORD, BOOKSTACK_APP_KEY (and optional
+# BOOKSTACK_DB_USER) in stack .env, /opt/secrets, or dc() env — not in git.
 services:
   bookstack:
-    image: lscr.io/linuxserver/bookstack
+    image: lscr.io/linuxserver/bookstack:${BOOKSTACK_TAG:-latest}
     container_name: bookstack
+    hostname: bookstack
     environment:
-      - PUID=1007
-      - PGID=1008
+      - TZ=${TZ}
+      - PUID=${BOOKSTACK_PUID:-${PUID_MEDIA}}
+      - PGID=${BOOKSTACK_PGID:-${PGID_MEDIA}}
       - DB_HOST=bookstack_db
-      - DB_USER=bookstack
-      - DB_PASS=tacotuesday
-      - DB_DATABASE=bookstackapp
-      - APP_URL=https://kb.ogbase.net
-      - ALLOWED_IFRAME_HOSTS=https://ogbase.net https://home.ogbase.net
-      - AUTH_METHOD=standard # Force standard auth
-      #- AUTH_METHOD=ldap
-      #- LDAP_SERVER=ipa1.ogbase.net
-      #- LDAP_BASE_DN=users,dc=ogbase,dc=net
-      #- LDAP_DN=false
-      #- LDAP_PASS=false
-      #- LDAP_USER_FILTER=(&(uid=$${user}))
-      # LDAP_VERSION=3
-      #- LDAP_ID_ATTRIBUTE=uid
-      #- LDAP_EMAIL_ATTRIBUTE=mail
-      #- LDAP_DISPLAY_NAME_ATTRIBUTE=cn
-      #- LDAP_START_TLS=false
+      - DB_USER=${BOOKSTACK_DB_USER:-bookstack}
+      - DB_PASS=${BOOKSTACK_DB_PASSWORD}
+      - DB_DATABASE=${BOOKSTACK_DB_NAME:-bookstackapp}
+      - APP_URL=${BOOKSTACK_APP_URL:-https://kb.${DOMAIN}}
+      - APP_KEY=${BOOKSTACK_APP_KEY}
+      - ALLOWED_IFRAME_HOSTS=${BOOKSTACK_ALLOWED_IFRAME_HOSTS:-https://${DOMAIN} https://home.${DOMAIN}}
+      - AUTH_METHOD=${BOOKSTACK_AUTH_METHOD:-standard}
+      - FILE_UPLOAD_SIZE_LIMIT=${BOOKSTACK_FILE_UPLOAD_SIZE_LIMIT:-5000}
     volumes:
-      - /opt/bookstack/config:/config
+      - ${ROOT_DIR}/bookstack/config/bookstack:/config
     ports:
-      - 6875:80
+      - ${BOOKSTACK_PORT:-6875}:80
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
     restart: unless-stopped
     depends_on:
-      - bookstack_db
+      bookstack_db:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:80/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - diun.enable=true
+
   bookstack_db:
-    image: lscr.io/linuxserver/mariadb
+    image: lscr.io/linuxserver/mariadb:${BOOKSTACK_MARIADB_TAG:-latest}
     container_name: bookstack_db
+    hostname: bookstack-db
     environment:
-      - PUID=1007
-      - PGID=1008
-      - MYSQL_ROOT_PASSWORD=tacotuesday
-      - TZ=America/Denver
-      - MYSQL_DATABASE=bookstackapp
-      - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=tacotuesday
+      - TZ=${TZ}
+      - PUID=${BOOKSTACK_MARIADB_PUID:-6006}
+      - PGID=${BOOKSTACK_MARIADB_PGID:-6006}
+      - MYSQL_ROOT_PASSWORD=${BOOKSTACK_DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${BOOKSTACK_DB_NAME:-bookstackapp}
+      - MYSQL_USER=${BOOKSTACK_DB_USER:-bookstack}
+      - MYSQL_PASSWORD=${BOOKSTACK_DB_PASSWORD}
     volumes:
-      - /opt/bookstack/mariadb-data:/config
+      - ${ROOT_DIR}/bookstack/config/mariadb-data:/config
+    healthcheck:
+      test: mysqladmin ping -h localhost || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
     restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

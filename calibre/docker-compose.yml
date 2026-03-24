@@ -1,23 +1,40 @@
 ---
-version: "2.1"
 services:
   calibre:
-    image: ghcr.io/linuxserver/calibre
+    image: ghcr.io/linuxserver/calibre:${CALIBRE_TAG:-latest}
     container_name: calibre
+    hostname: calibre
     environment:
-      - PUID=1007
-      - PGID=1008
-      - TZ=America/Denver
-        #- PASSWORD= password
-        #- CLI_ARGS= #optional
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
     volumes:
-      - /opt/calibre/config:/config
-      - /mnt/media/misc/calibre-library:/calibre-library
-      - /opt/uploads:/uploads
+      - ${ROOT_DIR}/calibre/config:/config
+      - ${CALIBRE_LIBRARY_PATH:-${BOOKS_PATH}}:/calibre-library
+      - ${CALIBRE_UPLOADS_PATH:-${ROOT_DIR}/calibre/uploads}:/uploads
     ports:
-      - 8780:8080
-      - 8781:8081
+      - ${CALIBRE_PORT_HTTP:-8780}:8080
+      - ${CALIBRE_PORT_VNC:-8781}:8081
+    mem_limit: 4g
+    mem_reservation: 512m
+    cpus: 2.0
     restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8080/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - diun.enable=true
+
 # Legacy NFS volumes (reference only). Compose uses host bind mounts above;
 # mount NFS (or other storage) on the host at these paths as needed.
 # volumes:
@@ -25,6 +42,9 @@ services:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
-#       o: "addr=10.0.0.3"
-#       device: ":/mnt/media/misc/calibre-library"
+#       o: "addr=${NFS_BOOKS_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${BOOKS_PATH}"
 #
+networks:
+  arr:
+    external: true

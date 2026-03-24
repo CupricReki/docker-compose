@@ -1,22 +1,39 @@
 ---
-version: "2.1"
 services:
   calibre-web:
-    image: lscr.io/linuxserver/calibre-web:latest
+    image: lscr.io/linuxserver/calibre-web:${CALIBRE_WEB_TAG:-latest}
     container_name: calibre-web
+    hostname: calibre-web
     environment:
-      - PUID=1007
-      - PGID=1008
-      - TZ=America/Denver
-      - DOCKER_MODS=linuxserver/mods:universal-calibre #optional
-      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:calibre-web
-      # - TP_THEME=hotline
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - DOCKER_MODS=${CALIBRE_WEB_DOCKER_MODS:-linuxserver/mods:universal-calibre}
     volumes:
-      - /opt/calibre-web:/config
-      - /mnt/media/misc/calibre-library:/calibre-library
+      - ${ROOT_DIR}/calibre-web/config:/config
+      - ${CALIBRE_LIBRARY_PATH:-${BOOKS_PATH}}:/books
     ports:
-      - 8783:8083
+      - ${CALIBRE_WEB_PORT:-8783}:8083
+    mem_limit: 1g
+    mem_reservation: 128m
+    cpus: 1.0
     restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8083/login || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true
+
 # Legacy NFS volumes (reference only). Compose uses host bind mounts above;
 # mount NFS (or other storage) on the host at these paths as needed.
 # volumes:
@@ -24,5 +41,9 @@ services:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
-#       o: "addr=10.0.0.3"
-#       device: ":/mnt/media/misc/calibre-library"
+#       o: "addr=${NFS_BOOKS_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${BOOKS_PATH}"
+#
+networks:
+  arr:
+    external: true

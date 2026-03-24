@@ -1,0 +1,31 @@
+---
+services:
+  apprise:
+    image: lscr.io/linuxserver/apprise-api:${APPRISE_TAG:-latest}
+    container_name: apprise
+    hostname: apprise
+    environment:
+      - TZ=${TZ}
+      - PUID=${APPRISE_PUID:-3002}
+      - PGID=${APPRISE_PGID:-3002}
+      - APPRISE_ATTACH_SIZE=${APPRISE_ATTACH_SIZE:-100}
+    volumes:
+      - ${ROOT_DIR}/apprise/config:/config
+      - ${ROOT_DIR}/apprise/attachments:/attachments
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 0.5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:8000/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true

@@ -1,16 +1,33 @@
-version: '3.3'
+---
 services:
-    organizr-v2:
-        container_name: organizr
-        image: organizr/organizr
-        volumes:
-            - /opt/organizr/config:/config
-        environment:
-            - PUID=1007
-            - PGID=1008 
-            - fpm=true #true or false | using true will provide better performance
-            - branch=v2-master #v2-master or #v2-develop
-            - TZ=America/Denver
-        ports:
-            - 5555:80
-        restart: unless-stopped
+  organizr:
+    image: organizr/organizr:${ORGANIZR_TAG:-latest}
+    container_name: organizr
+    hostname: organizr
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - fpm=${ORGANIZR_FPM:-true}
+      - branch=${ORGANIZR_BRANCH:-v2-master}
+    volumes:
+      - ${ROOT_DIR}/organizr/config:/config
+    ports:
+      - ${ORGANIZR_PORT:-5555}:80
+    mem_limit: 1g
+    mem_reservation: 128m
+    cpus: 1.0
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:80/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true

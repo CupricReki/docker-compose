@@ -1,8 +1,24 @@
-version: '3.3'
+---
 services:
-    serve:
-        volumes:
-            - '/opt/ntfy/cache/ntfy:/var/cache/ntfy'
-        ports:
-            - '80:80'
-        image: binwiederhier/ntfy
+  ntfy:
+    image: binwiederhier/ntfy:${NTFY_TAG:-latest}
+    container_name: ntfy
+    hostname: ntfy
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT_DIR}/ntfy/etc/ntfy:/etc/ntfy
+      - ${ROOT_DIR}/ntfy/cache/ntfy:/var/cache/ntfy
+    ports:
+      - ${NTFY_PORT:-10880}:80
+    mem_limit: 256m
+    mem_reservation: 64m
+    cpus: 0.25
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true

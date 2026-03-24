@@ -1,25 +1,30 @@
-################################################################################
-# Node-RED Stack or Compose
-################################################################################
-# docker stack deploy node-red --compose-file docker-compose-node-red.yml
-# docker-compose -f docker-compose-node-red.yml -p myNoderedProject up
-################################################################################
-version: "3.7"
-
+---
 services:
   node-red:
-    image: nodered/node-red:latest
+    image: nodered/node-red:${NODE_RED_TAG:-latest}
+    container_name: node-red
+    hostname: node-red
     environment:
-      - TZ=Europe/Amsterdam
+      - TZ=${TZ}
     ports:
-      - "1880:1880"
-    networks:
-      - node-red-net
+      - ${NODE_RED_PORT:-1880}:1880
     volumes:
-      - node-red-data
-
-volumes:
-  node-red-data:
-
-networks:
-  node-red-net:
+      - ${ROOT_DIR}/node-red/data:/data
+      - ${ROOT_DIR}/node-red/context:/usr/src/node-red/.node-red/context
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 0.5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:1880/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    labels:
+      - diun.enable=true

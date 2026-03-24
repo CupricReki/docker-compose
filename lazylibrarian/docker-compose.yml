@@ -1,22 +1,41 @@
 ---
-version: "2.1"
 services:
   lazylibrarian:
-    image: ghcr.io/linuxserver/lazylibrarian:latest
+    image: ghcr.io/linuxserver/lazylibrarian:${LAZYLIBRARIAN_TAG:-latest}
     container_name: lazylibrarian
+    hostname: lazylibrarian
     environment:
-      - PUID=1007
-      - PGID=1008
-      - TZ=America/Denver
-      - DOCKER_MODS=linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg #optional
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - DOCKER_MODS=${LAZYLIBRARIAN_DOCKER_MODS:-linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg}
     volumes:
-      - /opt/lazylibrarian:/config
-      - /mnt/cache_slow-striped/downloads:/downloads
-      - /mnt/media/misc/books:/books
-      - /mnt/media/misc/audiobooks:/audiobooks
+      - ${ROOT_DIR}/lazylibrarian/config:/config
+      - ${LAZYLIBRARIAN_DOWNLOADS_PATH:-${LOCAL_DOWNLOADS}}:/downloads
+      - ${BOOKS_PATH}:/books
+      - ${AUDIOBOOKS_PATH:-${MEDIA_PATH}/audiobooks}:/audiobooks
     ports:
-      - 5299:5299
-    restart: always
+      - ${LAZYLIBRARIAN_PORT:-5299}:5299
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    restart: unless-stopped
+    networks:
+      - arr
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl --fail http://localhost:5299/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - diun.enable=true
+
 # Legacy NFS volumes (reference only). Compose uses host bind mounts above;
 # mount NFS (or other storage) on the host at these paths as needed.
 # volumes:
@@ -24,17 +43,21 @@ services:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
-#       o: "addr=10.0.0.3"
-#       device: ":/mnt/cache_slow-striped/downloads"
+#       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${LAZYLIBRARIAN_DOWNLOADS_PATH}"
 #   books:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
-#       o: "addr=10.0.0.3"
-#       device: ":/mnt/media/misc/books"
+#       o: "addr=${NFS_BOOKS_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${BOOKS_PATH}"
 #   audiobooks:
 #     driver: local
 #     driver_opts:
 #       type: "nfs4"
-#       o: "addr=10.0.0.3"
-#       device: ":/mnt/media/misc/audiobooks"
+#       o: "addr=${NFS_MEDIA_ADDR},${NFS_MEDIA_OPTS}"
+#       device: ":${AUDIOBOOKS_PATH}"
+#
+networks:
+  arr:
+    external: true

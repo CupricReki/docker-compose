@@ -1,18 +1,32 @@
-# Run with docker compose up -d
+---
 services:
   dozzle:
-    image: amir20/dozzle:latest
+    image: amir20/dozzle:${DOZZLE_TAG:-latest}
     container_name: dozzle
+    hostname: dozzle
+    environment:
+      - TZ=${TZ}
+      # Comma-separated agents, e.g. pothos:7007,iceni:7007 (lauber)
+      - DOZZLE_REMOTE_AGENT=${REMOTE_AGENT:-}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8144:8080
-    restart: always
-    environment:
-      - DOZZLE_REMOTE_AGENT=$REMOTE_AGENT
+      - ${DOZZLE_PORT:-8144}:8080
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 0.5
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     healthcheck:
       test: ["CMD", "/dozzle", "healthcheck"]
-      interval: 3s
+      interval: 30s
       timeout: 30s
       retries: 5
       start_period: 30s
+      start_interval: 5s
+    labels:
+      - diun.enable=true
