@@ -1,0 +1,88 @@
+---
+# Grimmory (BookLore successor): https://github.com/grimmory-tools/grimmory
+# Image: ghcr.io/grimmory-tools/grimmory or grimmory/grimmory — see project README.
+#
+# Upgrading from BookLore: keep the same bind mounts, ports, DB user/password, and
+# service/container names if you want minimal churn; replace only `image:` per upstream,
+# or move data from ${ROOT_DIR}/booklore/* to ${ROOT_DIR}/grimmory/* and follow the
+# project migration docs for the MariaDB database name (booklore → grimmory).
+#
+# Secrets: GRIMMORY_DB_PASSWORD, GRIMMORY_MYSQL_ROOT_PASSWORD in this stack’s .env.
+services:
+  grimmory:
+    image: ghcr.io/grimmory-tools/grimmory:${GRIMMORY_TAG:-latest}
+    container_name: grimmory
+    hostname: grimmory
+    environment:
+      - USER_ID=${PUID_MEDIA}
+      - GROUP_ID=${PGID_MEDIA}
+      - TZ=${TZ}
+      - DATABASE_URL=jdbc:mariadb://mariadb:3306/grimmory
+      - DATABASE_USERNAME=${GRIMMORY_DB_USER:-grimmory}
+      - DATABASE_PASSWORD=${GRIMMORY_DB_PASSWORD:?set GRIMMORY_DB_PASSWORD in .env}
+      - DISK_TYPE=${GRIMMORY_DISK_TYPE:-LOCAL}
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    ports:
+      - "${GRIMMORY_PORT:-6060}:6060"
+    volumes:
+      - ${ROOT_DIR}/grimmory/data:/app/data
+      - ${BOOKS_PATH}:/books
+      - ${ROOT_DIR}/grimmory/bookdrop:/bookdrop
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "-",
+          "http://127.0.0.1:6060/api/v1/healthcheck",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:${GRIMMORY_MARIADB_TAG:-11.4.5}
+    container_name: grimmory-mariadb
+    hostname: grimmory-mariadb
+    environment:
+      - PUID=${PUID_MEDIA}
+      - PGID=${PGID_MEDIA}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${GRIMMORY_MYSQL_ROOT_PASSWORD:?set GRIMMORY_MYSQL_ROOT_PASSWORD in .env}
+      - MYSQL_DATABASE=grimmory
+      - MYSQL_USER=${GRIMMORY_DB_USER:-grimmory}
+      - MYSQL_PASSWORD=${GRIMMORY_DB_PASSWORD:?set GRIMMORY_DB_PASSWORD in .env}
+    volumes:
+      - ${ROOT_DIR}/grimmory/mariadb/config:/config
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    mem_limit: 1g
+    mem_reservation: 256m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - diun.enable=true
