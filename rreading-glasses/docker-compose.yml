@@ -51,8 +51,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-rreading-glasses}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
       POSTGRES_DB: ${POSTGRES_DB:-rreading-glasses}
-    ports:
-      - "${RREADING_GLASSES_DB_PORT:-5432}:5432"
     volumes:
       - ${ROOT_DIR}/rreading-glasses/postgresql/data:/var/lib/postgresql/data
     labels:
