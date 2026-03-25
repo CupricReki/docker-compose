@@ -9,8 +9,8 @@ services:
     ports:
       - ${NODE_RED_PORT:-1880}:1880
     volumes:
-      - ${ROOT_DIR}/node-red/data:/data
-      - ${ROOT_DIR}/node-red/context:/usr/src/node-red/.node-red/context
+      - ${ROOT_DIR}/nodered/data:/data
+      - ${ROOT_DIR}/nodered/context:/usr/src/node-red/.node-red/context
     mem_limit: 512m
     mem_reservation: 128m
     cpus: 0.5
