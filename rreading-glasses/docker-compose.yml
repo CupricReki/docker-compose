@@ -1,0 +1,74 @@
+---
+services:
+  rreading-glasses:
+    depends_on:
+      rreading-glasses-db:
+        condition: service_healthy
+    image: blampe/rreading-glasses:hardcover
+    container_name: rreading-glasses
+    hostname: rreading-glasses
+    entrypoint: ["/main", "serve"]
+    command:
+      - --verbose
+    restart: unless-stopped
+    mem_limit: 128m
+    mem_reservation: 32m
+    cpus: 0.5
+    environment:
+      HARDCOVER_AUTH: ${HARDCOVER_AUTH:-}
+      POSTGRES_HOST: ${POSTGRES_HOST:-rreading-glasses-db.rreading-glasses_default}
+      POSTGRES_DATABASE: ${POSTGRES_DB:-rreading-glasses}
+      POSTGRES_USER: ${POSTGRES_USER:-rreading-glasses}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+    ports:
+      - "${RREADING_GLASSES_PORT:-8788}:8788"
+    networks:
+      - arr
+      - default
+    labels:
+      - diun.enable=true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: wget --spider -q http://localhost:8788/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  rreading-glasses-db:
+    image: postgres:17
+    container_name: rreading-glasses-db
+    hostname: rreading-glasses-db
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 64m
+    cpus: 1.0
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-rreading-glasses}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-rreading-glasses}
+    ports:
+      - "${RREADING_GLASSES_DB_PORT:-5432}:5432"
+    volumes:
+      - ${ROOT_DIR}/rreading-glasses/postgresql/data:/var/lib/postgresql/data
+    labels:
+      - diun.enable=true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: pg_isready --dbname='rreading-glasses' --username='rreading-glasses' || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  arr:
+    external: true
