@@ -8,6 +8,10 @@
 # project migration docs for the MariaDB database name (booklore → grimmory).
 #
 # Secrets: GRIMMORY_DB_PASSWORD, GRIMMORY_MYSQL_ROOT_PASSWORD in this stack’s .env.
+#
+# ROOT_DIR, BOOKS_PATH, PUID_MEDIA, PGID_MEDIA, TZ come from tp-environment
+# (e.g. /opt/environment/env/global.env + hosts/<hostname>.env). Use dc/dcud so they
+# are set; raw docker compose without those files yields empty BOOKS_PATH and fails.
 services:
   grimmory:
     image: ghcr.io/grimmory-tools/grimmory:${GRIMMORY_TAG:-latest}
@@ -27,9 +31,9 @@ services:
     ports:
       - "${GRIMMORY_PORT:-6060}:6060"
     volumes:
-      - ${ROOT_DIR}/grimmory/data:/app/data
-      - ${BOOKS_PATH}:/books
-      - ${ROOT_DIR}/grimmory/bookdrop:/bookdrop
+      - ${ROOT_DIR:?set ROOT_DIR}/grimmory/data:/app/data
+      - ${BOOKS_PATH:?set BOOKS_PATH; use dc or source global.env and host env}/books
+      - ${ROOT_DIR:?set ROOT_DIR}/grimmory/bookdrop:/bookdrop
     healthcheck:
       test:
         [
@@ -69,7 +73,7 @@ services:
       - MYSQL_USER=${GRIMMORY_DB_USER:-grimmory}
       - MYSQL_PASSWORD=${GRIMMORY_DB_PASSWORD:?set GRIMMORY_DB_PASSWORD in .env}
     volumes:
-      - ${ROOT_DIR}/grimmory/mariadb/config:/config
+      - ${ROOT_DIR:?set ROOT_DIR}/grimmory/mariadb/config:/config
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
