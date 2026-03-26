@@ -1,0 +1,35 @@
+---
+services:
+  audiobookrequest:
+    image: markbeep/audiobookrequest:${AUDIOBOOKREQUEST_TAG:-latest}
+    container_name: audiobookrequest
+    hostname: audiobookrequest
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 1.0
+    environment:
+      ABR_APP__CONFIG_DIR: /config
+    volumes:
+      - ${ROOT_DIR}/audiobookrequest/config:/config
+    ports:
+      - "${AUDIOBOOKREQUEST_PORT:-8795}:8000"
+    networks:
+      - arr
+    labels:
+      - diun.enable=true
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: wget --spider -q http://localhost:8000/ || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  arr:
+    external: true
