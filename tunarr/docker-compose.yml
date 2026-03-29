@@ -1,0 +1,62 @@
+---
+# Tunarr — custom live TV channels from Plex/Jellyfin/Emby/local files
+# https://github.com/chrisbenincasa/tunarr · https://tunarr.com/
+#
+# Web UI and API default port 8000 inside the container. Config/database live under
+# /config/tunarr in the container (see README quick start).
+#
+# Hardware transcoding (Nvidia): use docker-compose.override.yml with `runtime: nvidia`
+# and the needed env vars per https://tunarr.com/getting-started/run/ — not committed here.
+#
+# HDHomeRun SSDP discovery uses UDP 1900; publish `1900:1900/udp` in override if clients
+# cannot discover the tuner on your network.
+#
+# ROOT_DIR, TZ come from tp-environment; use dc/dcud. Put this stack on `arr` to reach
+# Jellyfin/Plex/Emby by Docker DNS (e.g. jellyfin:8096) when those services share `arr`.
+services:
+  tunarr:
+    image: chrisbenincasa/tunarr:${TUNARR_TAG:-latest}
+    container_name: tunarr
+    hostname: tunarr
+    environment:
+      - TZ=${TZ}
+      - LOG_LEVEL=${TUNARR_LOG_LEVEL:-INFO}
+    volumes:
+      - ${ROOT_DIR:?set ROOT_DIR}/tunarr/data:/config/tunarr
+    ports:
+      - "${TUNARR_PORT:-8000}:8000"
+    restart: unless-stopped
+    mem_limit: 4g
+    mem_reservation: 1g
+    cpus: 4.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "-q",
+          "-O",
+          "-",
+          "http://127.0.0.1:8000/api/system/health",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - diun.enable=true
+    networks:
+      - arr
+
+# Migrating from dizquetv: add a bind mount in override, e.g.
+#   - /path/to/.dizquetv:/.dizquetv
+# See upstream docker/example.compose.yaml.
+
+networks:
+  arr:
+    external: true
