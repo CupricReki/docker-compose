@@ -1,0 +1,122 @@
+---
+# Streamystats — Jellyfin analytics (https://github.com/fredrikburmester/streamystats)
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  nextjs-app:
+    image: ghcr.io/fredrikburmester/streamystats-nextjs:${STREAMYSTATS_VERSION:-latest}
+    container_name: streamystats-nextjs
+    hostname: streamystats-nextjs
+    ports:
+      - ${STREAMYSTATS_PORT:-3000}:3000
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${STREAMYSTATS_POSTGRES_USER:-postgres}:${STREAMYSTATS_POSTGRES_PASSWORD:?set STREAMYSTATS_POSTGRES_PASSWORD in .env}@vectorchord:5432/${STREAMYSTATS_POSTGRES_DB:-streamystats}
+      - JOB_SERVER_URL=http://job-server:3005
+      - HOSTNAME=0.0.0.0
+      - SESSION_SECRET=${STREAMYSTATS_SESSION_SECRET:?set STREAMYSTATS_SESSION_SECRET in .env}
+      - NEXT_SERVER_ACTIONS_ENCRYPTION_KEY=${STREAMYSTATS_NEXT_SERVER_ACTIONS_ENCRYPTION_KEY:?set STREAMYSTATS_NEXT_SERVER_ACTIONS_ENCRYPTION_KEY in .env}
+    depends_on:
+      vectorchord:
+        condition: service_healthy
+      job-server:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *default-logging
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://127.0.0.1:3000/',(r)=>{process.exit(r.statusCode>=200&&r.statusCode<500?0:1)}).on('error',()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+      - diun.enable=true
+    networks:
+      - default
+      - arr
+
+  job-server:
+    image: ghcr.io/fredrikburmester/streamystats-job-server:${STREAMYSTATS_VERSION:-latest}
+    container_name: streamystats-job-server
+    hostname: streamystats-job-server
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${STREAMYSTATS_POSTGRES_USER:-postgres}:${STREAMYSTATS_POSTGRES_PASSWORD:?set STREAMYSTATS_POSTGRES_PASSWORD in .env}@vectorchord:5432/${STREAMYSTATS_POSTGRES_DB:-streamystats}
+      - PORT=3005
+      - HOST=0.0.0.0
+      - SESSION_POLL_INTERVAL_MS=${STREAMYSTATS_SESSION_POLL_INTERVAL_MS:-5000}
+      - CRON_ACTIVITY_SYNC=${STREAMYSTATS_CRON_ACTIVITY_SYNC:-*/1 * * * *}
+      - CRON_RECENT_ITEMS_SYNC=${STREAMYSTATS_CRON_RECENT_ITEMS_SYNC:-*/1 * * * *}
+      - CRON_USER_SYNC=${STREAMYSTATS_CRON_USER_SYNC:-*/1 * * * *}
+      - CRON_PEOPLE_SYNC=${STREAMYSTATS_CRON_PEOPLE_SYNC:-*/15 * * * *}
+      - CRON_EMBEDDINGS_SYNC=${STREAMYSTATS_CRON_EMBEDDINGS_SYNC:-*/15 * * * *}
+      - CRON_GEOLOCATION_SYNC=${STREAMYSTATS_CRON_GEOLOCATION_SYNC:-*/5 * * * *}
+      - CRON_FINGERPRINT_SYNC=${STREAMYSTATS_CRON_FINGERPRINT_SYNC:-0 4 * * *}
+      - CRON_JOB_CLEANUP=${STREAMYSTATS_CRON_JOB_CLEANUP:-*/1 * * * *}
+      - CRON_OLD_JOB_CLEANUP=${STREAMYSTATS_CRON_OLD_JOB_CLEANUP:-0 3 * * *}
+      - CRON_FULL_SYNC=${STREAMYSTATS_CRON_FULL_SYNC:-0 2 * * *}
+      - CRON_DELETED_ITEMS_CLEANUP=${STREAMYSTATS_CRON_DELETED_ITEMS_CLEANUP:-0 * * * *}
+      - SKIP_STARTUP_FULL_SYNC=${STREAMYSTATS_SKIP_STARTUP_FULL_SYNC:-false}
+    depends_on:
+      vectorchord:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *default-logging
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    labels:
+      - diun.enable=true
+    networks:
+      - default
+      - arr
+
+  vectorchord:
+    image: ${STREAMYSTATS_VECTORCHORD_IMAGE:-tensorchord/vchord-postgres:pg17-v0.4.1}
+    container_name: streamystats-vectorchord
+    hostname: streamystats-vectorchord
+    command: ["postgres", "-c", "log_checkpoints=off"]
+    environment:
+      - POSTGRES_USER=${STREAMYSTATS_POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${STREAMYSTATS_POSTGRES_PASSWORD:?set STREAMYSTATS_POSTGRES_PASSWORD in .env}
+      - POSTGRES_DB=${STREAMYSTATS_POSTGRES_DB:-streamystats}
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    volumes:
+      - ${STREAMYSTATS_DB_PATH:-${ROOT_DIR}/streamystats/vectorchord}:/var/lib/postgresql/data
+    restart: unless-stopped
+    logging: *default-logging
+    mem_limit: 2g
+    mem_reservation: 256m
+    cpus: 2.0
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${STREAMYSTATS_POSTGRES_USER:-postgres} -d ${STREAMYSTATS_POSTGRES_DB:-streamystats}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    labels:
+      - diun.enable=true
+    networks:
+      - default
+
+networks:
+  arr:
+    external: true
