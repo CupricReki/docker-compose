@@ -1,0 +1,80 @@
+---
+description: example.env templates — service-only vars and password generation hints
+globs: "**/example.env"
+alwaysApply: false
+---
+
+# `example.env` files in this repository
+
+Committed **`example.env`** files are **templates** for `/opt/<service>/.env` on each host. Align with [BEST_PRACTICES.md](BEST_PRACTICES.md) and [.cursor/rules/docker-compose-best-practices.mdc](docker-compose-best-practices.mdc).
+
+## What belongs here
+
+- **Service-specific** settings only (ports, image tags, app paths, feature flags). Do **not** duplicate globals that `dc()` already sources (`TZ`, `PUID`, `PGID`, `DOMAIN`, `ROOT_DIR`, `MEDIA_PATH`, host bind paths, etc.).
+- Use **placeholders** for secrets (`changeme`, `replace-me`, angle-bracket hints). Real secrets belong in `/opt/secrets/*.env` on the host when that is how the stack is wired; the template documents variable **names** and purpose.
+
+## Pairing with `docker-compose.yml` (`:?` and `:-`)
+
+Keep **`example.env`** aligned with interpolation in the stack’s `docker-compose.yml`:
+
+| In compose | In `example.env` |
+|------------|------------------|
+| `${VAR:?message}` — required | **Uncommented** `VAR=…` (placeholder or real value); user must set before deploy. |
+| `${VAR:-default}` — optional with default | **Commented** `# VAR=default` so operators see the default and can uncomment to override. |
+
+Use a short header comment that defaults match compose, e.g. `# Defaults match docker-compose.yml (${VAR:-value}); uncomment to override.`
+
+Example:
+
+```dotenv
+# Defaults match docker-compose.yml; uncomment to override.
+# GRIMMORY_PORT=6060
+# GRIMMORY_TAG=latest
+# GRIMMORY_DB_USER=grimmory
+# GRIMMORY_DISK_TYPE=LOCAL
+
+# Required (see compose :? errors if unset):
+GRIMMORY_DB_PASSWORD=changeme
+GRIMMORY_MYSQL_ROOT_PASSWORD=changeme
+```
+
+## Passwords and secret values
+
+Whenever a variable holds a **password, API key, or cryptographic secret**, document how to generate a strong value **in a comment** on the same line or immediately above. Commands should **write into the real `.env`** (run from `/opt/<service>/` after `cp example.env .env`, or pass an explicit path instead of `.env`).
+
+Use a **pipe into `sed -i`** to replace the placeholder line in place (openssl hex output has no `/` or `&`, so `sed` is safe):
+
+```bash
+# MYSQL_PASSWORD — random hex into .env (same directory as .env):
+#   openssl rand -hex 32 | xargs -I{} sed -i 's/^MYSQL_PASSWORD=.*/MYSQL_PASSWORD={}/' .env
+
+# URL-safe secret key — token piped into .env:
+#   python3 -c "import secrets; print(secrets.token_urlsafe(48), end='')" | xargs -I{} sed -i 's/^PAPERLESS_SECRET_KEY=.*/PAPERLESS_SECRET_KEY={}/' .env
+```
+
+**Base64** may contain `/` and `+`, which break `s///` — use a delimiter other than `/` or assign then substitute:
+
+```bash
+# FOO_PASSWORD — base64 (avoid / in sed pattern):
+#   openssl rand -base64 24 | tr -d '\n' | xargs -I{} sed -i 's|^FOO_PASSWORD=.*|FOO_PASSWORD={}|' .env
+```
+
+**Append** a new key only if it is not already in the file (otherwise prefer `sed` replacement above):
+
+```bash
+#   { printf 'API_KEY='; openssl rand -hex 32; printf '\n'; } >> .env
+```
+
+**Pattern:** each secret var should look like:
+
+```dotenv
+# MYSQL_PASSWORD: openssl rand -hex 32 | xargs -I{} sed -i 's/^MYSQL_PASSWORD=.*/MYSQL_PASSWORD={}/' .env
+MYSQL_PASSWORD=changeme
+```
+
+or a short block at the top of a secrets section listing the commands once, then vars with placeholders — but **per-variable comments** are clearer when only some lines are secret.
+
+## Style
+
+- Comment upstream or unusual options briefly; keep the file easy to copy to `.env` and edit.
+- Optional settings that have compose defaults (`${VAR:-default}`) belong as **commented** `# VAR=default` lines, not only prose — so the default is visible and overridable in one place.

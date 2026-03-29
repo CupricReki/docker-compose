@@ -1,0 +1,79 @@
+---
+description: Docker Compose standards for this repo (env, resources, storage, DNS)
+globs: "**/docker-compose*.yml"
+alwaysApply: false
+---
+
+# Docker Compose in this repository
+
+Align edits with [BEST_PRACTICES.md](BEST_PRACTICES.md) at the repo root. Summary for the agent:
+
+## Layout and workflow
+
+- Compose in git lives under `<service>/docker-compose.yml`; on hosts it is symlinked from `/opt/<service>/` alongside local-only `docker-compose.override.yml`, `.env`, and `config/`.
+- Prefer **`dc`** / **`dcud`** over raw `docker compose` so variables resolve from `global.env`, host env (`/opt/environment/env/hosts/<hostname>.env`), and `/opt/secrets/*.env`.
+
+## Environment files
+
+- Service `.env`: **only** service-specific variables (ports, tags, app-only paths). Do **not** duplicate globals already provided by `dc()` (e.g. `TZ`, `PUID`, `DOMAIN`, `ROOT_DIR`, `MEDIA_PATH`).
+- Secrets: store in `/opt/secrets/*.env`; reference with `env_file` in **override** compose, not committed secrets.
+
+## Interpolation in `docker-compose.yml` (required vs defaults)
+
+- **Required** values (no safe default, or must be set explicitly): use **error-on-empty** so `docker compose` fails fast with a clear message:
+
+```yaml
+environment:
+  - MYSQL_ROOT_PASSWORD=${GRIMMORY_MYSQL_ROOT_PASSWORD:?set GRIMMORY_MYSQL_ROOT_PASSWORD in .env}
+  - DATABASE_PASSWORD=${GRIMMORY_DB_PASSWORD:?set GRIMMORY_DB_PASSWORD in .env}
+```
+
+- **Optional** values with a **good default**: use **`:-`** in compose so omission is valid:
+
+```yaml
+image: ghcr.io/example/app:${APP_TAG:-latest}
+ports:
+  - "${APP_PORT:-8080}:8080"
+environment:
+  - MYSQL_USER=${APP_DB_USER:-appuser}
+  - DISK_TYPE=${APP_DISK_TYPE:-LOCAL}
+```
+
+- **`example.env`** must stay in sync: every `${VAR:-default}` should appear as a **commented** `# VAR=default` pair (see [example-env.mdc](example-env.mdc)). Required `:?` variables stay as **active** lines with placeholders and generation hints where applicable.
+
+## Required service fields (when applicable)
+
+- **Resources:** `mem_limit`, `mem_reservation`, `cpus` (see tiers in BEST_PRACTICES: lightweight vs standard vs media vs DB).
+- **Logging:** `json-file` with `max-size` and `max-file` limits.
+- **Healthcheck:** match the stack (HTTP `curl`/`wget`, `redis-cli ping`, `pg_isready`, Prometheus exporters on `/metrics`, Dozzle agent per upstream).
+- **Restart:** `unless-stopped` unless there is a deliberate reason not to.
+
+## Storage
+
+- Use **bind mounts** to host paths like `${MEDIA_PATH}`. NFS is configured on the **host** (fstab/systemd/Ansible), not as Docker Compose NFS `driver_opts` volumes; legacy NFS volume blocks may remain **commented** for reference only.
+
+## DNS
+
+- If the host search domain shadows Docker service names, use **network-qualified** hostnames in `.env` (e.g. `redis.<stack>_default`).
+
+## Networks and overrides
+
+- Inter-stack communication (e.g. *arr*): `networks: { arr: { external: true } }` after `docker network create arr`.
+- Put machine-specific bits, homepage labels, GPU `devices`, and secret `env_file` in **`docker-compose.override.yml`**, not in the committed base file when they are host-specific.
+
+## Reference snippets
+
+```yaml
+# Baseline pattern (adjust image, ports, healthcheck)
+logging:
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+labels:
+  - diun.enable=true
+```
+
+## Pothos and naming
+
+- Host bind variables: tp-environment `env/hosts/pothos.env`. Extra host-only stacks: `docs/pothos-host-only.md`. Media exporters: `docs/prometheus-media-exporters.md`. Directory name is **`audiobookshelf`**, not `audiobookself`.
