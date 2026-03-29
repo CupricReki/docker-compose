@@ -1,5 +1,14 @@
 ---
 # Streamystats — Jellyfin analytics (https://github.com/fredrikburmester/streamystats)
+#
+# Iframe embedding: upstream middleware sets X-Frame-Options: DENY (see apps/nextjs-app/proxy.ts).
+# There is no container env to relax it. To embed in Homepage (or another dashboard), terminate
+# TLS in front of this stack and strip/replace that header, e.g. Caddy reverse_proxy block:
+#   header_down -X-Frame-Options
+#   header_down Content-Security-Policy "frame-ancestors https://your-homepage.example.com"
+# (List every parent origin that may embed the UI; omitting CSP after removing DENY is weaker.)
+# Note: cross-site iframes can still break session cookies (SameSite); same-site or careful proxy
+# paths reduce pain.
 x-logging: &default-logging
   driver: json-file
   options:

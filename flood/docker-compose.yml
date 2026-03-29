@@ -1,0 +1,60 @@
+---
+# jesec/flood — web UI for rTorrent, qBittorrent, Transmission, Deluge
+# https://github.com/jesec/flood · https://hub.docker.com/r/jesec/flood
+#
+# Put this stack on `arr` if your torrent client is on the same Docker network (e.g. qbittorrent)
+# and point Flood at http://qbittorrent:8080 (or rTorrent socket/TCP per upstream docs).
+#
+# Image runs as non-root; use user: PUID_MEDIA:PGID_MEDIA so /config and download paths match the host.
+# HOME must be /config (see upstream discussion #120). /data bind uses DOWNLOADS_TORRENTS (host env) for --allowedpath.
+#
+# Config / DB / flood.secret live under ${ROOT_DIR}/flood/config (Flood rundir under HOME).
+services:
+  flood:
+    image: jesec/flood:${FLOOD_TAG:-latest}
+    container_name: flood
+    hostname: flood
+    user: "${PUID_MEDIA:-3001}:${PGID_MEDIA:-3001}"
+    environment:
+      HOME: /config
+      TZ: ${TZ}
+      # Used by healthcheck; keep in sync with command --port below.
+      FLOOD_LISTEN_PORT: "${FLOOD_PORT:-3000}"
+      # Optional: see example.env (auth=none + client requires FLOOD_OPTION_* for that client).
+    command:
+      - --port=${FLOOD_PORT:-3000}
+      - --allowedpath=/data
+    volumes:
+      - ${ROOT_DIR:?set ROOT_DIR}/flood/config:/config
+      - ${FLOOD_ALLOWED_PATH:-${DOWNLOADS_TORRENTS:?set DOWNLOADS_TORRENTS}}:/data
+    ports:
+      - "${FLOOD_PUBLISH_PORT:-3000}:${FLOOD_PORT:-3000}"
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 128m
+    cpus: 1.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://127.0.0.1:'+(process.env.FLOOD_LISTEN_PORT||'3000')+'/',(r)=>{process.exit(r.statusCode>=200&&r.statusCode<500?0:1)}).on('error',()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - diun.enable=true
+    networks:
+      - arr
+
+networks:
+  arr:
+    external: true

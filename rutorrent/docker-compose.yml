@@ -1,26 +1,49 @@
-version: '2'
+---
+# ruTorrent + rTorrent + Flood (romancin/rutorrent-flood-docker)
+# https://github.com/romancin/rutorrent-flood-docker
+#
+# Flood uses jesec/flood; the image starts it with --rtsocket /run/php/.rtorrent.sock.
+# FLOOD_OPTION_auth=none disables per-user Flood login (session cookie still used).
+# If you already have a Flood DB from auth=default, back up /config/flood-db before switching.
+#
+# ROOT_DIR, TZ, PUID_MEDIA/PGID_MEDIA from tp-environment; use dc/dcud.
 services:
-    rutorrent:
-      image: romancin/rutorrent-flood:latest
-      container_name: rutorrent
-      networks:
-        - default
-      tty: true
-      volumes:
-        - /opt/rutorrent/config:/config
-        - /mnt/downloads:/downloads
-      environment:
-        - PUID=1007
-        - PGID=1008
-        - TZ=America/Denver
-        - CREATE_SUBDIR_BY_TRACKERS=NO
-        - SSL_ENABLED=NO
-#        - RT_TOKEN=
-#        - RT_MASTERS=
-      ports:
-        - "8112:80"
-        - "32316:52316"
-        - "3000:3000"
-        - "60881:60881"
-        - "51415-51415:51415-51415"
-      restart: unless-stopped
+  rutorrent:
+    image: romancin/rutorrent-flood:${RUTORRENT_IMAGE_TAG:-latest}
+    container_name: rutorrent
+    hostname: rutorrent
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID_MEDIA:-3001}
+      - PGID=${PGID_MEDIA:-3001}
+      - CREATE_SUBDIR_BY_TRACKERS=${CREATE_SUBDIR_BY_TRACKERS:-NO}
+      - SSL_ENABLED=${SSL_ENABLED:-NO}
+      - FLOOD_OPTION_auth=none
+#      - RT_TOKEN=
+#      - RT_MASTERS=
+    volumes:
+      - ${ROOT_DIR:?set ROOT_DIR}/rutorrent/config:/config
+      - ${RUTORRENT_DOWNLOADS_PATH:-/mnt/downloads}:/downloads
+    ports:
+      - "${RUTORRENT_HTTP_PORT:-8112}:80"
+      - "32316:52316"
+      - "${RUTORRENT_FLOOD_PORT:-3000}:3000"
+      - "60881:60881"
+      - "51415-51415:51415-51415"
+    restart: unless-stopped
+    mem_limit: 2g
+    mem_reservation: 512m
+    cpus: 2.0
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: wget -q -O /dev/null http://127.0.0.1/ || exit 1
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+    labels:
+      - diun.enable=true
